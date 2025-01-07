@@ -1,5 +1,135 @@
-.agency-div{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+input{
+    padding: .5rem;
+    border-radius: 5px;
+    border-width: 1;
+}
+
+input:focus{
+    outline: none;
+    border-color: grey;
+}
+
+button {
+    cursor: pointer;
+    padding: .5rem;
+    border-radius: 5px;
+    border-width: 1;
+    border-style:inset;
+}
+
+table, th, td{
+    border: 1px black solid;
+    width:50rem;
+    border-spacing: 0px;
+    text-align: center;
+    ;
+}
+
+th{
+    background-color: grey;
+    padding-block: 10px
+}
+
+td{
+    padding-block: 10px
+}
+
+
+.agency-dialog{
+    border: inset;
+    border-radius: 10px;
+    border-color: rgb(243, 243, 243);
+    background-color: rgb(243, 243, 243);
+}
+
+.agency-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.app-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.agency-modal{
+    gap: 5px;
     display: flex;
     flex-direction: column;
+}
 
+.agency-buttons{
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.drawer {
+    width: 250px;
+}
+
+.agency-modal {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.agency-table-div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.create{
+    background-color: white;
+    border-color: #45a049;
+    color: #4CAF50;
+}
+
+.create:hover{
+    background-color: #45a049;
+    color: white;
+}
+
+.confirm{
+    background-color: white;
+    border-color: #45a049;
+    color: #4CAF50;
+}
+
+.confirm:hover{
+    background-color: #45a049;
+    color: white;
+}
+
+.edit{
+    background-color: white;
+    border-color: #4549a0;
+    color: #4c57af;
+}
+
+.edit:hover{
+    background-color: #4545a0;
+    color: white;
+}
+
+.delete{
+    background-color: white;
+    border-color: #a04545;
+    color: #af4c4c;
+}
+
+.delete:hover{
+    background-color: #a04545;
+    color: white;
 }
