@@ -8,8 +8,8 @@ function App() {
   return (
     <div className="app-container">
       <Drawer/>
-      <AgencyModal openDialog={openDialog} title="Enter Agency Name" placeholder="Name"/>  
-      <AgencyView openDialog={openDialog}/>
+      <AgencyModal openDialog={openDialog} placeholder="Name" toEdit/>  
+      <AgencyView/>
     </div>
   )
 }
