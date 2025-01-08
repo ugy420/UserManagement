@@ -1,67 +1,79 @@
-import { useState, useRef } from 'react';
-import Button from './Button';
-import AgencyCreate from './AgencyModal';
-
-const agency = [
-    { id: 1, name: "Agency 1" },
-    { id: 2, name: "Agency 2" },
-    { id: 3, name: "Agency 3" }
-];
+import { useState, useRef, useEffect } from "react";
+import Button from "./Button";
+import AgencyCreate from "./AgencyModal";
 
 export default function AgencyView() {
-    const [search, setSearch] = useState("");
-    const [toEdit, setToEdit] = useState(null);
-    const openDialog = useRef(null);
+  const [agencies, setAgencies] = useState([]);
+  const [search, setSearch] = useState("");
+  const openDialog = useRef(null);
 
-    function handleChange(event) {
-        setSearch(event.target.value);
-    }
+  useEffect(() => {
+    fetchAgencies();
+  }, []);
 
-    function handleEdit(item) {
-        setToEdit(item);
-        openDialog.current(item);
-    }
+  function fetchAgencies() {
+    fetch("http://localhost:8080/api/agencies")
+      .then((res) => res.json())
+      .then((data) => setAgencies(data))
+      .catch((err) => console.error(err));
+  }
 
-    const filteredAgencies = agency.filter(item =>
-        item.name.toLowerCase().includes(search.toLowerCase())
-    );
+  function handleChange(event) {
+    setSearch(event.target.value);
+  }
 
-    return (
-        <div className="main-div">
-            <h1>AgencyView</h1>
-            <hr />
-            <div className="agency-table-div">
-                <input placeholder='Search' onChange={handleChange}></input>
-                <Button
-                    text="Create"
-                    onClick={() => openDialog.current()}
-                    className="create"
-                />
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredAgencies.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
-                            <td>{item.name}</td>
-                            <td>
-                                <div className="button-container">
-                                    <Button text="Edit" className="edit" onClick={() => handleEdit(item)} />
-                                    <Button text="Delete" className="delete" />
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <AgencyCreate openDialog={openDialog} placeholder="Agency Name" toEdit={toEdit} />
-        </div>
-    );
+  function handleDelete(item){
+    
+  }
+
+  function handleEdit(item) {
+    openDialog.current(item);
+  }
+
+  const filteredAgencies = agencies.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="main-div">
+      <h1>AgencyView</h1>
+      <hr />
+      <div className="agency-table-div">
+        <input placeholder="Search" onChange={handleChange}></input>
+        <Button
+          text="Create"
+          onClick={() => openDialog.current()}
+          className="create"
+        />
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAgencies.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>
+                <div className="button-container">
+                  <Button
+                    text="Edit"
+                    className="edit"
+                    onClick={() => handleEdit(item)}
+                  />
+                  <Button text="Delete" className="delete" onClick={() => handleDelete(item)}/>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <AgencyCreate openDialog={openDialog} placeholder="Agency Name" onSuccess={fetchAgencies}/>
+    </div>
+  );
 }

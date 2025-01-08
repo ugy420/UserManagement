@@ -28,7 +28,6 @@ table, th, td{
     width:50rem;
     border-spacing: 0px;
     text-align: center;
-    ;
 }
 
 th{
@@ -39,7 +38,6 @@ th{
 td{
     padding-block: 10px
 }
-
 
 .agency-dialog{
     border: inset;
