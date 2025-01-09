@@ -1,25 +1,65 @@
+import { Link } from "react-router-dom";
 import Button from "./Button";
 
 export default function Drawer() {
   return (
     <div className="drawer">
-      <img src="vite.svg" alt="Logo" />
       Welcome, User
-      <ul>
+      <ul className="drawer-list">
         <li>
-          <Button text="Dashboard" />
+          <Link to="/" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-tachometer-alt"></i> Dashboard
+                </>
+              }
+            />
+          </Link>
         </li>
         <li>
-          <Button text="User" />
+          <Link to="/usermanagement" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-user"></i> User
+                </>
+              }
+            />
+          </Link>
         </li>
         <li>
-          <Button text="Agency" />
+          <Link to="/agency" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-building"></i> Agency
+                </>
+              }
+            />
+          </Link>
         </li>
         <li>
-          <Button text="Permissions" />
+          <Link to="/permissions" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-key"></i> Permissions
+                </>
+              }
+            />
+          </Link>
         </li>
         <li>
-          <Button text="Roles" />
+          <Link to="/roles" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-user-shield"></i> Roles
+                </>
+              }
+            />
+          </Link>
         </li>
       </ul>
     </div>
