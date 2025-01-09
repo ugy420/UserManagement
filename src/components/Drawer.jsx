@@ -1,33 +1,27 @@
 import Button from "./Button";
 
-const list = [
-    {
-        name: "Dashboard",
-    },
-    {
-        name: "User",
-    },
-    {
-        name: "Agency",
-    },
-    {
-        name: "Permissions",
-    }
-];
-
-export default function Drawer(){
-    return(
-        <>
-            <div className="drawer">
-                <img src="vite.svg"></img>
-                Welcome, User
-            <ul>
-                 {list.map((item) => {
-                    return <li key={item.name}>{item.name}</li>
-                 })    }
-            </ul>
-            </div>
-
-        </>
-    )
+export default function Drawer() {
+  return (
+    <div className="drawer">
+      <img src="vite.svg" alt="Logo" />
+      Welcome, User
+      <ul>
+        <li>
+          <Button text="Dashboard" />
+        </li>
+        <li>
+          <Button text="User" />
+        </li>
+        <li>
+          <Button text="Agency" />
+        </li>
+        <li>
+          <Button text="Permissions" />
+        </li>
+        <li>
+          <Button text="Roles" />
+        </li>
+      </ul>
+    </div>
+  );
 }
