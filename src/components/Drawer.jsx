@@ -3,23 +3,52 @@ import Button from "./Button";
 export default function Drawer() {
   return (
     <div className="drawer">
-      <img src="vite.svg" alt="Logo" />
       Welcome, User
-      <ul>
+      <ul className="drawer-list">
         <li>
-          <Button text="Dashboard" />
+          <Button
+            text={
+              <>
+                <i className="fas fa-tachometer-alt"></i> Dashboard
+              </>
+            }
+          />
         </li>
         <li>
-          <Button text="User" />
+          <Button
+            text={
+              <>
+                <i className="fas fa-user"></i> User
+              </>
+            }
+          />
         </li>
         <li>
-          <Button text="Agency" />
+          <Button
+            text={
+              <>
+                <i className="fas fa-building"></i> Agency
+              </>
+            }
+          />
         </li>
         <li>
-          <Button text="Permissions" />
+          <Button
+            text={
+              <>
+                <i className="fas fa-key"></i> Permissions
+              </>
+            }
+          />
         </li>
         <li>
-          <Button text="Roles" />
+          <Button
+            text={
+              <>
+                <i className="fas fa-user-shield"></i> Roles
+              </>
+            }
+          />
         </li>
       </ul>
     </div>

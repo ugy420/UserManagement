@@ -51,16 +51,30 @@ hr{
 .drawer {
     background-color:#266eda;
     width: 250px;
+    padding: 20px;
 }
 
 .drawer ul{
+    padding: 0;
     list-style: none;
 }
 
-.drawer button{
+.drawer-list li{
+    margin-bottom: 10px;
+}
+
+.drawer-list li button{
     background-color: inherit;
+    width: 50%;
+    text-align: left;
+    display: flex;
+    align-items: center;
     border: none;
 }
+
+.drawer-list li i {
+    margin-right: 8px;
+  }
 
 .drawer button:hover{
     background-color:#f78f28;
