@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
 body{
-    font-family: 'Roboto', sans-serif;
+    font-family:'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
+    background-color: #e9e9e9;
+
 }
 
 input{
@@ -24,19 +24,57 @@ button {
 }
 
 table, th, td{
-    border: 1px black solid;
+
+    border: 1px #DEE2E6 solid;
     width:50rem;
     border-spacing: 0px;
-    text-align: center;
+    text-align: left;
+    
 }
 
-th{
-    background-color: grey;
-    padding-block: 10px
+th,td{
+    padding-block: 10px;
+    padding-left: 10px;
+
 }
 
-td{
-    padding-block: 10px
+h1{
+    margin: auto;
+}
+
+hr{
+    border: 1px solid #DEE2E6;
+}
+
+/* Drawer */
+
+.drawer {
+    background-color:#266eda;
+    width: 250px;
+}
+
+.drawer ul{
+    list-style: none;
+}
+
+.drawer button{
+    background-color: inherit;
+    border: none;
+}
+
+.drawer button:hover{
+    background-color:#f78f28;
+}
+
+.error-div{
+    color: red;
+    font-size: 12px;
+}
+
+.main-div{
+    padding: 20px;
+    background-color: white;
+    outline: 2px solid #DEE2E6;
 }
 
 .agency-dialog{
@@ -67,10 +105,6 @@ td{
     gap: 10px;
 }
 
-.drawer {
-    width: 250px;
-}
-
 .agency-modal {
     flex-grow: 1;
     padding: 20px;
@@ -78,7 +112,7 @@ td{
 
 .button-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     gap: 10px;
 }
 
