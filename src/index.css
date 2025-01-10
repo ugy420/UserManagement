@@ -179,6 +179,8 @@ hr{
     background-color: white;
     border-color: #a04545;
     color: #af4c4c;
+    margin-Right: 10px;
+
 }
 
 .delete:hover{

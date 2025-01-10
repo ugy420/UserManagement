@@ -1,0 +1,108 @@
+.container {
+    border: 1px solid gray;
+    width: 15rem;
+    margin: 1.5rem auto; /* Center container on smaller screens */
+    border-radius: 10px;
+    background-color: rgba(0, 123, 255, 1);
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 2rem;
+}
+
+.next-Link {
+    background-color: blue;
+    border-radius: 0px 0px 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+}
+
+.link {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: small;
+}
+
+.link:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.text {
+    font-weight: 500;
+    color: white;
+}
+
+i.icon {
+    font-size: 2rem;
+    color: white;
+    align-self: center;
+}
+
+.outer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    margin-top: 12rem;
+    color: aliceblue;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+
+    .outer {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center;
+    }
+
+    i.icon {
+        font-size: 1.5rem; /* Reduce icon size */
+        margin-top: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Adjust heading size */
+    }
+
+    .title {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    i.icon {
+        font-size: 1.2rem;
+    }
+
+    .link {
+        font-size: smaller;
+    }
+
+    .title {
+        font-size: 0.9rem;
+    }
+}
