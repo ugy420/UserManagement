@@ -1,6 +1,7 @@
 body{
     font-family:'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
     background-color: #e9e9e9;
+    
 }
 
 .no-underline{
@@ -45,15 +46,32 @@ h1{
 }
 
 hr{
-    border: 1px solid #DEE2E6;
+    border: 1px solid gray;
+}
+
+.img-pfp{
+    border-radius: 30px;
+    width: 25px;
+    height: 25px;
+    border: inset #007BFF;
 }
 
 /* Drawer */
 
 .drawer {
-    background-color:#266eda;
+    background-color: #343A40;
     width: 15%;
     padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.main-content{
+    margin-left:15%;
+    box-sizing: border-box;
 }
 
 .drawer ul{
@@ -66,6 +84,7 @@ hr{
 }
 
 .drawer-list li button{
+    color: #939BA2;
     background-color: inherit;
     width: 100%;
     text-align: left;
@@ -82,7 +101,15 @@ hr{
 }
 
 .drawer button:hover{
-    background-color:#f78f28;
+    background-color:#007BFF;
+    color: white;
+}
+
+.profile-div{
+    color: #007BFF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .error-div{
@@ -92,10 +119,14 @@ hr{
 
 .main-div{
     width: 90%;
+    border-radius: 5px;
     padding: 20px;
     background-color: white;
+    margin-inline: 20px;
     outline: 2px solid #DEE2E6;
 }
+
+/* AgencyView */
 
 .agency-dialog{
     border: inset;

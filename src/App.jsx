@@ -13,6 +13,7 @@ function App() {
     <Router>
       <div className="app-container">
         <Drawer />
+        <div className="main-content"></div>
         <Routes>
           <Route path="/agency" element={<AgencyView />} />
           <Route path="/login" element={<LoginPage />} />

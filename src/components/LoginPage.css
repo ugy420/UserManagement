@@ -1,0 +1,70 @@
+.login-page{
+    margin: auto;
+    padding: 2rem;
+    border-radius: 25px;
+    background-color: white;
+    width: 50%;
+}
+
+.login-page h2,h3{
+    text-align: center;
+    margin: 0;
+
+}
+
+.login-page h3{
+    margin-bottom: 10px;
+    font-size: small;
+    font-weight: normal;
+    
+}
+
+.login-page input{
+    margin-block: 10px;
+    font-size: smaller;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #16161d;
+    width: 95%;
+}
+
+.login-button{
+    background: linear-gradient(to right, #67b2e4, #0056b3);
+    color: white;
+    border: none;
+    width: 100%;
+    border-radius: 15px;
+    margin-top:20px;
+}
+
+.login-button:hover{
+    background: linear-gradient(to right, #0056b3, #67b2e4);
+}
+
+.login-google{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DEE2E6;
+    color: black;
+    border: none;
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.login-google:hover{
+    background-color: #D3D9DF;
+}
+
+.google-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 50px;
+    padding-bottom: 20px;
+}

@@ -2,12 +2,17 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 
 export default function Drawer() {
+  const user = "User Name";
   return (
     <div className="drawer">
-      Welcome, User
+      <div className="profile-div">
+        <img src="vite.svg" className="img-pfp"/>
+        {user}
+      </div>
+      <hr/>
       <ul className="drawer-list">
         <li>
-          <Link to="/" className="no-underline">
+          <Link to="/login" className="no-underline">
             <Button
               text={
                 <>
