@@ -1,4 +1,5 @@
 import Button from "./Button";
+import "./Drawer.css";
 
 const list = [
     {
@@ -19,8 +20,10 @@ export default function Drawer(){
     return(
         <>
             <div className="drawer">
-                <img src="vite.svg"></img>
-                Welcome, User
+                <div className="Header">
+                    <img src="vite.svg"></img>
+                    <h3>WelCome User</h3>
+                </div>
             <ul>
                  {list.map((item) => {
                     return <li key={item.name}>{item.name}</li>
