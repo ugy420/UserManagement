@@ -1,22 +1,40 @@
+.login-page-container{
+    background-image: url('../assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 97vh;
+}
+
 .login-page{
     margin: auto;
     padding: 2rem;
     border-radius: 25px;
     background-color: white;
-    width: 50%;
+    width: 25%;
 }
 
-.login-page h2,h3{
+.login-page h1,h2{
     text-align: center;
     margin: 0;
-
 }
 
-.login-page h3{
+.login-page h2{
     margin-bottom: 10px;
-    font-size: small;
+    font-size: medium;
     font-weight: normal;
-    
+    margin-bottom: 25px;    
+}
+
+.input-container{
+    display: flex;
+    align-items: center;
+}
+
+.input-container i{
+    margin-left: -25px;
 }
 
 .login-page input{
@@ -29,23 +47,24 @@
 }
 
 .login-button{
-    background: linear-gradient(to right, #67b2e4, #0056b3);
+    background: linear-gradient(to right, #000000, #686868);
     color: white;
     border: none;
+    padding: 10px;
     width: 100%;
     border-radius: 15px;
     margin-top:20px;
 }
 
 .login-button:hover{
-    background: linear-gradient(to right, #0056b3, #67b2e4);
+    background: linear-gradient(to right, #16161d, #8d8d8d);
 }
 
 .login-google{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #DEE2E6;
+    background-color: #dddddd;
     color: black;
     border: none;
     width: 100%;
@@ -54,7 +73,7 @@
 }
 
 .login-google:hover{
-    background-color: #D3D9DF;
+    background-color: #b5b5b5;
 }
 
 .google-logo {
@@ -64,7 +83,13 @@
 }
 
 .signup-link {
+    font-size: small;
     text-align: center;
-    margin-top: 50px;
-    padding-bottom: 20px;
+    margin-top: 40px;
+
+}
+
+.login-page a{
+    text-decoration: none;
+    font-weight:bold;
 }

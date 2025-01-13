@@ -13,7 +13,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     cid: "",
   });
 
-  // To handle the modal open with either item for editing or empty for creating
   openDialog.current = (item) => {
     if (item) {
       setFormData(item);
