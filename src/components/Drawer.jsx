@@ -24,7 +24,7 @@ export default function Drawer() {
           </Link>
         </li>
         <li>
-          <Link to="/usermanagement" className="no-underline">
+          <Link to="/UserView" className="no-underline">
             <Button
               text={
                 <>

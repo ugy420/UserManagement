@@ -5,7 +5,7 @@ import {
     createUser,
     updateUser,
     deleteUser
-} from '../models/userModel.js';
+} from '../models/userModal.js';
 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';

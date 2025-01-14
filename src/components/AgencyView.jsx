@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import AgencyCreate from "./AgencyModal";
-
+import Header from './Header'
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);
   const [search, setSearch] = useState("");
@@ -36,6 +36,7 @@ export default function AgencyView() {
 
   return (
     <div className="main-div">
+      <Header/>
       <h1>AgencyView</h1>
       <hr />
       <div className="agency-table-div">

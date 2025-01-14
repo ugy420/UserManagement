@@ -1,0 +1,136 @@
+/* General styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header styling */
+.header {
+    background-color: #343A40;
+    color: white;
+    padding: 6px;
+    border-bottom: 1px solid #dee2e6;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box; 
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+   
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Smaller gap for compact spacing */
+}
+
+.header-logo img {
+    width: 28px; /* Smaller logo size */
+    height: 28px;
+    border-radius: 50%;
+}
+
+.header-logo h1 {
+    font-size: 1rem; /* Smaller font size */
+    margin: 0;
+}
+
+/* Navigation styling */
+.header-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px; /* Reduced gap between navigation links */
+}
+
+.header-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem; /* Smaller font size for links */
+    transition: color 0.3s;
+}
+
+.header-nav ul li a:hover {
+    color: #007BFF;
+}
+
+/* Menu icon for small screens */
+.menu-icon {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem; /* Appropriately sized menu icon */
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-nav {
+        display: none; /* Hide navigation by default */
+        position: absolute;
+        top: 45px; /* Adjust position for smaller header */
+        left: 0;
+        background-color: #343A40;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .header-nav ul {
+        flex-direction: column;
+        gap: 8px; /* Reduced gap between links in mobile view */
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .header-nav.active {
+        display: flex; /* Show navigation when active */
+    }
+}
+
+@media (max-width: 480px) {
+    .header-logo img {
+        width: 24px; /* Further reduce logo size */
+        height: 24px;
+    }
+
+    .header-logo h1 {
+        font-size: 0.9rem; /* Adjust text size */
+    }
+
+    .header-nav ul li a {
+        font-size: 0.75rem; /* Reduce link size */
+    }
+
+    .menu-icon {
+        font-size: 1rem; /* Adjust menu icon size */
+    }
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 320px) {
+    .header-logo h1 {
+        font-size: 0.8rem; /* Further adjust text size */
+    }
+
+    .header-nav ul li a {
+        font-size: 0.7rem; /* Further reduce link size */
+    }
+
+    .menu-icon {
+        font-size: 0.9rem; /* Further adjust menu icon size */
+    }
+}

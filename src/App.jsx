@@ -4,8 +4,11 @@ import AgencyView from "./components/AgencyView";
 import Drawer from "./components/Drawer";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
+import Header from './components/Header'
+import UserView  from "./components/UserView";
 import User from "./components/UserView.jsx";
 import { useRef } from "react";
+import DashboardView from "./components/DashboardView";
 
 
 function App() {
@@ -19,7 +22,9 @@ function App() {
           <Route path="/agency" element={<AgencyView />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/users" element={<User />} />
+          <Route path="/UserView" element={<UserView />} />
+          <Route path="/DashboardView" element={<DashboardView />} />
+          <Route path="/Header" element={<Header/>} />
         </Routes>
         <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
       {/* </div> */}
