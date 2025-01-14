@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Header from './components/Header'
 import UserView  from "./components/UserView";
+import User from "./components/UserView.jsx";
 import { useRef } from "react";
 import DashboardView from "./components/DashboardView";
 
@@ -13,12 +14,10 @@ import DashboardView from "./components/DashboardView";
 function App() {
   const openDialog = useRef();
   return (
-
-
     <Router>
-      <div className="app-container">
+      {/* <div className="app-container">
         <Drawer />
-        <div className="main-content"></div>
+        <div className="main-content"></div>  */}
         <Routes>
           <Route path="/agency" element={<AgencyView />} />
           <Route path="/login" element={<LoginPage />} />
@@ -28,7 +27,7 @@ function App() {
           <Route path="/Header" element={<Header/>} />
         </Routes>
         <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
-      </div>
+      {/* </div> */}
     </Router>
   );
 }

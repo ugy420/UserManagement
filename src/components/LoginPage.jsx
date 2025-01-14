@@ -1,16 +1,8 @@
 import Button from "./Button";
 import "./LoginPage.css";
-import { useNavigate } from "react-router-dom";
 import google from "../assets/google.svg";
 
 const LoginPage = () => {
-  const navigator = useNavigate();
-  
-  function onClickPressed(event) {
-    event.preventDefault();
-    navigator('/DashboardView');
-  }
-
   return (
     <div className="login-page">
       <div>
@@ -36,7 +28,7 @@ const LoginPage = () => {
               />
             </div>
 
-            <Button text="Log In" className="login-button" onClick={onClickPressed} />
+            <Button text="Log In" className="login-button" />
             <Button text="Login In with Google" className="login-google">
               <img src={google} className="google-logo" />
             </Button>
