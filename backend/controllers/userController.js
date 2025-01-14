@@ -4,7 +4,7 @@ import {
     createUser,
     updateUser,
     deleteUser
-} from '../models/userModel.js';
+} from '../models/userModal.js';
 
 export async function getUsers(req, res) {
     try {

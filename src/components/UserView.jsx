@@ -51,8 +51,9 @@ export default function UserView() {
 
   const styles = {
     mainDiv: {
-      padding: "20px",
-      fontFamily: "Arial, sans-serif",
+      width: '90%',
+      padding:'20px',
+      backgroundColor:'white',
     },
     userTableDiv: {
       display: "flex",

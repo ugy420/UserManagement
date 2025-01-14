@@ -1,55 +1,124 @@
 .drawer {
-    width: 250px;             
-    height: 100vh;            
-    background-color: #333;   
-    color: white;             
-    padding: 20px;            
-    display: flex;
-    flex-direction: column;   
-    justify-content: flex-start; 
+  width: 250px;               /* Default width for desktop */
+  height: 100vh;              /* Full height */
+  background-color: #333;     /* Dark background */
+  color: white;               /* White text color */
+  padding: 20px;              /* Padding inside the drawer */
+  display: flex;
+  flex-direction: column;     /* Stack items vertically */
+  justify-content: flex-start; /* Align items to the top */
+  transition: transform 0.3s ease; /* Smooth transition for toggle effect */
+}
+
+.Header {
+  display: flex;               /* Align items horizontally */
+  align-items: center;         /* Center vertically */
+  justify-content: flex-start; /* Align to the left */
+  margin-bottom: 30px;         /* Space below the header */
+}
+
+.Header img {
+  width: 40px;                 /* Set the image width */
+  margin-right: 10px;          /* Space between the logo and the text */
+}
+
+.Header h3 {
+  font-size: 1.5em;            /* Larger font size for the heading */
+  margin: 0;                   /* Remove default margin */
+  font-weight: 400;            /* Slightly lighter font weight */
+  color: #fff;                 /* White text color */
+}
+
+.drawer ul {
+  list-style-type: none;       /* Remove default list bullets */
+  padding: 0;                  /* Remove padding */
+  margin: 0;                   /* Remove margin */
+}
+
+.drawer li {
+  font-size: 1.1em;            /* Font size for list items */
+  margin: 15px 0;              /* Space between items */
+  cursor: pointer;             /* Pointer cursor to show it's clickable */
+  transition: background-color 0.3s ease; /* Smooth transition effect */
+  padding: 10px 15px;          /* Padding inside list items */
+  border-radius: 4px;          /* Rounded corners */
+}
+
+.drawer li:hover {
+  background-color: #555;      /* Darken the background when hovering */
+}
+
+.drawer li.active {
+  background-color: #444;      /* Even darker background for active items */
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .drawer {
+      width: 200px;            /* Narrower drawer for tablets */
   }
-  .Header {
-    display: flex;                
-    align-items: center;          
-    justify-content: flex-start;  
-    margin-bottom: 30px;          
-  }
-  
-  .Header img {
-    width: 40px;                  /* Set the image width */
-    margin-right: 10px;           /* Space between the logo and the text */
-  }
-  
+
   .Header h3 {
-    font-size: 1.5em;             /* Larger font size for the heading */
-    margin: 0;                    /* Remove default margin */
-    font-weight: 400;             /* Slightly lighter font weight */
-    color: #fff;                  /* White text color */
+      font-size: 1.2em;        /* Slightly smaller heading */
   }
-  
-  /* List of items in the drawer */
-  .drawer ul {
-    list-style-type: none;        /* Remove default list bullets */
-    padding: 0;                   /* Remove padding */
-    margin: 0;                    /* Remove margin */
-  }
-  
+
   .drawer li {
-    font-size: 1.1em;             /* Font size for list items */
-    margin: 15px 0;               /* Space between items */
-    cursor: pointer;             /* Pointer cursor to show it's clickable */
-    transition: background-color 0.3s ease; /* Smooth transition effect */
-    padding: 10px 15px;           /* Padding inside list items */
-    border-radius: 4px;           /* Rounded corners */
+      font-size: 1em;          /* Adjust list item font size */
+      padding: 8px 12px;       /* Adjust padding */
   }
-  
-  /* Hover effect for the list items */
-  .drawer li:hover {
-    background-color: #555;       /* Darken the background when hovering */
+}
+
+@media (max-width: 768px) {
+  .drawer {
+      width: 180px;            /* Smaller width for smaller devices */
+      padding: 15px;           /* Reduce padding inside the drawer */
   }
-  
-  /* Add a selected or active class to highlight a clicked item */
-  .drawer li.active {
-    background-color: #444;       /* Even darker background for active items */
+
+  .Header img {
+      width: 30px;             /* Smaller logo size */
   }
-  
+
+  .Header h3 {
+      font-size: 1em;          /* Smaller heading */
+  }
+
+  .drawer li {
+      font-size: 0.9em;        /* Reduce font size */
+      padding: 6px 10px;       /* Adjust padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer {
+      width: 100%;             /* Full width for mobile screens */
+      height: auto;            /* Fit content height */
+      position: fixed;         /* Fixed positioning for toggleable menu */
+      bottom: 0;               /* Place at the bottom of the screen */
+      top: auto;
+      overflow-y: auto;        /* Scrollable content */
+  }
+
+  .Header {
+      justify-content: center; /* Center the header content */
+  }
+
+  .Header img {
+      width: 25px;             /* Even smaller logo size */
+  }
+
+  .Header h3 {
+      font-size: 0.9em;        /* Small heading */
+  }
+
+  .drawer ul {
+      display: flex;           /* Stack items in a row for horizontal layout */
+      flex-wrap: wrap;         /* Wrap items to the next line */
+      justify-content: center; /* Center items */
+  }
+
+  .drawer li {
+      font-size: 0.8em;        /* Reduce font size */
+      margin: 5px;             /* Smaller margin */
+      padding: 5px 8px;        /* Adjust padding */
+  }
+}
