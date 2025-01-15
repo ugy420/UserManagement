@@ -10,6 +10,24 @@ import {
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+export async function loginUser(req, res) {
+    try {
+        const { email, password } = req.body;
+        const user = await getUserByEmail(email);
+        if (!user) {
+            return res.status(400).json({ error: 'Invalid email or password' });
+        }
+        const isMatch = password === user.password;
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Invalid email or password' });
+        }
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.json({ token });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 export async function getUsers(req, res) {
     try {
         const users = await getAllUsers();
@@ -66,20 +84,3 @@ export async function removeUser(req, res) {
     }
 }
 
-export async function loginUser(req, res) {
-    try {
-        const { email, password } = req.body;
-        const user = await getUserByEmail(email);
-        if (!user) {
-            return res.status(400).json({ error: 'Invalid email or password' });
-        }
-        const isMatch = password === user.password;
-        if (!isMatch) {
-            return res.status(400).json({ error: 'Invalid email or password' });
-        }
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}

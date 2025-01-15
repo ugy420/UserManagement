@@ -100,50 +100,24 @@ export default function UserView() {
               <td>{user.phone}</td>
               <td>{user.cid}</td>
               <td>{user.agency_name}</td>
-              <td>{user.createdBy}</td>
+              <td>{user.createdBy??"-"}</td>
               <td>{user.createdDate}</td>
               <td>
-                <div style={styles.buttonContainer}>
+                <div>
                   <Button
                     text="Edit"
-                    style={styles.editButton}
                     onClick={() => handleEdit(user)}
                   />
                   <Button
                     text="Delete"
-                    style={styles.deleteButton}
                     onClick={() => handleDelete(user)}
                   />
                 </div>
               </td>
-
             </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.map((user) => (
-              <tr key={user.id}>
-                <td className="td">{user.id}</td>
-                <td className="td">{user.username}</td>
-                <td className="td">{user.email}</td>
-                <td className="td">
-                  <div className="buttonContainer">
-                    <Button
-                      text="Edit"
-                      className="editButton"
-                      onClick={() => handleEdit(user)}
-                    />
-                    <Button
-                      text="Delete"
-                      className="deleteButton"
-                      onClick={() => handleDelete(user)}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
       <UserModal
         openDialog={openDialog}
         placeholder={{ username: "Username", email: "Email" }}
