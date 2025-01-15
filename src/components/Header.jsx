@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import './header.css'; // Import the CSS file
-
+import { useState } from 'react';
+import './Header.css';
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [activeLink, setActiveLink] = useState('about');
 
+    // Toggle the menu open/close
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
+        setMenuOpen((prevState) => !prevState);
+    };
+
+    // Handle link clicks and close the menu on mobile
+    const handleLinkClick = (linkName) => {
+        setActiveLink(linkName);
+        setMenuOpen(false); // Close the menu after selecting a link
     };
 
     return (
@@ -17,13 +24,49 @@ const Header = () => {
                 </div>
                 <nav className={`header-nav ${menuOpen ? 'active' : ''}`}>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li>
+                            <a
+                                href="#about"
+                                className={activeLink === 'about' ? 'active' : ''}
+                                onClick={() => handleLinkClick('about')}
+                            >
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#services"
+                                className={activeLink === 'services' ? 'active' : ''}
+                                onClick={() => handleLinkClick('services')}
+                            >
+                                Services
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#contact"
+                                className={activeLink === 'contact' ? 'active' : ''}
+                                onClick={() => handleLinkClick('contact')}
+                            >
+                                Contact
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#profile"
+                                className={activeLink === 'Profile' ? 'active' : ''}
+                                onClick={() => handleLinkClick('Profile')}
+                            >
+                                Profile
+                            </a>
+                        </li>
                     </ul>
                 </nav>
-                <button className="menu-icon" onClick={toggleMenu}>
+                <button
+                    className="menu-icon"
+                    onClick={toggleMenu}
+                    aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                >
                     {menuOpen ? '✖' : '☰'}
                 </button>
             </div>

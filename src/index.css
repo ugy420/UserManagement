@@ -1,3 +1,4 @@
+/* Global Styling */
 body {
     font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
     background-color: #e9e9e9;
@@ -12,7 +13,7 @@ input {
     padding: .5rem;
     border-radius: 5px;
     border-width: 1px;
-    width: 100%; /* Ensure inputs adjust to container width */
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -40,7 +41,6 @@ th, td {
     border: 1px #DEE2E6 solid;
     padding-block: 10px;
     padding-left: 10px;
-    word-wrap: break-word; /* Ensure content wraps properly */
 }
 
 h1 {
@@ -58,24 +58,26 @@ hr {
     border: inset #007BFF;
 }
 
-/* Drawer */
+/* Drawer (Sidebar) Styling */
 .drawer {
     background-color: #343A40;
-    width: 15%;
+    width: 250px; /* Fixed width */
     padding: 20px;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     box-sizing: border-box;
-    overflow-y: auto; /* Ensure scrollable content */
+    overflow-y: auto;
 }
 
 .main-content {
-    margin-left: 20%; /* Offset for drawer */
+    margin-left: 270px; /* Ensure space for the sidebar */
     box-sizing: border-box;
+    padding: 20px;
 }
 
+/* Sidebar Links */
 .drawer ul {
     padding: 0;
     list-style: none;
@@ -107,6 +109,7 @@ hr {
     color: white;
 }
 
+/* Profile Section */
 .profile-div {
     color: #007BFF;
     display: flex;
@@ -119,16 +122,17 @@ hr {
     font-size: 12px;
 }
 
+/* Main Content Section */
 .main-div {
-    width: 90%;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
     background-color: white;
-    margin-inline: 20px;
     outline: 2px solid #DEE2E6;
+    margin-left: 250px;
+    width: calc(100% - 200px); /* Adjust for the sidebar width */
 }
 
-/* AgencyView */
+/* Agency View Section */
 .agency-dialog {
     border: inset;
     border-radius: 10px;
@@ -157,6 +161,15 @@ hr {
     gap: 10px;
 }
 
+.responsive-table {
+    overflow-x: auto;
+}
+
+.agency-modal {
+    flex-grow: 1;
+    padding: 20px;
+}
+
 .button-container {
     display: flex;
     justify-content: left;
@@ -166,22 +179,29 @@ hr {
 .agency-table-div {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-/* Button Styles */
-.create, .confirm, .edit, .delete {
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-}
-
+/* Buttons */
 .create {
     background-color: white;
     border-color: #45a049;
     color: #4CAF50;
 }
 
-.create:hover, .confirm:hover {
+.create:hover {
+    background-color: #45a049;
+    color: white;
+}
+
+.confirm {
+    background-color: white;
+    border-color: #45a049;
+    color: #4CAF50;
+}
+
+.confirm:hover {
     background-color: #45a049;
     color: white;
 }
@@ -201,6 +221,7 @@ hr {
     background-color: white;
     border-color: #a04545;
     color: #af4c4c;
+    margin-right: 10px;
 }
 
 .delete:hover {
@@ -208,59 +229,103 @@ hr {
     color: white;
 }
 
-/* Responsive Styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+.th,
+.td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.th {
+    background-color: #343a40;
+    color: white;
+}
+
+.td {
+    color: #333;
+}
+
+/* AgencyView Responsive Design */
+
+/* For Tablets */
 @media (max-width: 1024px) {
     .drawer {
-        width: 200px; /* Adjust drawer width for smaller screens */
+        width: 200px;
     }
 
     .main-content {
-        margin-left: 200px; /* Adjust main content margin */
+        margin-left: 220px;
     }
 
     table {
-        font-size: 0.9em; /* Reduce table font size */
+        font-size: 0.9em;
+    }
+
+    .main-div {
+        margin-left: 210px; /* Adjust for sidebar */
+        width: calc(100% - 220px); /* Adjust width */
     }
 }
 
+/* For Small Screens (768px or smaller) */
 @media (max-width: 768px) {
     .drawer {
-        position: absolute; /* Drawer becomes toggleable */
+        position: absolute;
         width: 100%;
         height: auto;
         padding: 15px;
+        display: none;
+    }
+
+    .drawer.active {
+        display: block;
     }
 
     .main-content {
-        margin-left: 0; /* No margin for main content */
-    }
-
-    .drawer-list li {
-        text-align: center;
+        margin-left: 0;
+        padding: 10px;
     }
 
     .main-div {
         margin-inline: 10px;
+        margin-left: 200px;
+    }
+
+    .create, .confirm, .edit, .delete {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8em;
     }
 }
 
+/* For Mobile Phones (480px or smaller) */
 @media (max-width: 480px) {
     .drawer {
-        width: 100%; /* Full width drawer */
+        width: 100%;
         padding: 10px;
     }
 
     .main-content {
-        margin: 0; /* No margin for main content */
+        margin: 0;
     }
 
     th, td {
-        font-size: 0.8em; /* Reduce font size for table content */
-        padding: 5px; /* Adjust padding */
+        font-size: 0.8em;
+        padding: 5px;
     }
 
     .create, .confirm, .edit, .delete {
-        padding: 0.4rem 0.8rem; /* Smaller button padding */
+        padding: 0.4rem 0.8rem;
         font-size: 0.8em;
+    }
+
+    .agency-table-div {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }

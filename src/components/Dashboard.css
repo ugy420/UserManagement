@@ -20,6 +20,7 @@
 
 .dashboard-container {
     width: 100%;
+    margin-left: 20%;
     
 }
 
@@ -37,6 +38,9 @@
     .dashboard-header h1 {
         font-size: 1.2rem;
         margin-left: 1rem;
+    }
+    .dashboard-container{
+        margin-left: 215px;
     }
 
     .dashboard-main {
@@ -57,6 +61,9 @@
         align-items: center; /* Center align items */
         margin-top: 1rem;
     }
+    .dashboard-container{
+        margin-left: 200px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -71,5 +78,8 @@
         flex-direction: column; /* Stack items vertically */
         align-items: center; /* Center align items */
         margin-top: 0.5rem;
+    }
+    .dashboard-container{
+        margin-left: 200px;
     }
 }

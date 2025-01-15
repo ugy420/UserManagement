@@ -11,6 +11,8 @@ body {
     padding: 6px;
     border-bottom: 1px solid #dee2e6;
     top: 0;
+    font-weight: 500;
+    height:50px;
     width: 100%;
     z-index: 1000;
     box-sizing: border-box; 
@@ -23,7 +25,6 @@ body {
     max-width: 100%;
     margin: 0 auto;
     padding: 0 10px;
-   
 }
 
 .header-logo {
@@ -59,6 +60,12 @@ body {
     transition: color 0.3s;
 }
 
+/* Change text color to red for active links */
+.header-nav ul li a.active {
+    color:#007BFF; /* Active link color */
+}
+
+/* Hover effect for links */
 .header-nav ul li a:hover {
     color: #007BFF;
 }

@@ -6,6 +6,7 @@ import Header from './Header'
 export default function DashboardView() {
   return (
     <div className="dashboard-container">
+      <Header/>
       <div className="dashboard-content">
         <header className="dashboard-header">
           <h1>Dashboard</h1>
@@ -15,7 +16,7 @@ export default function DashboardView() {
         <DasCompo value="5" label="New Agencies" icon="fas fa-building" reff='https://github.com/ugy420/UserManagement'/>  
         <DasCompo value="2" label="Roles" icon="fa-check-circle" reff='https://chatgpt.com/c/677f82e4-593c-800c-892a-f7b33e725b50'/>
         </main>
-        <text>Hi</text>
+        <p>Hi</p>
       </div>
     </div>
   );
