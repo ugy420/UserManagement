@@ -1,9 +1,25 @@
+import { query } from 'express';
 import pool from '../db.js';
 
 // Function to fetch all users
 export async function getAllUsers() {
     try {
-        const [rows] = await pool.query('SELECT * FROM User');
+        const query = `
+         SELECT 
+                u.id, 
+                u.name, 
+                u.email,
+                u.phone,
+                u.cid,
+                u.createdBy,
+                u.createdDate,
+                a.name as agency_name
+            FROM 
+                User u
+            LEFT JOIN 
+                Agency a ON u.agencyId = a.id
+        `;
+        const [rows] = await pool.query(query);
         return rows;
     } catch (error) {
         console.error('Error fetching users:', error);

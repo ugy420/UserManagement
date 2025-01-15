@@ -14,7 +14,12 @@ export default function UserView() {
   }, []);
 
   function fetchUsers() {
-    fetch("http://localhost:8080/api/users")
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:8080/api/users", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error(err));
@@ -26,11 +31,15 @@ export default function UserView() {
 
   function handleDelete(user) {
     const confirmDelete = window.confirm(
-      `Are you sure you want to delete user ${user.username}?`
+      `Are you sure you want to delete user ${user.name}?`
     );
     if (confirmDelete) {
+      const token = localStorage.getItem("token");
       fetch(`http://localhost:8080/api/users/${user.id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
       })
         .then((res) => {
           if (res.ok) {
@@ -48,7 +57,7 @@ export default function UserView() {
   }
 
   const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(search.toLowerCase())
+    user.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -68,14 +77,46 @@ export default function UserView() {
           className="createButton"
         />
       </div>
-      <div className="responsiveTable">
-        <table className="table">
-          <thead>
-            <tr>
-              <th className="th">Id</th>
-              <th className="th">Username</th>
-              <th className="th">Email</th>
-              <th className="th">Action</th>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>CID</th>
+            <th>Agency</th>
+            <th>Created By</th>
+            <th>Created Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredUsers.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.phone}</td>
+              <td>{user.cid}</td>
+              <td>{user.agency_name}</td>
+              <td>{user.createdBy}</td>
+              <td>{user.createdDate}</td>
+              <td>
+                <div style={styles.buttonContainer}>
+                  <Button
+                    text="Edit"
+                    style={styles.editButton}
+                    onClick={() => handleEdit(user)}
+                  />
+                  <Button
+                    text="Delete"
+                    style={styles.deleteButton}
+                    onClick={() => handleDelete(user)}
+                  />
+                </div>
+              </td>
+
             </tr>
           </thead>
           <tbody>

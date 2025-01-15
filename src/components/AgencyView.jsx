@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import AgencyCreate from "./AgencyModal";
-import Header from './Header'
+import Header from './Header';
+
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);
   const [search, setSearch] = useState("");
@@ -12,8 +13,18 @@ export default function AgencyView() {
   }, []);
 
   function fetchAgencies() {
-    fetch("http://localhost:8080/api/agencies")
-      .then((res) => res.json())
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:8080/api/agencies", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch agencies");
+        }
+        return res.json();
+      })
       .then((data) => setAgencies(data))
       .catch((err) => console.error(err));
   }
@@ -22,8 +33,8 @@ export default function AgencyView() {
     setSearch(event.target.value);
   }
 
-  function handleDelete(item){
-    
+  function handleDelete(item) {
+    // Implement delete functionality
   }
 
   function handleEdit(item) {
@@ -36,7 +47,7 @@ export default function AgencyView() {
 
   return (
     <div className="main-div">
-      <Header/>
+      <Header />
       <h1>AgencyView</h1>
       <hr />
       <div className="agency-table-div">
@@ -68,15 +79,15 @@ export default function AgencyView() {
                     className="edit"
                     onClick={() => handleEdit(item)}
                   />
-                  <Button text="Delete" className="delete" onClick={() => handleDelete(item)}/>
+                  <Button text="Delete" className="delete" onClick={() => handleDelete(item)} />
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <AgencyCreate openDialog={openDialog} placeholder="Agency Name" onSuccess={fetchAgencies} />
       </div>
-      <AgencyCreate openDialog={openDialog} placeholder="Agency Name" onSuccess={fetchAgencies}/>
     </div>
   );
 }

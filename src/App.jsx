@@ -17,11 +17,17 @@ function App() {
   const hideDrawerRoutes = ["/login", "/signup"];
 
   return (
-    <div className="app-container">
-      {/* Conditionally render Drawer and Header */}
-      {!hideDrawerRoutes.includes(location.pathname) && <Drawer />}
+//     <Router>
+//       <div className="app-container">
+//         <Drawer />
+//         <div className="main-content"></div> 
+// =======
+//     <div className="app-container">
+//       {/* Conditionally render Drawer and Header */}
+//       {!hideDrawerRoutes.includes(location.pathname) && <Drawer />}
       
-      {/* <div className={hideDrawerRoutes.includes(location.pathname) ? "main-content-full" : "main-content"}> */}
+//       {/* <div className={hideDrawerRoutes.includes(location.pathname) ? "main-content-full" : "main-content"}> */}
+
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
@@ -30,12 +36,18 @@ function App() {
           <Route path="/Header" element={<Header />} />
           <Route path="/DashboardView" element={<DashboardView />} />
         </Routes>
-        {/* AgencyModal is also conditionally rendered */}
-        {/* {!hideDrawerRoutes.includes(location.pathname) && (
-          <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
-        )} */}
-      {/* </div> */}
-    </div>
+
+//         <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
+//       </div>
+//     </Router>
+// =======
+//         {/* AgencyModal is also conditionally rendered */}
+//         {/* {!hideDrawerRoutes.includes(location.pathname) && (
+//           <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
+//         )} */}
+//       {/* </div> */}
+//     </div>
+
   );
 }
 
