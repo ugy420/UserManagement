@@ -58,20 +58,21 @@ export default function AgencyView() {
           className="create"
         />
       </div>
-      <table>
+      <div className='responsive-table'>
+      <table className="table">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
+            <th className="th">Id</th>
+            <th className="th">Name</th>
+            <th className="th">Action</th>
           </tr>
         </thead>
         <tbody>
           {filteredAgencies.map((item) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>
+              <td className="td">{item.id}</td>
+              <td className="td">{item.name}</td>
+              <td className="td">
                 <div className="button-container">
                   <Button
                     text="Edit"
@@ -86,6 +87,7 @@ export default function AgencyView() {
         </tbody>
       </table>
       <AgencyCreate openDialog={openDialog} placeholder="Agency Name" onSuccess={fetchAgencies} />
+      </div>
     </div>
   );
 }

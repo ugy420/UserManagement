@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
+import Header from "./Header";
+import './UserView.css';
 import UserModal from "./UserModal";
 
 export default function UserView() {
@@ -58,54 +60,21 @@ export default function UserView() {
     user.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  const styles = {
-    mainDiv: {
-      width: '90%',
-      padding:'20px',
-      backgroundColor:'white',
-    },
-    userTableDiv: {
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: "20px",
-    },
-    buttonContainer: {
-      display: "flex",
-      gap: "10px",
-    },
-    createButton: {
-      backgroundColor: "#4CAF50",
-      color: "white",
-      border: "none",
-      padding: "10px 20px",
-      cursor: "pointer",
-    },
-    editButton: {
-      backgroundColor: "#008CBA",
-      color: "white",
-      border: "none",
-      padding: "5px 10px",
-      cursor: "pointer",
-    },
-    deleteButton: {
-      backgroundColor: "#f44336",
-      color: "white",
-      border: "none",
-      padding: "5px 10px",
-      cursor: "pointer",
-    },
-  };
-
   return (
-    <div style={styles.mainDiv}>
+    <div className="mainDiv">
+      <Header />
       <h1>User Management</h1>
       <hr />
-      <div style={styles.userTableDiv}>
-        <input placeholder="Search" onChange={handleChange}></input>
+      <div className="userTableDiv">
+        <input
+          className="searchInput"
+          placeholder="Search"
+          onChange={handleChange}
+        />
         <Button
           text="Create"
           onClick={() => openDialog.current()}
-          style={styles.createButton}
+          className="createButton"
         />
       </div>
       <table>
@@ -147,10 +116,34 @@ export default function UserView() {
                   />
                 </div>
               </td>
+
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr key={user.id}>
+                <td className="td">{user.id}</td>
+                <td className="td">{user.username}</td>
+                <td className="td">{user.email}</td>
+                <td className="td">
+                  <div className="buttonContainer">
+                    <Button
+                      text="Edit"
+                      className="editButton"
+                      onClick={() => handleEdit(user)}
+                    />
+                    <Button
+                      text="Delete"
+                      className="deleteButton"
+                      onClick={() => handleDelete(user)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <UserModal
         openDialog={openDialog}
         placeholder={{ username: "Username", email: "Email" }}

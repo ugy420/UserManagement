@@ -9,7 +9,7 @@ export default function DashCompo({ value, label, icon, reff }) {
         <div className='inner'>
           <h1>{value}</h1>
           <div className="dashboard-content1">
-            <text className="title">{label}</text>
+            <p className="title">{label}</p>
           </div>
         </div>
         <i className={`fa-solid ${icon} icon`}></i>

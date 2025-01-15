@@ -1,9 +1,13 @@
 .container {
     border: 1px solid gray;
-    width: 15rem;
-    margin: 1.5rem auto; /* Center container on smaller screens */
+    /* width: 15rem; */
+    margin: 1.5rem auto;
     border-radius: 10px;
     background-color: rgba(0, 123, 255, 1);
+    height: auto; /* Set height to auto for dynamic content */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    
 }
 
 h1 {
@@ -11,6 +15,7 @@ h1 {
     padding: 0;
     color: white;
     font-size: 2rem;
+    font-weight: 600;
 }
 
 .next-Link {
@@ -19,7 +24,9 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 2rem;
+    height: 1rem;
+    width:15rem;
+    padding: 0.5rem;
 }
 
 .link {
@@ -43,6 +50,7 @@ i.icon {
     font-size: 2rem;
     color: white;
     align-self: center;
+    margin-left: 10px;
 }
 
 .outer {
@@ -56,11 +64,14 @@ i.icon {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
 }
 
 .title {
-    margin-top: 12rem;
+    margin-top: 0.5rem;
     color: aliceblue;
+    font-size: 1rem;
 }
 
 /* Responsive Design */
@@ -81,11 +92,25 @@ i.icon {
 
     h1 {
         font-size: 1.5rem; /* Adjust heading size */
+        margin-bottom: 1rem;
     }
 
     .title {
-        margin-top: 1rem;
         font-size: 1rem;
+    }
+
+    .next-Link {
+        height: auto;
+        padding: 0.5rem;
+        width: auto;
+    }
+    .inner{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .title{
+        padding: 10px;
     }
 }
 
@@ -103,6 +128,21 @@ i.icon {
     }
 
     .title {
+        font-size: 0.9rem;
+    }
+
+    .container {
+        width: 90%; /* Full width on small screens */
+        padding: 1rem;
+    }
+
+    .outer {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        text-align: center;
+    }
+
+    .next-Link {
+        padding: 1rem;
         font-size: 0.9rem;
     }
 }
