@@ -1,6 +1,6 @@
 import Button from "./Button";
 import { useRef, useState } from "react";
-import "./agency.css";
+import "./Modal.css";
 
 export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();

@@ -3,8 +3,8 @@
   padding:20px;
   padding-right: 50px;
   background-color: #1E1E1E;    
-  color: #5D7285;         
-  height: 100vh;                  
+  color: #5D7285;
+  height: 100vh;                
   display: flex;
   flex-direction: column;
   justify-content: flex-start; 
@@ -18,7 +18,7 @@
 }
 
 .Header img {
-  width: 40px;                 /* Set the image width */
+  width: 40px;                 
   margin-right: 10px;          /* Space between the logo and the text */
 }
 

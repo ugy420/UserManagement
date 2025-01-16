@@ -25,15 +25,3 @@
     flex-grow: 1;
     padding: 20px;
 }
-
-.button-container {
-    display: flex;
-    justify-content: left;
-    gap: 10px;
-}
-
-.agency-table-div {
-    display: flex;
-    justify-content:space-between;
-    margin-bottom: 20px;
-}

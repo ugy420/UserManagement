@@ -1,12 +1,10 @@
 import React from "react";
 import DasCompo from "./DashCompo";
 import "./Dashboard.css";
-import Header from './Header'
 
 export default function DashboardView() {
   return (
     <div className="dashboard-container">
-      <Header/>
       <div className="dashboard-content">
         <header className="dashboard-header">
           <h1>Dashboard</h1>

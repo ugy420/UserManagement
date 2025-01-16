@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import AgencyCreate from "./AgencyModal";
-import Header from "./Header";
+import Search from "./Search.jsx";
 
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);
@@ -52,12 +52,12 @@ export default function AgencyView() {
         Administer and oversee user accounts and privileges within the platform
       </div>
       <div className="main-div">
-        <div className="agency-table-div">
-          <input
+        <div className="table-top-div">
+          <Search
             className="search"
-            placeholder="Search"
+            placeHolder="Search"
             onChange={handleChange}
-          ></input>
+          ></Search>
           <Button
             text="+ Add new agency"
             onClick={() => openDialog.current()}
@@ -68,17 +68,17 @@ export default function AgencyView() {
           <table className="table">
             <thead>
               <tr>
-                <th className="th">Id</th>
-                <th className="th">Name</th>
-                <th className="th">Action</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {filteredAgencies.map((item) => (
                 <tr key={item.id}>
-                  <td className="td">{item.id}</td>
-                  <td className="td">{item.name}</td>
-                  <td className="td">
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>
                     <div className="button-container">
                       <Button
                         text="Edit"

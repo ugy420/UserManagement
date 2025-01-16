@@ -106,6 +106,17 @@ hr {
     color: black;
 }
 
+.table-top-div {
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
 
 .create {
     border-radius: 30px;

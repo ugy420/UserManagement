@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
-import Header from "./Header";
-import './UserView.css';
+import "./UserView.css";
 import UserModal from "./UserModal";
+import Search from "./Search.jsx";
 
 export default function UserView() {
   const [users, setUsers] = useState([]);
@@ -17,8 +17,8 @@ export default function UserView() {
     const token = localStorage.getItem("token");
     fetch("http://localhost:8080/api/users", {
       headers: {
-        "Authorization": `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => setUsers(data))
@@ -38,8 +38,8 @@ export default function UserView() {
       fetch(`http://localhost:8080/api/users/${user.id}`, {
         method: "DELETE",
         headers: {
-          "Authorization": `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((res) => {
           if (res.ok) {
@@ -60,68 +60,78 @@ export default function UserView() {
     user.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  function formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString(undefined);
+  }
+
   return (
-    <div className="mainDiv">
-      <h1>User Management</h1>
-      <hr />
-      <div className="userTableDiv">
-        <input
-          className="searchInput"
-          placeholder="Search"
-          onChange={handleChange}
-        />
-        <Button
-          text="Create"
-          onClick={() => openDialog.current()}
-          className="createButton"
+    <>
+      <div className="head-div">
+        <h2>Users</h2>
+          Administer and oversee user accounts and privileges within theplatform
+      </div>
+      <div className="main-div">
+        <div className="table-top-div">
+          <Search
+            className="search"
+            placeHolder="Search"
+            onChange={handleChange}
+          />
+          <Button
+            text="+ Add new user"
+            onClick={() => openDialog.current()}
+            className="create"
+          />
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>CID</th>
+              <th>Agency</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.phone}</td>
+                <td>{user.cid}</td>
+                <td>{user.agency_name}</td>
+                <td align="center">{user.createdBy ?? "-"}</td>
+                <td>{formatDate(user.createdDate)}</td>
+                <td>
+                  <div className="button-container">
+                    <Button
+                      text="Edit"
+                      onClick={() => handleEdit(user)}
+                      className="edit"
+                    />
+                    <Button
+                      text="Delete"
+                      onClick={() => handleDelete(user)}
+                      className="delete"
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <UserModal
+          openDialog={openDialog}
+          placeholder={{ username: "Username", email: "Email" }}
+          onSuccess={fetchUsers}
         />
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>CID</th>
-            <th>Agency</th>
-            <th>Created By</th>
-            <th>Created Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.phone}</td>
-              <td>{user.cid}</td>
-              <td>{user.agency_name}</td>
-              <td>{user.createdBy??"-"}</td>
-              <td>{user.createdDate}</td>
-              <td>
-                <div>
-                  <Button
-                    text="Edit"
-                    onClick={() => handleEdit(user)}
-                  />
-                  <Button
-                    text="Delete"
-                    onClick={() => handleDelete(user)}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <UserModal
-        openDialog={openDialog}
-        placeholder={{ username: "Username", email: "Email" }}
-        onSuccess={fetchUsers}
-      />
-    </div>
+    </>
   );
 }

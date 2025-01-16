@@ -67,7 +67,7 @@ const LoginPage = () => {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("token", data.token);
-          navigate("/agency");
+          navigate("/dashboard");
         } else {
           alert("Invalid email or password");
         }

@@ -24,10 +24,9 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/agency" element={<AgencyView />} />
-          <Route path="/UserView" element={<UserView />} />
-          <Route path="/Header" element={<Header />} />
-          {/* Conditionally render DashboardView */}
-          {token && <Route path="/DashboardView" element={<DashboardView />} />}
+          <Route path="/user" element={<UserView />} />
+          <Route path="/header" element={<Header />} />
+          <Route path="/dashboard" element={<DashboardView />} />
         </Routes>
       </div>
       <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
