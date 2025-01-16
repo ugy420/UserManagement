@@ -5,7 +5,6 @@ import "./ContactPage.css";
 const ContactPage = () => {
   return (
     <div className="contact-page">
-      <Header />
       <div className="contact-container">
         <div className="address-section">
           <h2 className="animated-heading">Our Address</h2>

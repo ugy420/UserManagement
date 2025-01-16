@@ -52,7 +52,6 @@ const ProfileSettings = () => {
 
     return (
         <div className='profile-settings'>
-            <Header />
             <div className="profile-settings-container">
                 <div className="profile-card">
                     <div className="cover-photo" style={{ backgroundImage: `url(${coverPhoto})` }}>
