@@ -1,13 +1,6 @@
-/* General styles */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Header styling */
 .header {
-    background-color: #343A40;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 6px;
     border-bottom: 1px solid #dee2e6;
     top: 0;
@@ -42,6 +35,7 @@ body {
 .header-logo h1 {
     font-size: 1rem; /* Smaller font size */
     margin: 0;
+    color: black;
 }
 
 /* Navigation styling */
@@ -54,7 +48,7 @@ body {
 }
 
 .header-nav ul li a {
-    color: white;
+    color: black;
     text-decoration: none;
     font-size: 0.85rem; /* Smaller font size for links */
     transition: color 0.3s;

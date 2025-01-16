@@ -15,18 +15,16 @@ import { useRef } from "react";
 function App() {
   const openDialog = useRef();
   const location = useLocation();
-
-  // Define paths where Drawer is not displayed
-  const hideDrawerRoutes = ["/login", "/signup"];
-
+  const token = localStorage.getItem("token");
+  
   return (
-    <div className="app-container">
-      {/* Conditionally render Drawer and Header */}
-      {!hideDrawerRoutes.includes(location.pathname) && <Drawer />}
-      
-      {/* <div className={hideDrawerRoutes.includes(location.pathname) ? "main-content-full" : "main-content"}> */}
+    <div className="app">
+      {token && <Drawer />}
+      <div className="app-sub">
+      {token && <Header />}
+      <div>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/agency" element={<AgencyView />} />
           <Route path="/UserView" element={<UserView />} />
@@ -36,11 +34,9 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactPage />} /> {/* Add the Profile route */}
         </Routes>
-        {/* AgencyModal is also conditionally rendered */}
-        {/* {!hideDrawerRoutes.includes(location.pathname) && (
-          <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
-        )} */}
-      {/* </div> */}
+      </div>
+      <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
+      </div>
     </div>
   );
 }

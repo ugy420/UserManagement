@@ -30,12 +30,10 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     dialogRef.current.showModal();
   };
 
-  // Close the modal
   function handleCancel() {
     dialogRef.current.close();
   }
 
-  // Handle create or update user
   function handleCreate() {
     const url = formData.id
       ? `http://localhost:8080/api/users/${formData.id}`
@@ -52,15 +50,14 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        onSuccess(); // Call the onSuccess function after creating or updating
-        dialogRef.current.close(); // Close the modal after success
+        onSuccess();
+        dialogRef.current.close(); 
       })
       .catch((error) => {
         console.error("Error saving user:", error);
       });
   }
 
-  // Update formData based on input field changes
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });

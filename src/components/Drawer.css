@@ -15,14 +15,14 @@
 }
 
 .Header {
-  display: flex;               /* Align items horizontally */
-  align-items: center;         /* Center vertically */
-  justify-content: flex-start; /* Align to the left */
-  margin-bottom: 30px;         /* Space below the header */
+  display: flex;               
+  align-items: center;         
+  justify-content: flex-start;
+  margin-bottom: 30px;
 }
 
 .Header img {
-  width: 40px;                 /* Set the image width */
+  width: 40px;                 
   margin-right: 10px;          /* Space between the logo and the text */
 }
 
@@ -39,21 +39,26 @@
   margin: 0;                   /* Remove margin */
 }
 
-.drawer li {
-  font-size: 1.1em;            /* Font size for list items */
-  margin: 15px 0;              /* Space between items */
-  cursor: pointer;             /* Pointer cursor to show it's clickable */
-  transition: background-color 0.3s ease; /* Smooth transition effect */
-  padding: 10px 15px;          /* Padding inside list items */
-  border-radius: 4px;          /* Rounded corners */
+.drawer-list li button {
+  color: #939BA2;
+  background-color: inherit;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  border: none;
 }
 
-.drawer li:hover {
-  background-color: #555;      /* Darken the background when hovering */
+.drawer button:hover {
+  background-color: #007BFF;
+  color: white;
 }
 
-.drawer li.active {
-  background-color: #444;      /* Even darker background for active items */
+.drawer-list li i {
+  margin-right: 8px;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 /* Responsive Styles */

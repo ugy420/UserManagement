@@ -1,13 +1,49 @@
 import Button from "./Button";
 import "./LoginPage.css";
 import google from "../assets/google.svg";
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 
 const LoginPage = () => {
+
   const [visible, setVisible] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  // const [ user, setUser ] = useState([]);
+  // const [ profile, setProfile ] = useState([]);
+  
+  // const login = useGoogleLogin({
+  //   onSuccess: (codeResponse) => setUser(codeResponse),
+  //   onError: (error) => console.log('Login Failed:', error)
+  // });
+
+  // useEffect(
+  //   () => {
+  //       if (user) {
+  //           axios
+  //               .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+  //                   headers: {
+  //                       Authorization: `Bearer ${user.access_token}`,
+  //                       Accept: 'application/json'
+  //                   }
+  //               })
+  //               .then((res) => {
+                    
+  //               })
+  //               .catch((err) => console.log(err));
+  //       }
+  //   },
+  //   [ user ]
+  // );
+
+  // log out function to log the user out of google and set the profile array to null
+  // const logOut = () => {
+  //     googleLogout();
+  //     setProfile(null);
+  // };
+
+
 
   function handleVisible() {
     setVisible((prevVisible) => !prevVisible);
@@ -31,7 +67,7 @@ const LoginPage = () => {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("token", data.token);
-          navigate("/agency");
+          navigate("/dashboard");
         } else {
           alert("Invalid email or password");
         }
@@ -47,7 +83,7 @@ const LoginPage = () => {
         <h1>Welcome back!</h1>
         <h2>Please enter your details</h2>
         <>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="input-container">
               <input
                 type="text"
@@ -73,8 +109,8 @@ const LoginPage = () => {
               ></i>
             </div>
 
-            <Button text="Log In" className="login-button" />
-            <Button text="Login In with Google" className="login-google">
+            <Button text="Log In" className="login-button" onClick={handleSubmit}/>
+            <Button text="Login In with Google" className="login-google" onClick={handleSubmit}>
               <img src={google} className="google-logo" />
             </Button>
             <div className="signup-link">
