@@ -64,8 +64,8 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="agency-dialog">
-      <div className="agency-modal">
+    <dialog ref={dialogRef} className="modal-dialog">
+      <div className="modal">
         <h3 id="user-title">
           {formData.id === "" ? "Enter User Details" : "Edit User Details"}
         </h3>
@@ -114,7 +114,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           value={formData.cid}
           onChange={handleChange}
         />
-        <div className="agency-button">
+        <div className="modal-buttons">
           <Button text="Cancel" className="delete" onClick={handleCancel} />
           <Button text="Confirm" className="confirm" onClick={handleCreate} />
         </div>

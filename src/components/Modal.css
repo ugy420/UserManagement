@@ -1,27 +1,24 @@
-.agency-dialog {
+.modal-dialog {
     border: inset;
     border-radius: 10px;
     border-color: rgb(243, 243, 243);
     background-color: rgb(243, 243, 243);
 }
 
-.agency-dialog::backdrop {
+.modal-dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.agency-modal {
+.modal {
     gap: 5px;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
 }
 
-.agency-buttons {
+.modal-buttons {
     display: flex;
     justify-content: right;
     gap: 10px;
-}
-
-.agency-modal {
-    flex-grow: 1;
-    padding: 20px;
 }

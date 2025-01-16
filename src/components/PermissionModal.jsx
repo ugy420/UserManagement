@@ -2,7 +2,7 @@ import Button from "./Button";
 import { useRef, useState } from "react";
 import "./Modal.css";
 
-export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
+export default function PermissionModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
   const [formData, setFormData] = useState({ id: "", name: "" });
   const [delMode, setDelMode] = useState(false);
@@ -30,8 +30,8 @@ export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
     }
 
     const url = formData.id
-      ? `http://localhost:8080/api/agencies/${formData.id}`
-      : "http://localhost:8080/api/agencies";
+      ? `http://localhost:8080/api/permissions/${formData.id}`
+      : "http://localhost:8080/api/permissions";
 
     const method = formData.id ? "PUT" : "POST";
     const token = localStorage.getItem("token");
@@ -46,16 +46,17 @@ export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(formData);
         onSuccess();
         dialogRef.current.close();
       })
       .catch(error => {
-        console.error("Error saving agency:", error);
+        console.error("Error saving permission:", error);
       });
   }
 
   function handleDelete() {
-    const url = `http://localhost:8080/api/agencies/${formData.id}`;
+    const url = `http://localhost:8080/api/permissions/${formData.id}`;
     const token = localStorage.getItem("token");
 
     fetch(url, {
@@ -88,7 +89,7 @@ export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
     <dialog ref={dialogRef} className="modal-dialog">
       <div className="modal">
         <h3 id="modal-title">
-          {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Agency Name" : "Edit Agency Name")}
+          {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Permission Name" : "Edit Permission Name")}
         </h3>
         {!delMode && formData.id && (
           <input type="text" name="id" value={formData.id} readOnly />

@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
-import "./UserView.css";
 import UserModal from "./UserModal";
 import Search from "./Search.jsx";
 

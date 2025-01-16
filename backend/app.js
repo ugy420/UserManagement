@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import agencyRoutes from './routes/agencyRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import permissionRoutes from './routes/permissionRoutes.js'
 import { authenticateToken } from './middleware/authMiddleware.js';
 
 dotenv.config();
@@ -14,7 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', userRoutes);
-app.use('/api/agencies', authenticateToken, agencyRoutes); // Protected routes
+app.use('/api/agencies', authenticateToken, agencyRoutes);
+app.use('/api/permissions', authenticateToken, permissionRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

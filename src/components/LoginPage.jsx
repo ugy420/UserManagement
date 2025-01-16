@@ -67,6 +67,7 @@ const LoginPage = () => {
       .then((data) => {
         if (data.token) {
           localStorage.setItem("token", data.token);
+          console.log(data.token);
           navigate("/dashboard");
         } else {
           alert("Invalid email or password");
