@@ -55,7 +55,7 @@
 }
 
 /* Change text color to red for active links */
-.header-nav ul li a.active {
+.header-nav .active {
     color:#007BFF; /* Active link color */
 }
 

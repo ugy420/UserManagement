@@ -1,0 +1,147 @@
+.AboutUs {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    margin-left: 250px;
+}
+
+.AboutUs-header {
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
+.AboutUs-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.AboutUs-header p {
+    font-size: 1.2rem;
+}
+
+.AboutUs-main {
+    padding: 20px;
+}
+
+.mission-section,
+.team-section,
+.values-section,
+.contact-section {
+    margin-bottom: 40px;
+}
+
+.mission-section img,
+.contact-section img {
+    width: 100%;
+    max-width: 400px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.mission-content,
+.contact-content {
+    display: flex;
+    align-items: center;
+}
+
+.team-section .team-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.team-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.values-section .values-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.values-list li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.values-list li strong {
+    color: #004aad;
+}
+
+.contact-section a {
+    color: #004aad;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+.AboutUs-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.AboutUs-footer p {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .AboutUs {
+        margin-left: 200px;
+    }
+    .mission-content,
+    .contact-content {
+        flex-direction: column;
+    }
+    .mission-section img,
+    .contact-section img {
+        margin: 0 auto 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .AboutUs{
+        margin-left: 180px;
+    }
+    .AboutUs-header h1 {
+        font-size: 2rem;
+    }
+    .AboutUs-header p {
+        font-size: 1rem;
+    }
+    .team-image {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .AboutUs-header h1 {
+        font-size: 1.5rem;
+      
+    }
+    .AboutUs-header p {
+        font-size: 0.9rem;
+    }
+    .team-image {
+        width: 100px;
+        height: 100px;
+    }
+    .values-list li {
+        font-size: 1rem;
+    }
+}

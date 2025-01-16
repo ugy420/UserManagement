@@ -1,0 +1,143 @@
+/* Base Styles */
+.contact-page {
+    font-family: Arial, sans-serif;
+    color: #333;
+    width: 100%;
+    margin-left: 250px;
+  }
+  
+  .contact-container {
+   flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  .address-section,
+  .form-section {
+    background: lightgray;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .address-section:hover,
+  .form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .address-section h2,
+  .footer h3 {
+    font-size: 1.8em;
+    color: #004aad;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-left: 4px solid #004aad;
+    padding-left: 10px;
+  }
+  
+  .contact-details {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .detail i {
+    font-size: 1.5em;
+    color: #004aad;
+    margin-right: 10px;
+  }
+  
+  .form-section iframe,
+  .map-section iframe {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Map Section */
+  .map-section {
+    margin: 20px 0;
+    animation: slideUp 1.5s ease-in-out;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #004aad;
+    color: #ffffff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    transition: color 0.3s;
+  }
+  
+  .footer ul li a:hover {
+    color: #e8f5ff;
+  }
+  
+  .footer-address p {
+    margin: 5px 0;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animated-heading {
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .animated-text {
+    animation: fadeIn 2.5s ease-in-out;
+  }
+  
+  .animated-detail {
+    animation: fadeIn 3s ease-in-out;
+  }
+  
+  .animated-iframe {
+    animation: fadeIn 2.5s ease-in-out;
+  }
+  
+  .animated-map {
+    animation: slideUp 2s ease-in-out;
+  }
+  

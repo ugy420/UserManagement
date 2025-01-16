@@ -89,8 +89,7 @@ hr {
 .main-div {
     width: 90%;
     border-radius: 5px;
-    margin-inline:35px;
-    padding:20px;
+    padding: 2px;
     background-color: white;
 }
 

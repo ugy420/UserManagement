@@ -7,6 +7,9 @@ import Header from "./components/Header";
 import UserView from "./components/UserView";
 import Permissions from "./components/PermissionView.jsx";
 import DashboardView from "./components/DashboardView";
+import ProfileSettings from "./components/ProfileSettings";
+import AboutUs from "./components/AboutUs";
+import ContactPage from "./components/ContactPage";
 import { useRef } from "react";
 
 function App() {
