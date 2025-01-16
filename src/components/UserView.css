@@ -86,28 +86,6 @@
     overflow-x: auto;
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-}
-
-.th,
-.td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.th {
-    background-color: #343a40;
-    color: white;
-}
-
-.td {
-    color: #333;
-}
-
 .buttonContainer {
     display: flex;
     gap: 10px;

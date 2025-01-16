@@ -62,7 +62,6 @@ export default function UserView() {
 
   return (
     <div className="mainDiv">
-      <Header />
       <h1>User Management</h1>
       <hr />
       <div className="userTableDiv">

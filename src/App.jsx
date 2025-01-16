@@ -12,26 +12,26 @@ import { useRef } from "react";
 function App() {
   const openDialog = useRef();
   const location = useLocation();
-
-  // Define paths where Drawer is not displayed
-  const hideDrawerRoutes = ["/login", "/signup"];
-
+  const token = localStorage.getItem("token");
+  
   return (
-    <div>
-      {/* Conditionally render Drawer */}
-      {!hideDrawerRoutes.includes(location.pathname) && <Drawer />}
-      
-      <div className={hideDrawerRoutes.includes(location.pathname) ? "main-content-full" : "main-content"}>
+    <div className="app">
+      {token && <Drawer />}
+      <div className="app-sub">
+      {token && <Header />}
+      <div>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/agency" element={<AgencyView />} />
           <Route path="/UserView" element={<UserView />} />
           <Route path="/Header" element={<Header />} />
-          <Route path="/DashboardView" element={<DashboardView />} />
+          {/* Conditionally render DashboardView */}
+          {token && <Route path="/DashboardView" element={<DashboardView />} />}
         </Routes>
       </div>
       <AgencyModal openDialog={openDialog} placeholder="Name" toEdit />
+      </div>
     </div>
   );
 }
