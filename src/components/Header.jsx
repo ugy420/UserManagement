@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
+
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [activeLink, setActiveLink] = useState('about');
+    const location = useLocation();
 
     // Toggle the menu open/close
     const toggleMenu = () => {
@@ -10,13 +12,12 @@ const Header = () => {
     };
 
     // Handle link clicks and close the menu on mobile
-    const handleLinkClick = (linkName) => {
-        setActiveLink(linkName);
+    const handleLinkClick = () => {
         setMenuOpen(false); // Close the menu after selecting a link
     };
 
     return (
-        <header className="header">
+        <header className="header">  
             <div className="header-container">
                 <div className="header-logo">
                     <img src="logo.png" alt="Logo" />
@@ -25,40 +26,40 @@ const Header = () => {
                 <nav className={`header-nav ${menuOpen ? 'active' : ''}`}>
                     <ul>
                         <li>
-                            <a
-                                href="#about"
-                                className={activeLink === 'about' ? 'active' : ''}
-                                onClick={() => handleLinkClick('about')}
+                            <Link
+                                to="/about"
+                                className={location.pathname === '/about' ? 'active' : ''}
+                                onClick={handleLinkClick}
                             >
                                 About
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#services"
-                                className={activeLink === 'services' ? 'active' : ''}
-                                onClick={() => handleLinkClick('services')}
+                            <Link
+                                to="/services"
+                                className={location.pathname === '/services' ? 'active' : ''}
+                                onClick={handleLinkClick}
                             >
                                 Services
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#contact"
-                                className={activeLink === 'contact' ? 'active' : ''}
-                                onClick={() => handleLinkClick('contact')}
+                            <Link
+                                to="/contact"
+                                className={location.pathname === '/contact' ? 'active' : ''}
+                                onClick={handleLinkClick}
                             >
                                 Contact
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#profile"
-                                className={activeLink === 'Profile' ? 'active' : ''}
-                                onClick={() => handleLinkClick('Profile')}
+                            <Link
+                                to="/profile"
+                                className={location.pathname === '/profile' ? 'active' : ''}
+                                onClick={handleLinkClick}
                             >
                                 Profile
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </nav>

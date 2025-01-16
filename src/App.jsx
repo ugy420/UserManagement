@@ -7,6 +7,9 @@ import SignupPage from "./components/SignupPage";
 import Header from "./components/Header";
 import UserView from "./components/UserView";
 import DashboardView from "./components/DashboardView";
+import ProfileSettings from "./components/ProfileSettings";
+import AboutUs from "./components/AboutUs";
+import ContactPage from "./components/ContactPage";
 import { useRef } from "react";
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
           <Route path="/UserView" element={<UserView />} />
           <Route path="/Header" element={<Header />} />
           <Route path="/DashboardView" element={<DashboardView />} />
+          <Route path="/Profile" element={<ProfileSettings />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactPage />} /> {/* Add the Profile route */}
         </Routes>
         {/* AgencyModal is also conditionally rendered */}
         {/* {!hideDrawerRoutes.includes(location.pathname) && (

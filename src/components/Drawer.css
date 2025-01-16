@@ -1,12 +1,16 @@
 .drawer {
-  width: 250px;               /* Default width for desktop */
-  height: 100vh;              /* Full height */
-  background-color: #333;     /* Dark background */
-  color: white;               /* White text color */
-  padding: 20px;              /* Padding inside the drawer */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%; /* Set height to 100% */
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;     /* Stack items vertically */
-  justify-content: flex-start; /* Align items to the top */
+  flex-direction: column;
+  overflow-y: auto;/* Align items to the top */
   transition: transform 0.3s ease; /* Smooth transition for toggle effect */
 }
 
