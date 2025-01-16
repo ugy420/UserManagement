@@ -1,13 +1,10 @@
 .container {
     border: 1px solid gray;
-    /* width: 15rem; */
-    margin: 1.5rem auto;
     border-radius: 10px;
     background-color: rgba(0, 123, 255, 1);
     height: auto; /* Set height to auto for dynamic content */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    
 }
 
 h1 {

@@ -1,17 +1,13 @@
 .drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%; /* Set height to 100% */
-  background-color: #343a40;
-  color: #fff;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  padding:20px;
+  padding-right: 50px;
+  background-color: #1E1E1E;    
+  color: #5D7285;
+  height: 100vh;                
   display: flex;
   flex-direction: column;
-  overflow-y: auto;/* Align items to the top */
-  transition: transform 0.3s ease; /* Smooth transition for toggle effect */
+  justify-content: flex-start; 
 }
 
 .Header {
@@ -27,7 +23,7 @@
 }
 
 .Header h3 {
-  font-size: 1.5em;            /* Larger font size for the heading */
+  font-size: 1.5em;           
   margin: 0;                   /* Remove default margin */
   font-weight: 400;            /* Slightly lighter font weight */
   color: #fff;                 /* White text color */

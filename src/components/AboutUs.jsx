@@ -16,7 +16,6 @@ const AboutUs = () => {
 
   return (
     <div className="AboutUs">
-        <Header />
       <header className="AboutUs-header" data-aos="fade-down">
         <h1>About Us</h1>
         <p>Learn more about who we are and what we do.</p>

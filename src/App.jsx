@@ -28,6 +28,10 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/agency" element={<AgencyView />} />
           <Route path="/user" element={<UserView />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/profile" element={<ProfileSettings />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/permissions" element={<Permissions />} />
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/roles" element={<UserView />} />
           <Route path="/header" element={<Header />} />

@@ -2,7 +2,6 @@
     width: calc(100% - 250px); /* Adjust width similar to main content */
     height: 100vh;
     background-color: #f9f9f9;
-    margin-left: 250px; /* Adjust margin similar to main content */
 }
 
 .profile-settings-container {

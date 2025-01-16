@@ -13,7 +13,7 @@ export default function Drawer() {
       <hr/>
       <ul className="drawer-list">
         <li>
-          <Link to="/login" className="no-underline">
+          <Link to="/dashboard" className="no-underline">
             <Button
               text={
                 <>
