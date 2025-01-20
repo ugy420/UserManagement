@@ -56,37 +56,36 @@ export async function getUserByEmail(email) {
 }
 
 // Function to create a new user
-export async function createUser(username, email, password) {
+export async function createUser(username, email, password, phone, cid, agency_id, createdBy) {
     try {
         const [result] = await pool.query(
-            'INSERT INTO User (name, email, password) VALUES (?, ?, ?)', 
-            [username, email, password]
+            'INSERT INTO User (name, email, password, phone, cid, agencyId, createdBy) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+            [username, email, password, phone, cid, agency_id, createdBy]
         );
-        return { id: result.insertId, username, email, password };
+        return { id: result.insertId, username, email, password, phone, cid, agency_id, createdBy };
     } catch (error) {
         console.error('Error creating user:', error);
         throw new Error('Error creating user');
     }
 }
 
-// Function to update a user's details
-export async function updateUser(id, username, email, password) {
+export async function updateUser(id, username, email, phone_number, cid, agency_id) {
     try {
         const [result] = await pool.query(
-            'UPDATE User SET username = ?, email = ?, password = ? WHERE id = ?', 
-            [username, email, password, id]
+            'UPDATE User SET name = ?, email = ?, phone = ?, cid = ?,  agencyId = ?  WHERE id = ?', 
+            [username, email, phone_number, cid, agency_id, id]
         );
         if (result.affectedRows === 0) {
             throw new Error(`User with ID ${id} not found or no changes were made`);
         }
-        return { id, username, email, password };
+        return { id, username, email, phone_number, cid, agency_id };
     } catch (error) {
         console.error(`Error updating user with ID ${id}:`, error);
         throw new Error(`Error updating user with ID ${id}`);
     }
 }
 
-// Function to delete a user by ID
+
 export async function deleteUser(id) {
     try {
         const [result] = await pool.query('DELETE FROM User WHERE id = ?', [id]);
