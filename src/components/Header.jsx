@@ -16,6 +16,10 @@ const Header = () => {
         setMenuOpen(false); // Close the menu after selecting a link
     };
 
+    function handleLogout(){
+        localStorage.removeItem('token');
+    }
+
     return (
         <header className="header">  
             <div className="header-container">
@@ -36,15 +40,6 @@ const Header = () => {
                         </li>
                         <li>
                             <Link
-                                to="/services"
-                                className={location.pathname === '/services' ? 'active' : ''}
-                                onClick={handleLinkClick}
-                            >
-                                Services
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
                                 to="/contact"
                                 className={location.pathname === '/contact' ? 'active' : ''}
                                 onClick={handleLinkClick}
@@ -59,6 +54,14 @@ const Header = () => {
                                 onClick={handleLinkClick}
                             >
                                 Profile
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                to="/"
+                                onClick={handleLogout}
+                            >
+                                Logout
                             </Link>
                         </li>
                     </ul>

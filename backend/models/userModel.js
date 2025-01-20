@@ -59,7 +59,7 @@ export async function getUserByEmail(email) {
 export async function createUser(username, email, password) {
     try {
         const [result] = await pool.query(
-            'INSERT INTO User (username, email, password) VALUES (?, ?, ?)', 
+            'INSERT INTO User (name, email, password) VALUES (?, ?, ?)', 
             [username, email, password]
         );
         return { id: result.insertId, username, email, password };
