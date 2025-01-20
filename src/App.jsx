@@ -1,14 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import { TokenProvider, TokenContext } from "./components/TokenContext";
-import AgencyView from "./components/AgencyView";
 import UserView from "./components/UserView";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import AgencyView from "./components/AgencyView";
-import UserView from "./components/UserView";
 import Permissions from "./components/PermissionView";
 import DashboardView from "./components/DashboardView";
 import ProfileSettings from "./components/ProfileSettings";
