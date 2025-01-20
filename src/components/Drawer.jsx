@@ -7,10 +7,10 @@ export default function Drawer() {
   return (
     <div className="drawer">
       <div className="profile-div">
-        <img src="vite.svg" className="img-pfp"/>
+        <img src="vite.svg" className="img-pfp" />
         {user}
       </div>
-      <hr/>
+      <hr />
       <ul className="drawer-list">
         <li>
           <Link to="/dashboard" className="no-underline">
@@ -62,6 +62,17 @@ export default function Drawer() {
               text={
                 <>
                   <i className="fas fa-user-shield"></i> Roles
+                </>
+              }
+            />
+          </Link>
+        </li>
+        <li>
+          <Link to="/rolespermissions" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-user-shield"></i> Roles/Permissions
                 </>
               }
             />
