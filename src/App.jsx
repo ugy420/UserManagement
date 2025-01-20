@@ -1,4 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import { TokenProvider, TokenContext } from "./components/TokenContext";
 import AgencyView from "./components/AgencyView";
 import Drawer from "./components/Drawer";
 import LoginPage from "./components/LoginPage";
@@ -14,7 +16,7 @@ import Roles from "./components/RoleView";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const { token } = useContext(TokenContext);
 
   return (
     <div className="app">
@@ -43,7 +45,9 @@ function App() {
 export default function AppWithRouter() {
   return (
     <Router>
-      <App />
+      <TokenProvider>
+        <App />
+      </TokenProvider>
     </Router>
   );
 }

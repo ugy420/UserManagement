@@ -17,12 +17,12 @@ export async function loginUser(req, res) {
         if (!user) {
             return res.status(400).json({ error: 'Invalid email or password' });
         }
-        const isMatch = password === user.password;
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ error: 'Invalid email or password' });
         }
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+        res.json({ token, user: { id: user.id, name: user.name } });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -49,26 +49,20 @@ export async function getUser(req, res) {
 
 export async function createNewUser(req, res) {
     try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) {
-            return res.status(400).json({ error: "Username, email, and password are required" });
-        }
+        const { username, email, password, phone_number, cid, agency_id, createdBy } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await createUser(username, email, hashedPassword);
+        const newUser = await createUser(username, email, hashedPassword, phone_number, cid, agency_id, createdBy);
         res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
+
 export async function updateExistingUser(req, res) {
     try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) {
-            return res.status(400).json({ error: "Username, email, and password are required" });
-        }
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const updatedUser = await updateUser(req.params.id, username, email, hashedPassword);
+        const { username, email, phone_number, cid, agency_id } = req.body;
+        const updatedUser = await updateUser(req.params.id, username, email, phone_number, cid, agency_id );
         res.json(updatedUser);
     } catch (error) {
         res.status(500).json({ error: error.message });

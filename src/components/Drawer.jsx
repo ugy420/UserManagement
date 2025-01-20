@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import "./Drawer.css";
+import { TokenContext } from "./TokenContext";
+import { useContext } from "react";
 
 export default function Drawer() {
-  const user = "User Name";
+  const user = useContext(TokenContext).user.name;
+
   return (
     <div className="drawer">
       <div className="profile-div">
         <img src="vite.svg" className="img-pfp"/>
-        {user}
+        {user || "User"}
       </div>
       <hr/>
       <ul className="drawer-list">

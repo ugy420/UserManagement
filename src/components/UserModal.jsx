@@ -1,8 +1,10 @@
 import Button from "./Button";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import { TokenContext } from "./TokenContext";
 
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
+  const { user } = useContext(TokenContext);
   const [formData, setFormData] = useState({
     id: "",
     username: "",
@@ -11,6 +13,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     agency_id: "",
     phone_number: "",
     cid: "",
+    createdBy: user ? user.id : null,
   });
   const [agencies, setAgencies] = useState([]);
 
@@ -32,7 +35,16 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
 
   openDialog.current = (item) => {
     if (item) {
-      setFormData(item);
+      const agency = agencies.find((agency) => agency.name === item.agency_name);
+      setFormData({
+        id: item.id,
+        username: item.name,
+        email: item.email,
+        agency_id: agency?agency.id:"",
+        phone_number: item.phone,
+        cid: item.cid,
+        createdBy: item.createdBy,
+      });
     } else {
       setFormData({
         id: "",
@@ -42,6 +54,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         agency_id: "",
         phone_number: "",
         cid: "",
+        createdBy: user ? user.id : null,
       });
     }
     dialogRef.current.showModal();
@@ -105,13 +118,13 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           value={formData.email}
           onChange={handleChange}
         />
-        <input
+        {!formData.id && <input
           type="password"
           name="password"
           placeholder="Enter password"
           value={formData.password}
           onChange={handleChange}
-        />
+        />}
         <select
           name="agency_id"
           value={formData.agency_id}
