@@ -14,7 +14,6 @@ import Roles from "./components/RoleView";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
-  const location = useLocation();
   const token = localStorage.getItem("token");
 
   return (

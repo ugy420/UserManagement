@@ -76,7 +76,7 @@ const LoginPage = () => {
       .catch((error) => {
         console.error("Error logging in:", error);
       });
-  }
+}
 
   return (
     <div className="login-page-container">

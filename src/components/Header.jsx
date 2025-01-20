@@ -18,6 +18,8 @@ const Header = () => {
 
     function handleLogout(){
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/');
     }
 
     return (
@@ -58,7 +60,6 @@ const Header = () => {
                         </li>
                         <li>
                             <Link
-                                to="/"
                                 onClick={handleLogout}
                             >
                                 Logout

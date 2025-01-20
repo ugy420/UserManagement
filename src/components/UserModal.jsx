@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -12,6 +12,23 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     phone_number: "",
     cid: "",
   });
+  const [agencies, setAgencies] = useState([]);
+
+  useEffect(() => {
+    fetchAgencies();
+  }, []);
+
+  function fetchAgencies() {
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:8080/api/agencies", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setAgencies(data))
+      .catch((err) => console.error("Error fetching agencies:", err));
+  }
 
   openDialog.current = (item) => {
     if (item) {
@@ -40,18 +57,20 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
       : "http://localhost:8080/api/users";
 
     const method = formData.id ? "PUT" : "POST";
+    const token = localStorage.getItem("token");
 
     fetch(url, {
       method: method,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         onSuccess();
-        dialogRef.current.close(); 
+        dialogRef.current.close();
       })
       .catch((error) => {
         console.error("Error saving user:", error);
@@ -93,13 +112,18 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           value={formData.password}
           onChange={handleChange}
         />
-        <input
-          type="text"
+        <select
           name="agency_id"
-          placeholder="Enter agency ID"
           value={formData.agency_id}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select Agency</option>
+          {agencies.map((agency) => (
+            <option key={agency.id} value={agency.id}>
+              {agency.name}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           name="phone_number"
