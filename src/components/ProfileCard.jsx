@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './ProfileCard.css';
 
-const ProfileCard = () => {
+const ProfileCard = ({key,name,email,role}) => {
   const Number = "17850487";
-  const Email = "02210241.cst@rub.edu.bt";
+  
   const Agency = "Digital Service Development";
   const City = "Thimphu";
   const Country = "Bhutan";
@@ -12,7 +12,7 @@ const ProfileCard = () => {
   const [profilePic, setProfilePic] = useState('https://via.placeholder.com/150'); // Placeholder URL for profile pic
   
   const fileInputRef = useRef(null); // Ref for file input
-  const [formData, setFormData] = useState({ firstName: 'John', lastName: 'Doe' }); // Sample form data
+  
   
   // Handle file change for cover photo or profile picture
   const handleFileChange = (event) => {
@@ -47,12 +47,12 @@ const ProfileCard = () => {
         </div>
         <div className="profile-info">
           <img src={profilePic} alt="Profile" className="profile-pic" />
-          <h2>{formData.firstName} {formData.lastName}</h2>
+          <h2>{name}</h2>
           <p>{Post}</p>
         </div>
         <div className="opportunities">
           <p>Phone Number: {Number}</p>
-          <p>Email: {Email}</p>
+          <p>Email: {email}</p>
           <p>Agency Name: {Agency}</p>
           <p>City: {City}</p>
           <p>Country: {Country}</p>

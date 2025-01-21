@@ -73,7 +73,6 @@ export default function RoleView() {
           <table className="table">
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Action</th>
               </tr>
@@ -81,7 +80,6 @@ export default function RoleView() {
             <tbody>
               {filteredItems.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>
                     <div className="button-container">

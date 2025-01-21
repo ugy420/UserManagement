@@ -2,8 +2,18 @@ import React from "react";
 import DasCompo from "./DashCompo";
 import "./Dashboard.css";
 import ProfileCard from "./ProfileCard";
+import {useState, useEffect} from 'react';
 
 export default function DashboardView() {
+  // fetch data from api endpoint localhost8080/api/users
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8080/api/users")
+      .then((res) => res.json())
+      .then((data) => setUsers(data))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-content">
@@ -18,10 +28,14 @@ export default function DashboardView() {
         <div className="profile-card-holder">
           <h2>Users Details</h2>
           <div className="profile-cards">
-            <ProfileCard/>
-            <ProfileCard/>
-            <ProfileCard/>
-            <ProfileCard/>
+            {users.map((user) => (
+              <ProfileCard
+                key={user.id}
+                name={user.name}
+                email={user.email}
+                role={user.role}
+              />
+            ))}
           </div>
         </div>
       </div>

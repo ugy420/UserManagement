@@ -1,9 +1,8 @@
 .app-footer {
-    background-color: #1a1a1a;
+    background-color: #1E1E1E;
     color: white;
     text-align: center;
     width:100%; /* Make the footer smaller in width */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
   }
   
   .footer-container {
@@ -13,7 +12,6 @@
   }
   .footer-section {
     padding: 1rem;
-    /* flex: 1; */
   }
   
   .footer-section h3 {

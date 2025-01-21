@@ -90,9 +90,9 @@ export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
         <h3 id="modal-title">
           {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Agency Name" : "Edit Agency Name")}
         </h3>
-        {!delMode && formData.id && (
+        {/* {!delMode && formData.id && (
           <input type="text" name="id" value={formData.id} readOnly />
-        )}
+        )} */}
         {!delMode && <input
           type="text"
           name="name"

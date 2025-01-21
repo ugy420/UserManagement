@@ -155,9 +155,9 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         <h3 id="user-title">
           {formData.id === "" ? "Add New User" : "Edit User Details"}
         </h3>
-        {formData.id && (
+        {/* {formData.id && (
           <input type="text" name="id" value={formData.id} readOnly />
-        )}
+        )} */}
         <input
           type="text"
           name="username"
