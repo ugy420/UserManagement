@@ -113,6 +113,8 @@ hr {
     margin-bottom: 20px;
 }
 
+
+
 .button-container {
     display: flex;
     justify-content: left;
@@ -171,4 +173,14 @@ hr {
 .search{
     border-radius: 30px;
     color: black;
+}
+
+.checkbox-div{
+    background-color: #e9e9e9;
+    margin-inline: 35px;
+    padding: 30px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

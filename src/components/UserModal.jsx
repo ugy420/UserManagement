@@ -5,6 +5,7 @@ import { TokenContext } from "./TokenContext";
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
   const { user } = useContext(TokenContext);
+  const [agencies, setAgencies] = useState([]);
   const [formData, setFormData] = useState({
     id: "",
     username: "",
@@ -15,8 +16,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     cid: "",
     createdBy: user ? user.id : null,
   });
-  const [agencies, setAgencies] = useState([]);
-
+ 
   useEffect(() => {
     fetchAgencies();
   }, []);
