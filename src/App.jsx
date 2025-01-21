@@ -16,6 +16,7 @@ import ContactPage from "./components/ContactPage";
 import RolesPermissionsView from "./components/RolesPermissionsView";
 import Roles from "./components/RoleView";
 import PrivateRoute from "./components/PrivateRoute";
+import UserRoleMapping from "./components/UserRoleMapping";
 
 function App() {
   const { token } = useContext(TokenContext);
@@ -101,7 +102,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route 
+              path="/userroles"
+              element={
+                <PrivateRoute>
+                  <UserRoleMapping/>
+                </PrivateRoute>}
+            />
           </Routes>
+          
         </div>
         {token && <Footer />} {/* Add the Footer here */}
       </div>
