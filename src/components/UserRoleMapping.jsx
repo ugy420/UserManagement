@@ -94,9 +94,9 @@ export default function UserRoleMapping() {
         Administer and oversee user accounts and privileges within the platform
       </div>
       <div className="main-div">
-        <div className="">
+        <div className="selector-header">
           User
-          <select value={selectedUser} onChange={handleUserChange}>
+          <select className="selector" value={selectedUser} onChange={handleUserChange}>
             <option value="">Select a user</option>
             {users.map((user) => (
               <option key={user.id} value={user.id}>
@@ -105,10 +105,10 @@ export default function UserRoleMapping() {
             ))}
           </select>
         </div>
-
-  
+        <div className="checkbox-header">
+          Roles
+        </div>
         <div className="checkbox-div">
-        Roles
           {roles.map((role) => (
             <div key={role.id}>
               <input

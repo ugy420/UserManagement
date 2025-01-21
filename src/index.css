@@ -17,10 +17,6 @@ body {
     background-color: #e9e9e9;
 }
 
-.app-content{
-
-}
-
 .no-underline {
     text-decoration: none;
 }
@@ -182,12 +178,41 @@ hr {
     color: black;
 }
 
-.checkbox-div{
-    background-color: #e9e9e9;
-    margin-inline: 35px;
-    padding: 30px;
-    width: fit-content;
+.selector-header{
     display: flex;
-    align-items: center;
+    align-items: center; /* Center items vertically */
     gap: 10px;
+    margin-bottom: 25px;
+}
+
+.selector {
+    padding: .5rem;
+    border-radius: 5px;
+    border-width: 1px;
+    box-sizing: border-box;
+
+}
+
+.checkbox-header{
+    margin-inline: 40px;
+    padding-inline: 30px;
+    padding-block: 10px;
+    background-color: #e9e9e9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: solid 1px #1E1E1E;
+    border-color: #1E1E1E;
+    width: 50%;
+    align-items: center;
+}
+
+.checkbox-div{
+    margin-inline: 40px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    border: solid 1px #1E1E1E;
+    width:50%;
+    
 }
