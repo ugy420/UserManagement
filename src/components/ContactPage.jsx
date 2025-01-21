@@ -51,7 +51,7 @@ const ContactPage = () => {
         ></iframe>
       </div>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="useful-links">
           <h3>Useful Links</h3>
           <ul>
@@ -65,7 +65,7 @@ const ContactPage = () => {
           <p>GovTech Agency</p>
           <p>Thori Lam, Upper Chubachu, Thimphu</p>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };

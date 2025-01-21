@@ -1,6 +1,7 @@
 import Button from "./Button";
 import { useRef, useState, useEffect, useContext } from "react";
 import { TokenContext } from "./TokenContext";
+import "./UserModal.css"; // Import the CSS file
 
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -16,7 +17,8 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     createdBy: user ? user.id : null,
   });
   const [agencies, setAgencies] = useState([]);
-
+  const [error, setError] = useState({});
+  
   useEffect(() => {
     fetchAgencies();
   }, []);
@@ -40,7 +42,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         id: item.id,
         username: item.name,
         email: item.email,
-        agency_id: agency?agency.id:"",
+        agency_id: agency ? agency.id : "",
         phone_number: item.phone,
         cid: item.cid,
         createdBy: item.createdBy,
@@ -64,7 +66,52 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     dialogRef.current.close();
   }
 
+  // Validation logic
+  function validateForm() {
+    const newErrors = {};
+
+    if (!formData.username) {
+      newErrors.username = "Username is required!";
+    }
+
+    if (!formData.email) {
+      newErrors.email = "Email is required!";
+    } else {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!emailRegex.test(formData.email)) {
+        newErrors.email = "Please enter a valid email address!";
+      }
+    }
+
+    if (!formData.agency_id) {
+      newErrors.agency_id = "Agency is required!";
+    }
+
+    if (!formData.phone_number) {
+      newErrors.phone_number = "Phone number is required!";
+    } else {
+      const phoneRegex = /^[0-9]{8}$/;
+      if (!phoneRegex.test(formData.phone_number)) {
+      newErrors.phone_number = "Phone number must be exactly 8 digits long!";
+      }
+    }
+
+    if (!formData.cid) {
+      newErrors.cid = "CID is required!";
+    } else {
+      const cidRegex = /^[0-9]{11}$/;
+      if (!cidRegex.test(formData.cid)) {
+        newErrors.cid = "CID must be exactly 12 digits long!";
+      }
+    }
+
+    setError(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  }
+
   function handleCreate() {
+    if (!validateForm()) return; // Only proceed if validation passes
+
     const url = formData.id
       ? `http://localhost:8080/api/users/${formData.id}`
       : "http://localhost:8080/api/users";
@@ -80,13 +127,20 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((errorData) => {
+            throw new Error(errorData.message || "Failed to save the user. Please try again.");
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
         onSuccess();
         dialogRef.current.close();
       })
       .catch((error) => {
-        console.error("Error saving user:", error);
+        setError({ general: error.message });
       });
   }
 
@@ -99,7 +153,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     <dialog ref={dialogRef} className="modal-dialog">
       <div className="modal">
         <h3 id="user-title">
-          {formData.id === "" ? "Enter User Details" : "Edit User Details"}
+          {formData.id === "" ? "Add New User" : "Edit User Details"}
         </h3>
         {formData.id && (
           <input type="text" name="id" value={formData.id} readOnly />
@@ -110,6 +164,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           placeholder={placeholder.username || "Enter username"}
           value={formData.username}
           onChange={handleChange}
+          className={error.username ? "error-input" : ""}
         />
         <input
           type="email"
@@ -117,18 +172,22 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           placeholder={placeholder.email || "Enter email"}
           value={formData.email}
           onChange={handleChange}
+          className={error.email ? "error-input" : ""}
         />
-        {!formData.id && <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          value={formData.password}
-          onChange={handleChange}
-        />}
+        {!formData.id && (
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        )}
         <select
           name="agency_id"
           value={formData.agency_id}
           onChange={handleChange}
+          className={error.agency_id ? "error-input" : ""}
         >
           <option value="">Select Agency</option>
           {agencies.map((agency) => (
@@ -143,6 +202,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           placeholder="Enter phone number"
           value={formData.phone_number}
           onChange={handleChange}
+          className={error.phone_number ? "error-input" : ""}
         />
         <input
           type="text"
@@ -150,11 +210,16 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           placeholder="Enter CID"
           value={formData.cid}
           onChange={handleChange}
+          className={error.cid ? "error-input" : ""}
         />
         <div className="modal-buttons">
           <Button text="Cancel" className="delete" onClick={handleCancel} />
           <Button text="Confirm" className="confirm" onClick={handleCreate} />
         </div>
+        {error.general && <div className="error-message">{error.general}</div>}
+        {Object.values(error).map((err, index) => (
+          err && <div key={index} className="error-message">{err}</div>
+        ))}
       </div>
     </dialog>
   );

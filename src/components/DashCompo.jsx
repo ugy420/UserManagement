@@ -2,7 +2,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import React from "react";
 import "./DashCompo.css";
 
-export default function DashCompo({ value, label, icon, reff, className }) {
+export default function DashCompo({ value, label, icon, reff, className, nextName }) {
   return (
     <div className={`container ${className}`}>
       <div className="outer">
@@ -15,7 +15,7 @@ export default function DashCompo({ value, label, icon, reff, className }) {
         <i className={`fa-solid ${icon} icon`}></i>
       </div>
 
-      <div className="next-Link">
+      <div className={`next-Link ${nextName}`}>
         <a href={reff} className="link">
           More Information <i className="fa-solid fa-circle-arrow-right"></i>
         </a>

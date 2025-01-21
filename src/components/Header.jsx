@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import govtech from '../assets/govtech.png';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
@@ -26,8 +27,7 @@ const Header = () => {
         <header className="header">  
             <div className="header-container">
                 <div className="header-logo">
-                    <img src="logo.png" alt="Logo" />
-                    <h1>My Website</h1>
+                    <img src={govtech} alt="Logo" />
                 </div>
                 <nav className={`header-nav ${menuOpen ? 'active' : ''}`}>
                     <ul>
