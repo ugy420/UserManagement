@@ -110,9 +110,8 @@ function App() {
                 </PrivateRoute>}
             />
           </Routes>
-          
         </div>
-        {token && <Footer />} {/* Add the Footer here */}
+        {token && <Footer />}
       </div>
     </div>
   );
