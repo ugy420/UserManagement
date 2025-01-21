@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
-import './ProfileSettings.css';
+import './ProfileSettings.css'; // Ensure you have this CSS file linked properly
 import Header from './Header';
 
 const ProfileSettings = () => {
-    // State for cover photo
+    // State for cover photo and profile picture
     const [coverPhoto, setCoverPhoto] = useState('background.jpg');
+    const [profilePic, setProfilePic] = useState('profile.jpg');
     
     // Form state for personal settings
     const [formData, setFormData] = useState({
@@ -14,22 +15,34 @@ const ProfileSettings = () => {
         email: 'tcook@apple.com',
         city: 'New York',
         country: 'America',
-        agencyName:'Agency A'
+        agencyName: 'Agency A',
     });
 
-    // File input reference
-    const fileInputRef = useRef(null);
+    // File input references
+    const fileInputRefCoverPhoto = useRef(null);
+    const fileInputRefProfilePic = useRef(null);
 
     // Handle cover photo change
     const handleChangeCoverPhoto = () => {
-        fileInputRef.current.click();
+        fileInputRefCoverPhoto.current.click();
     };
 
-    const handleFileChange = (event) => {
+    // Handle profile picture change
+    const handleChangeProfilePic = () => {
+        fileInputRefProfilePic.current.click();
+    };
+
+    const handleFileChange = (event, isCoverPhoto) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = () => setCoverPhoto(reader.result);
+            reader.onload = () => {
+                if (isCoverPhoto) {
+                    setCoverPhoto(reader.result);
+                } else {
+                    setProfilePic(reader.result);
+                }
+            };
             reader.readAsDataURL(file);
         }
     };
@@ -54,17 +67,33 @@ const ProfileSettings = () => {
         <div className='profile-settings'>
             <div className="profile-settings-container">
                 <div className="profile-card">
-                    <div className="cover-photo" style={{ backgroundImage: `url(${coverPhoto})` }}>
+                    <div
+                        className="cover-photo"
+                        style={{ backgroundImage: `url(${coverPhoto})` }}
+                        onClick={handleChangeCoverPhoto}
+                    >
                         <input
                             type="file"
-                            ref={fileInputRef}
+                            ref={fileInputRefCoverPhoto}
                             style={{ display: 'none' }}
                             accept="image/*"
-                            onChange={handleFileChange}
+                            onChange={(e) => handleFileChange(e, true)}
                         />
                     </div>
                     <div className="profile-info">
-                        <img src={coverPhoto} alt="Profile" className="profile-pic" />
+                        <img
+                            src={profilePic}
+                            alt="Profile"
+                            className="profile-pic"
+                            onClick={handleChangeProfilePic}
+                        />
+                        <input
+                            type="file"
+                            ref={fileInputRefProfilePic}
+                            style={{ display: 'none' }}
+                            accept="image/*"
+                            onChange={(e) => handleFileChange(e, false)}
+                        />
                         <h2>{formData.firstName} {formData.lastName}</h2>
                         <p>CEO of Apple</p>
                     </div>
@@ -129,7 +158,7 @@ const ProfileSettings = () => {
                         <div className="form-group">
                             <label>Agency Name</label>
                             <input
-                                name="AgencyName"
+                                name="agencyName"
                                 value={formData.agencyName}
                                 onChange={handleInputChange}
                             />

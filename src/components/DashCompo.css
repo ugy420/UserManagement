@@ -8,8 +8,13 @@
 }
 
 .green{
-    background-color: green;
+    background-color: rgba(40, 167, 69, 1);
 }
+
+.yellow{
+    background-color: rgba(255, 193, 7, 1);
+}
+
 
 h1 {
     margin: 0;
@@ -20,7 +25,7 @@ h1 {
 }
 
 .next-Link {
-    background-color: blue;
+    background-color: rgba(0, 0, 0, 0.1) ;
     border-radius: 0px 0px 10px 10px;
     display: flex;
     justify-content: center;
@@ -29,7 +34,13 @@ h1 {
     width:15rem;
     padding: 0.5rem;
 }
+.lightyellow{
+    background-color: rgba(0, 0, 0, 0.1) ;
+}
+.lightgreen{
+    background-color: rgba(0, 0, 0, 0.1);
 
+}
 .link {
     color: white;
     text-decoration: underline;

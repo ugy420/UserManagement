@@ -5,21 +5,25 @@
     text-align: center;
     padding: 1rem;
 }
-.dashboard-content{
+
+.dashboard-content {
     background: rgba(255, 255, 255, 1);
     border-radius: 10px;
-    padding:35px;
+    padding: 35px;
 }
 
 .dashboard-header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between; /* Adjust for better spacing */
     width: 100%;
     border-bottom: 1px solid rgb(53, 47, 47);
 }
 
 .dashboard-container {
     width: 100%;
+    max-width: 1200px; /* Constrain max width for better layout on large screens */
+    /* margin: 0 auto;  */
+    /* padding: 0 1rem;  */
 }
 
 .dashboard-main {
@@ -28,56 +32,93 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    
+    gap: 1.5rem; /* Add spacing between sections */
 }
 
+.profile-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* gap: 0.5rem; */
+    align-items: center;
+    width: 100%; /* Adjust width as needed */
+    margin-top: 1.5rem;
+}
+
+.profile-card-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    /* padding: 1rem; */
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive Design */
+
+/* Medium Screens (Tablets) */
 @media (max-width: 1024px) {
-    /* For tablets or medium screens */
     .dashboard-header h1 {
         font-size: 1.2rem;
-        margin-left: 1rem;
-    }
-    .dashboard-container{
-        margin-left: 215px;
     }
 
     .dashboard-main {
         flex-direction: column; /* Stack items vertically */
         align-items: center; /* Center align items */
+        gap: 1rem;
+    }
+
+    .profile-cards {
+        grid-template-columns: repeat(2, 1fr); /* Show two items per row */
     }
 }
 
+/* Small Screens (Mobile Devices) */
 @media (max-width: 768px) {
-    /* For mobile screens */
     .dashboard-header h1 {
         font-size: 1rem;
-        margin-left: 0.5rem;
     }
 
     .dashboard-main {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center align items */
+        flex-direction: column;
+        align-items: center;
         margin-top: 1rem;
+        gap: 1rem;
     }
-    .dashboard-container{
-        margin-left: 200px;
+
+    .profile-cards {
+        grid-template-columns:1fr; /* Show one item per row */
+    }
+
+    .dashboard-container {
+        max-width: 100%;
+        padding: 0 1rem; /* Add padding for smaller screens */
     }
 }
 
+/* Extra Small Screens (Very Small Devices) */
 @media (max-width: 480px) {
-    /* For very small screens */
     .dashboard-header h1 {
         font-size: 0.9rem;
-        margin-left: 0.5rem;
         padding: 0.5rem;
     }
 
     .dashboard-main {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center align items */
         margin-top: 0.5rem;
     }
-    .dashboard-container{
-        margin-left: 200px;
+
+    .profile-cards {
+        grid-template-columns: 1fr; /* Keep one item per row */
+        /* gap: 0.75rem;  */
+    }
+
+    .profile-card-holder {
+        padding: 0.75rem;
+    }
+
+    .dashboard-container {
+        padding: 0 0.5rem; /* Reduce padding for very small screens */
     }
 }

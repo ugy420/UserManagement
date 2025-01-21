@@ -4,6 +4,7 @@ import { TokenProvider, TokenContext } from "./components/TokenContext";
 import UserView from "./components/UserView";
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
+import Footer from "./components/Footer"; // Import Footer
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import AgencyView from "./components/AgencyView";
@@ -25,7 +26,7 @@ function App() {
       {token && <Drawer />}
       <div className="app-sub">
         {token && <Header />}
-        <div>
+        <div className="app-content">
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
@@ -111,6 +112,7 @@ function App() {
           </Routes>
           
         </div>
+        {token && <Footer />} {/* Add the Footer here */}
       </div>
     </div>
   );
