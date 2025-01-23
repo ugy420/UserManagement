@@ -3,25 +3,65 @@
 }
 
 .roles-header {
-  font-size: 2em; /* Adjust the size as needed */
+  font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-bar {
+  padding: 5px;
+  font-size: 1em;
+  margin-left: 20px;
+  height: 90%;
 }
 
 .permissions-header {
-  font-size: 1.5em; /* Adjust the size as needed */
+  font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 .permissions-container {
   border: 1px solid #ccc;
-  background-color: white;
   padding: 20px;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .permissions-container label {
   display: block;
   margin-bottom: 10px;
+}
+
+.permissions-container button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.users-list {
+  margin-top: 20px;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.user-item button {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
 }
