@@ -26,12 +26,86 @@ const RolesPermissionsView = () => {
     );
   }, [searchTerm, users]);
 
-  const handleCheckboxChange = (e) => {
-    setPermissions({
-      ...permissions,
-      [e.target.name]: e.target.checked,
-    });
-  };
+  useEffect(() => {
+    fetchRoles();
+    fetchPermissions();
+  }, []);
+
+  useEffect(() => {
+    if (selectedRole) {
+      fetchRolePermissions(selectedRole);
+    }
+  }, [selectedRole]);
+
+  function fetchRoles() {
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:8080/api/roles", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setRoles(data))
+      .catch((err) => console.error("Error fetching roles:", err));
+  }
+
+  function fetchPermissions() {
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:8080/api/permissions", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setPermissions(data))
+      .catch((err) => console.error("Error fetching permissions:", err));
+  }
+
+  function fetchRolePermissions(roleId) {
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:8080/api/rolepermissions/${roleId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const permissionsMap = {};
+        data.forEach((permission) => {
+          permissionsMap[permission.pid] = true;
+        });
+        setRolePermissions(permissionsMap);
+      })
+      .catch((err) => console.error("Error fetching role permissions:", err));
+  }
+
+  function handleRoleChange(event) {
+    setSelectedRole(event.target.value);
+  }
+
+  function handlePermissionChange(event) {
+    const { id, checked } = event.target;
+    const token = localStorage.getItem("token");
+
+    fetch(`http://localhost:8080/api/rolepermissions/${selectedRole}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ permission: { [id]: checked } }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to update role permission");
+        }
+        setRolePermissions((prevPermissions) => ({
+          ...prevPermissions,
+          [id]: checked,
+        }));
+      })
+      .catch((err) => console.error("Error updating role permission:", err));
+  }
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -112,5 +186,3 @@ const RolesPermissionsView = () => {
     </div>
   );
 };
-
-export default RolesPermissionsView;
