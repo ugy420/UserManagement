@@ -3,13 +3,9 @@ import { createContext, useState, useEffect } from "react";
 export const TokenContext = createContext();
 
 export const TokenProvider = ({ children }) => {
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem("token") || null;
-  });
-
-  const [user, setUser] = useState(() => {
-    return JSON.parse(localStorage.getItem("user")) || null;
-  });
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const [permissions, setPermissions] = useState([]);
 
   useEffect(() => {
     if (token) {
@@ -27,8 +23,25 @@ export const TokenProvider = ({ children }) => {
     }
   }, [user]);
 
+  const fetchUserPermissions = async () => {
+    if (token && user) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/permissions/user/permissions/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        console.log(data);
+        setPermissions(data);
+      } catch (error) {
+        console.error("Error fetching permissions:", error);
+      }
+    }
+  };
+
   return (
-    <TokenContext.Provider value={{ token, setToken, user, setUser }}>
+    <TokenContext.Provider value={{ token, setToken, user, setUser, permissions, fetchUserPermissions }}>
       {children}
     </TokenContext.Provider>
   );

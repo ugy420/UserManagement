@@ -1,15 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Button from "./Button";
 import AgencyCreate from "./AgencyModal";
 import Search from "./Search.jsx";
+import { TokenContext } from "./TokenContext";
+import NoPermission from "./NoPermission";
 
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);
   const [search, setSearch] = useState("");
   const openDialog = useRef(null);
+  const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
   useEffect(() => {
     fetchAgencies();
+    fetchUserPermissions();
   }, []);
 
   function fetchAgencies() {
@@ -45,6 +49,16 @@ export default function AgencyView() {
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const hasPermission = (permission) => {
+    return permissions.some((perm) => perm.name === permission);
+  };
+
+  if (!hasPermission("Read")) {
+    return (
+      <NoPermission/>
+    );
+  }
+
   return (
     <>
       <div className="head-div">
@@ -58,11 +72,13 @@ export default function AgencyView() {
             placeHolder="Search"
             onChange={handleChange}
           ></Search>
-          <Button
-            text="+ Add new agency"
-            onClick={() => openDialog.current()}
-            className="create"
-          />
+          {hasPermission("Create") && (
+            <Button
+              text="+ Add new agency"
+              onClick={() => openDialog.current()}
+              className="create"
+            />
+          )}
         </div>
         <div className="responsive-table">
           <table className="table">
@@ -78,16 +94,20 @@ export default function AgencyView() {
                   <td>{item.name}</td>
                   <td>
                     <div className="button-container">
-                      <Button
-                        text="Edit"
-                        className="edit"
-                        onClick={() => handleEdit(item)}
-                      />
-                      <Button
-                        text="Delete"
-                        className="delete"
-                        onClick={() => handleDelete(item)}
-                      />
+                      {hasPermission("Edit") && (
+                        <Button
+                          text="Edit"
+                          className="edit"
+                          onClick={() => handleEdit(item)}
+                        />
+                      )}
+                      {hasPermission("Delete") && (
+                        <Button
+                          text="Delete"
+                          className="delete"
+                          onClick={() => handleDelete(item)}
+                        />
+                      )}
                     </div>
                   </td>
                 </tr>

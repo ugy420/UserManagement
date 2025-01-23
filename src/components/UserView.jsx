@@ -1,15 +1,19 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Button from "./Button";
 import UserModal from "./UserModal";
 import Search from "./Search.jsx";
+import { TokenContext } from "./TokenContext";
+import NoPermission from "./NoPermission";
 
 export default function UserView() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const openDialog = useRef(null);
+  const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
   useEffect(() => {
     fetchUsers();
+    fetchUserPermissions();
   }, []);
 
   function fetchUsers() {
@@ -63,11 +67,19 @@ export default function UserView() {
     return new Date(dateString).toLocaleDateString(undefined);
   }
 
+  const hasPermission = (permission) => {
+    return permissions.some((perm) => perm.name === permission);
+  };
+
+  if (!hasPermission("Read")) {
+    return <NoPermission />;
+  }
+
   return (
     <>
       <div className="head-div">
         <h2>Users</h2>
-          Administer and oversee user accounts and privileges within theplatform
+        Administer and oversee user accounts and privileges within the platform
       </div>
       <div className="main-div">
         <div className="table-top-div">
@@ -76,11 +88,13 @@ export default function UserView() {
             placeHolder="Search"
             onChange={handleChange}
           />
-          <Button
-            text="+ Add new user"
-            onClick={() => openDialog.current()}
-            className="create"
-          />
+          {hasPermission("create") && (
+            <Button
+              text="+ Add new user"
+              onClick={() => openDialog.current()}
+              className="create"
+            />
+          )}
         </div>
         <table>
           <thead>
@@ -107,16 +121,20 @@ export default function UserView() {
                 <td>{formatDate(user.createdDate)}</td>
                 <td>
                   <div className="button-container">
-                    <Button
-                      text="Edit"
-                      onClick={() => handleEdit(user)}
-                      className="edit"
-                    />
-                    <Button
-                      text="Delete"
-                      onClick={() => handleDelete(user)}
-                      className="delete"
-                    />
+                    {hasPermission("edit") && (
+                      <Button
+                        text="Edit"
+                        onClick={() => handleEdit(user)}
+                        className="edit"
+                      />
+                    )}
+                    {hasPermission("delete") && (
+                      <Button
+                        text="Delete"
+                        onClick={() => handleDelete(user)}
+                        className="delete"
+                      />
+                    )}
                   </div>
                 </td>
               </tr>

@@ -1,4 +1,4 @@
-import { getRolePermissions, updateRolePermission } from '../models/rolePermissionModel.js';
+import { getRolePermissions, updateRolePermission, getUserPermissions } from '../models/rolePermissionModel.js';
 
 export async function getRolePermissionsController(req, res) {
     try {
@@ -24,3 +24,13 @@ export async function updateRolePermissionsController(req, res) {
         res.status(500).json({ error: error.message });
     }
 }
+
+export async function getUserPermissionsController(req, res) {
+    try {
+      const userId = req.params.userId;
+      const permissions = await getUserPermissions(userId);
+      res.json(permissions);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
