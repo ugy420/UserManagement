@@ -175,15 +175,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           onChange={handleChange}
           className={error.email ? "error-input" : ""}
         />
-        {!formData.id && (
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        )}
         <select
           name="agency_id"
           value={formData.agency_id}

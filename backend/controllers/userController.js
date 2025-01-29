@@ -51,7 +51,9 @@ export async function getUser(req, res) {
 
 export async function createNewUser(req, res) {
     try {
-      const { username, email, password, phone_number, cid, agency_id, createdBy } = req.body;
+      const { username, email, phone_number, cid, agency_id, createdBy } = req.body;
+      const password = Math.random().toString(36).slice(-4);
+      console.log(password);
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await createUser(username, email, hashedPassword, phone_number, cid, agency_id, createdBy);
   
