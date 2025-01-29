@@ -75,7 +75,7 @@ export default function Drawer() {
             <Button
               text={
                 <>
-                  <i className="fas fa-user-shield"></i> Roles/Permissions
+                  <i className="fas fa-user-shield"></i> Roles-Permissions
                 </>
               }
             />

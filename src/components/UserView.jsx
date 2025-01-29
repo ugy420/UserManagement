@@ -4,10 +4,13 @@ import UserModal from "./UserModal";
 import Search from "./Search.jsx";
 import { TokenContext } from "./TokenContext";
 import NoPermission from "./NoPermission";
+import Pagination from "./Pagination"; // Import the Pagination component
 
 export default function UserView() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Number of items per page
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
@@ -24,7 +27,10 @@ export default function UserView() {
       },
     })
       .then((res) => res.json())
-      .then((data) => setUsers(data))
+      .then((data) => {
+        console.log("Fetched users:", data); // Debugging log
+        setUsers(data);
+      })
       .catch((err) => console.error(err));
   }
 
@@ -59,13 +65,34 @@ export default function UserView() {
     openDialog.current(user);
   }
 
+  function handlePageChange(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Calculate the current items to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
   function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString(undefined);
   }
+
+  const getCreatorName = (creatorId) => {
+    console.log("Creator ID:", creatorId); // Debugging log
+    const creator = users.find((user) => user.id === creatorId);
+    if (creator) {
+      const firstName = creator.name.split(" ")[0];
+      return firstName;
+    }
+    return "-";
+  };
 
   const hasPermission = (permission) => {
     return permissions.some((perm) => perm.name === permission);
@@ -88,7 +115,7 @@ export default function UserView() {
             placeHolder="Search"
             onChange={handleChange}
           />
-          {hasPermission("create") && (
+          {hasPermission("Create") && (
             <Button
               text="+ Add new user"
               onClick={() => openDialog.current()}
@@ -110,25 +137,25 @@ export default function UserView() {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user) => (
+            {currentItems.map((user) => (
               <tr key={user.id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>{user.cid}</td>
                 <td>{user.agency_name}</td>
-                <td align="center">{user.createdBy ?? "-"}</td>
+                <td align="center">{getCreatorName(user.createdBy)}</td>
                 <td>{formatDate(user.createdDate)}</td>
                 <td>
                   <div className="button-container">
-                    {hasPermission("edit") && (
+                    {hasPermission("Edit") && (
                       <Button
                         text="Edit"
                         onClick={() => handleEdit(user)}
                         className="edit"
                       />
                     )}
-                    {hasPermission("delete") && (
+                    {hasPermission("Delete") && (
                       <Button
                         text="Delete"
                         onClick={() => handleDelete(user)}
@@ -147,6 +174,11 @@ export default function UserView() {
           onSuccess={fetchUsers}
         />
       </div>
+      <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
     </>
   );
 }

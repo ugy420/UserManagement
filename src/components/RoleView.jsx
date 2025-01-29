@@ -4,10 +4,13 @@ import RoleModal from "./RoleModal";
 import Search from "./Search.jsx";
 import { TokenContext } from "./TokenContext";
 import NoPermission from "./NoPermission";
+import Pagination from "./Pagination"; // Import the Pagination component
 
 export default function RoleView() {
   const [roles, setRoles] = useState([]);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Number of items per page
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
@@ -50,9 +53,20 @@ export default function RoleView() {
     openDialog.current(item);
   }
 
+  function handlePageChange(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+
   const filteredItems = roles.filter((item) =>
     typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Calculate the current items to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   const hasPermission = (permission) => {
     return permissions.some((perm) => perm.name === permission);
@@ -75,7 +89,7 @@ export default function RoleView() {
             placeHolder="Search"
             onChange={handleChange}
           ></Search>
-          {hasPermission("create") && (
+          {hasPermission("Create") && (
             <Button
               text="+ Add new role"
               onClick={() => openDialog.current()}
@@ -92,19 +106,19 @@ export default function RoleView() {
               </tr>
             </thead>
             <tbody>
-              {filteredItems.map((item) => (
+              {currentItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>
                     <div className="button-container">
-                      {hasPermission("edit") && (
+                      {hasPermission("Edit") && (
                         <Button
                           text="Edit"
                           className="edit"
                           onClick={() => handleEdit(item)}
                         />
                       )}
-                      {hasPermission("delete") && (
+                      {hasPermission("Delete") && (
                         <Button
                           text="Delete"
                           className="delete"
@@ -124,6 +138,11 @@ export default function RoleView() {
           />
         </div>
       </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
     </>
   );
 }

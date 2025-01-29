@@ -55,7 +55,6 @@ export async function getUserByEmail(email) {
     }
 }
 
-// Function to create a new user
 export async function createUser(username, email, password, phone, cid, agency_id, createdBy) {
     try {
         const [result] = await pool.query(
@@ -64,6 +63,15 @@ export async function createUser(username, email, password, phone, cid, agency_i
         );
         return { id: result.insertId, username, email, password, phone, cid, agency_id, createdBy };
     } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+            if (error.message.includes('email')) {
+                throw new Error('Email already exists');
+            } else if (error.message.includes('phone')) {
+                throw new Error('Phone number already exists');
+            } else if (error.message.includes('cid')) {
+                throw new Error('CID already exists');
+            }
+        }
         console.error('Error creating user:', error);
         throw new Error('Error creating user');
     }
@@ -80,6 +88,15 @@ export async function updateUser(id, username, email, phone_number, cid, agency_
         }
         return { id, username, email, phone_number, cid, agency_id };
     } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+            if (error.message.includes('email')) {
+                throw new Error('Email already exists');
+            } else if (error.message.includes('phone')) {
+                throw new Error('Phone number already exists');
+            } else if (error.message.includes('cid')) {
+                throw new Error('CID already exists');
+            }
+        }
         console.error(`Error updating user with ID ${id}:`, error);
         throw new Error(`Error updating user with ID ${id}`);
     }

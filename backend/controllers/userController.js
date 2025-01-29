@@ -7,6 +7,8 @@ import {
     deleteUser
 } from '../models/userModel.js';
 
+import { sendWelcomeEmail } from '../emailService.js';
+
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -49,22 +51,30 @@ export async function getUser(req, res) {
 
 export async function createNewUser(req, res) {
     try {
-        const { username, email, password, phone_number, cid, agency_id, createdBy } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await createUser(username, email, hashedPassword, phone_number, cid, agency_id, createdBy);
-        res.status(201).json(newUser);
+      const { username, email, password, phone_number, cid, agency_id, createdBy } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await createUser(username, email, hashedPassword, phone_number, cid, agency_id, createdBy);
+  
+      sendWelcomeEmail(email, username, password);
+  
+      res.status(201).json(newUser);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+      if (error.message.includes('already exists')) {
+        return res.status(409).json({ error: error.message });
+      }
+      res.status(500).json({ error: error.message });
     }
-}
-
+  }
 
 export async function updateExistingUser(req, res) {
     try {
         const { username, email, phone_number, cid, agency_id } = req.body;
-        const updatedUser = await updateUser(req.params.id, username, email, phone_number, cid, agency_id );
+        const updatedUser = await updateUser(req.params.id, username, email, phone_number, cid, agency_id);
         res.json(updatedUser);
     } catch (error) {
+        if (error.message.includes('already exists')) {
+            return res.status(400).json({ error: error.message });
+        }
         res.status(500).json({ error: error.message });
     }
 }

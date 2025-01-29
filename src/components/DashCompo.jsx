@@ -1,8 +1,7 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import React from "react";
 import "./DashCompo.css";
 
-export default function DashCompo({ value, label, icon, reff, className, nextName }) {
+export default function DasCompo({ value, label, icon, reff, className, nextName }) {
   return (
     <div className={`container ${className}`}>
       <div className="outer">

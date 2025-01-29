@@ -108,38 +108,39 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     setError(newErrors);
     return Object.keys(newErrors).length === 0; // Return true if no errors
   }
-
   function handleCreate() {
-    if (!validateForm()) return; // Only proceed if validation passes
-
+    if (!validateForm()) {
+      return;
+    }
+  
     const url = formData.id
       ? `http://localhost:8080/api/users/${formData.id}`
       : "http://localhost:8080/api/users";
-
+  
     const method = formData.id ? "PUT" : "POST";
     const token = localStorage.getItem("token");
-
+  
     fetch(url, {
       method: method,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
-          return response.json().then((errorData) => {
-            throw new Error(errorData.message || "Failed to save the user. Please try again.");
+          return response.json().then(data => {
+            throw new Error(data.error);
           });
         }
         return response.json();
       })
-      .then((data) => {
+      .then(data => {
         onSuccess();
         dialogRef.current.close();
       })
-      .catch((error) => {
+      .catch(error => {
         setError({ general: error.message });
       });
   }

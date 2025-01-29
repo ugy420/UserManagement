@@ -4,10 +4,13 @@ import PermissionModal from "./PermissionModal";
 import Search from "./Search.jsx";
 import { TokenContext } from "./TokenContext";
 import NoPermission from "./NoPermission";
+import Pagination from "./Pagination"; // Import the Pagination component
 
 export default function PermissionView() {
   const [perms, setPerms] = useState([]);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Number of items per page
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
@@ -49,15 +52,26 @@ export default function PermissionView() {
     openDialog.current(item);
   }
 
+  function handlePageChange(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+
   const filteredItems = perms.filter((item) =>
     typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Calculate the current items to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   const hasPermission = (permission) => {
     return permissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Read")) {
+  if (!hasPermission("Role-Permissions")) {
     return <NoPermission />;
   }
 
@@ -74,7 +88,7 @@ export default function PermissionView() {
             placeHolder="Search"
             onChange={handleChange}
           ></Search>
-          {hasPermission("create") && (
+          {hasPermission("Create") && (
             <Button
               text="+ Add new permission"
               onClick={() => openDialog.current()}
@@ -91,19 +105,19 @@ export default function PermissionView() {
               </tr>
             </thead>
             <tbody>
-              {filteredItems.map((item) => (
+              {currentItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>
                     <div className="button-container">
-                      {hasPermission("edit") && (
+                      {hasPermission("Edit") && (
                         <Button
                           text="Edit"
                           className="edit"
                           onClick={() => handleEdit(item)}
                         />
                       )}
-                      {hasPermission("delete") && (
+                      {hasPermission("Delete") && (
                         <Button
                           text="Delete"
                           className="delete"
@@ -116,13 +130,18 @@ export default function PermissionView() {
               ))}
             </tbody>
           </table>
+        </div>
           <PermissionModal
             openDialog={openDialog}
             placeholder="Permission Name"
             onSuccess={fetchPermissions}
           />
-        </div>
       </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
     </>
   );
 }

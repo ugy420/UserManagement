@@ -4,10 +4,13 @@ import AgencyCreate from "./AgencyModal";
 import Search from "./Search.jsx";
 import { TokenContext } from "./TokenContext";
 import NoPermission from "./NoPermission";
+import Pagination from "./Pagination";
 
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
@@ -45,18 +48,26 @@ export default function AgencyView() {
     openDialog.current(item);
   }
 
+  function handlePageChange(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+
   const filteredAgencies = agencies.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredAgencies.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredAgencies.length / itemsPerPage);
 
   const hasPermission = (permission) => {
     return permissions.some((perm) => perm.name === permission);
   };
 
   if (!hasPermission("Read")) {
-    return (
-      <NoPermission/>
-    );
+    return <NoPermission />;
   }
 
   return (
@@ -89,7 +100,7 @@ export default function AgencyView() {
               </tr>
             </thead>
             <tbody>
-              {filteredAgencies.map((item) => (
+              {currentItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>
@@ -121,6 +132,11 @@ export default function AgencyView() {
           />
         </div>
       </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
     </>
   );
 }

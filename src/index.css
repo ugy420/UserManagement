@@ -6,7 +6,6 @@ body {
 
 .app {
     display: flex;
-    height: 100%;
     background-color: #1E1E1E;   
 }
 
@@ -91,11 +90,11 @@ hr {
 
 .main-div {
     width: 90%;
+    height: 23rem;
     border-radius: 5px;
     margin-inline:35px;
     padding:20px;
     background-color: white;
-    margin-bottom: 50px;
 }
 
 .head-div{
@@ -115,8 +114,6 @@ hr {
     justify-content:space-between;
     margin-bottom: 20px;
 }
-
-
 
 .button-container {
     display: flex;
@@ -214,5 +211,28 @@ hr {
     gap: 20px;
     border: solid 1px #1E1E1E;
     width:50%;
-    
+}
+
+.pagination {
+display: flex;
+justify-content: center;
+margin-block: 20px;
+}
+
+.pagination button {
+margin: 0 5px;
+padding: 10px 15px;
+border: none;
+background-color: #f0f0f0;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.pagination button.active {
+background-color: #007bff;
+color: white;
+}
+
+.pagination button:hover:not(.active) {
+background-color: #e0e0e0;
 }
