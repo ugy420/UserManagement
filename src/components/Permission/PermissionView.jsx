@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import Button from "./UI/Button";
-import RoleModal from "./RoleModal";
-import Search from "./UI/Search.jsx";
-import { TokenContext } from "./TokenContext";
-import NoPermission from "./NoPermission";
-import Pagination from "./UI/Pagination";
+import Button from "../UI/Button.jsx";
+import PermissionModal from "./PermissionModal";
+import Search from "../UI/Search.jsx";
+import { TokenContext } from "../TokenContext.jsx";
+import NoPermission from "../UI/NoPermission.jsx";
+import Pagination from "../UI/Pagination.jsx";
 
-export default function RoleView() {
-  const [roles, setRoles] = useState([]);
+export default function PermissionView() {
+  const [perms, setPerms] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); // Number of items per page
@@ -15,29 +15,28 @@ export default function RoleView() {
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
   useEffect(() => {
-    fetchRoles();
+    fetchPermissions();
     fetchUserPermissions();
   }, []);
 
-  function fetchRoles() {
+  function fetchPermissions() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/roles", {
+    fetch("http://localhost:8080/api/permissions", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch roles");
+          throw new Error("Failed to fetch permissions");
         }
         return res.json();
       })
       .then((data) => {
-        console.log("Fetched roles:", data);
-        setRoles(data);
+        setPerms(data);
       })
       .catch((err) => {
-        console.error("Error fetching roles:", err);
+        console.error("Error fetching permissions:", err);
       });
   }
 
@@ -57,7 +56,7 @@ export default function RoleView() {
     setCurrentPage(pageNumber);
   }
 
-  const filteredItems = roles.filter((item) =>
+  const filteredItems = perms.filter((item) =>
     typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -72,15 +71,15 @@ export default function RoleView() {
     return permissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Read")) {
+  if (!hasPermission("Role-Permissions")) {
     return <NoPermission />;
   }
 
   return (
     <>
       <div className="head-div">
-        <h2>Roles</h2>
-        Administer and oversee roles within the platform
+        <h2>Permissions</h2>
+        Administer and oversee privileges within the platform
       </div>
       <div className="main-div">
         <div className="table-top-div">
@@ -91,7 +90,7 @@ export default function RoleView() {
           ></Search>
           {hasPermission("Create") && (
             <Button
-              text="+ Add new role"
+              text="+ Add new permission"
               onClick={() => openDialog.current()}
               className="create"
             />
@@ -131,12 +130,12 @@ export default function RoleView() {
               ))}
             </tbody>
           </table>
-          <RoleModal
-            openDialog={openDialog}
-            placeholder="Role Name"
-            onSuccess={fetchRoles}
-          />
         </div>
+          <PermissionModal
+            openDialog={openDialog}
+            placeholder="Permission Name"
+            onSuccess={fetchPermissions}
+          />
       </div>
         <Pagination
           totalPages={totalPages}

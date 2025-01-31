@@ -1,9 +1,9 @@
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 import "./LoginPage.css";
-import google from "../assets/google.svg";
+import google from "../../assets/google.svg";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { TokenContext } from "./TokenContext";
+import { TokenContext } from "../TokenContext";
 
 const LoginPage = () => {
   const [visible, setVisible] = useState(false);

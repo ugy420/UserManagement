@@ -1,26 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import { TokenProvider, TokenContext } from "./components/TokenContext";
-import UserView from "./components/UserView";
+import UserView from "./components/User/UserView";
 import Drawer from "./components/Layout/Drawer";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
-import LoginPage from "./components/LoginPage";
-import SignupPage from "./components/SignupPage";
-import AgencyView from "./components/AgencyView";
-import Permissions from "./components/PermissionView";
-import DashboardView from "./components/DashboardView";
-import ProfileSettings from "./components/ProfileSettings";
+import LoginPage from "./components/Auth/LoginPage";
+import SignupPage from "./components/Auth/SignupPage";
+import AgencyView from "./components/Agency/AgencyView";
+import Permissions from "./components/Permission/PermissionView";
+import DashboardView from "./components/Dashboard/DashboardView.jsx";
+import ProfileSettings from "./components/Profile/ProfileSettings";
 import AboutUs from "./components/Layout/AboutUs.jsx";
-import ContactPage from "./components/ContactPage";
-import RolesPermissionsView from "./components/RolesPermissionsView";
-import Roles from "./components/RoleView";
-import PrivateRoute from "./components/PrivateRoute";
-import UserRoleMapping from "./components/UserRoleMapping";
+import ContactPage from "./components/Contact/ContactPage";
+import RolesPermissionsView from "./components/Role/RolesPermissionsView";
+import Roles from "./components/Role/RoleView";
+import PrivateRoute from "./components/Auth/PrivateRoute";
+import UserRoleMapping from "./components/User/UserRoleMapping";
 
 function App() {
   const { token } = useContext(TokenContext);
-
   return (
     <div className="app">
       {token && <Drawer />}
@@ -102,12 +101,13 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route 
+            <Route
               path="/userroles"
               element={
                 <PrivateRoute>
-                  <UserRoleMapping/>
-                </PrivateRoute>}
+                  <UserRoleMapping />
+                </PrivateRoute>
+              }
             />
           </Routes>
         </div>

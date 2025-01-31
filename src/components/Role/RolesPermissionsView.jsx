@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TokenContext } from "./TokenContext";
-import NoPermission from "./NoPermission";
+import { TokenContext } from "../TokenContext";
+import NoPermission from "../UI/NoPermission.jsx";
 
 export default function RolesPermissionsView() {
   const [roles, setRoles] = useState([]);

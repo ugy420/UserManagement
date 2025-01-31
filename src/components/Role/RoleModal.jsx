@@ -1,6 +1,5 @@
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 import { useRef, useState } from "react";
-import "./Modal.css";
 
 export default function RoleModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();

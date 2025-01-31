@@ -1,43 +1,39 @@
-import { useState, useEffect, useRef, useContext } from "react";
-import Button from "./UI/Button";
-import PermissionModal from "./PermissionModal";
-import Search from "./UI/Search.jsx";
-import { TokenContext } from "./TokenContext";
-import NoPermission from "./NoPermission";
-import Pagination from "./UI/Pagination";
+import { useState, useRef, useEffect, useContext } from "react";
+import Button from "../UI/Button.jsx";
+import AgencyCreate from "./AgencyModal";
+import Search from "../UI/Search.jsx";
+import { TokenContext } from "../TokenContext.jsx";
+import NoPermission from "../UI/NoPermission.jsx";
+import Pagination from "../UI/Pagination.jsx";
 
-export default function PermissionView() {
-  const [perms, setPerms] = useState([]);
+export default function AgencyView() {
+  const [agencies, setAgencies] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items per page
+  const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
   useEffect(() => {
-    fetchPermissions();
+    fetchAgencies();
     fetchUserPermissions();
   }, []);
 
-  function fetchPermissions() {
+  function fetchAgencies() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/permissions", {
+    fetch("http://localhost:8080/api/agencies", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch permissions");
+          throw new Error("Failed to fetch agencies");
         }
         return res.json();
       })
-      .then((data) => {
-        setPerms(data);
-      })
-      .catch((err) => {
-        console.error("Error fetching permissions:", err);
-      });
+      .then((data) => setAgencies(data))
+      .catch((err) => console.error(err));
   }
 
   function handleChange(event) {
@@ -56,30 +52,29 @@ export default function PermissionView() {
     setCurrentPage(pageNumber);
   }
 
-  const filteredItems = perms.filter((item) =>
-    typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
+  const filteredAgencies = agencies.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Calculate the current items to display
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredAgencies.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredAgencies.length / itemsPerPage);
 
   const hasPermission = (permission) => {
     return permissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Role-Permissions")) {
+  if (!hasPermission("Read")) {
     return <NoPermission />;
   }
 
   return (
     <>
       <div className="head-div">
-        <h2>Permissions</h2>
-        Administer and oversee privileges within the platform
+        <h2>Agency</h2>
+        Administer and oversee user accounts and privileges within the platform
       </div>
       <div className="main-div">
         <div className="table-top-div">
@@ -90,13 +85,13 @@ export default function PermissionView() {
           ></Search>
           {hasPermission("Create") && (
             <Button
-              text="+ Add new permission"
+              text="+ Add new agency"
               onClick={() => openDialog.current()}
               className="create"
             />
           )}
         </div>
-        <div>
+        <div className="responsive-table">
           <table className="table">
             <thead>
               <tr>
@@ -130,12 +125,12 @@ export default function PermissionView() {
               ))}
             </tbody>
           </table>
-        </div>
-          <PermissionModal
+          <AgencyCreate
             openDialog={openDialog}
-            placeholder="Permission Name"
-            onSuccess={fetchPermissions}
+            placeholder="Agency Name"
+            onSuccess={fetchAgencies}
           />
+        </div>
       </div>
         <Pagination
           totalPages={totalPages}

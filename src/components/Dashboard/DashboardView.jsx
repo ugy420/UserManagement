@@ -1,7 +1,7 @@
 import React from "react";
 import DasCompo from "./DashCompo";
 import "./Dashboard.css";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "../UI/ProfileCard";
 import {useState, useEffect} from 'react';
 
 export default function DashboardView() {

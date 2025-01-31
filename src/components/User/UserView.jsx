@@ -1,16 +1,16 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import Button from "./UI/Button";
-import UserModal from "./UserModal";
-import Search from "./UI/Search.jsx";
-import { TokenContext } from "./TokenContext";
-import NoPermission from "./NoPermission";
-import Pagination from "./UI/Pagination";
+import Button from "../UI/Button.jsx";
+import UserModal from "./UserModal.jsx";
+import Search from "../UI/Search.jsx";
+import { TokenContext } from "../TokenContext.jsx";
+import NoPermission from "../UI/NoPermission.jsx";
+import Pagination from "../UI/Pagination.jsx";
 
 export default function UserView() {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items per page
+  const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 

@@ -1,39 +1,44 @@
-import { useState, useRef, useEffect, useContext } from "react";
-import Button from "./UI/Button";
-import AgencyCreate from "./AgencyModal";
-import Search from "./UI/Search.jsx";
-import { TokenContext } from "./TokenContext";
-import NoPermission from "./NoPermission";
-import Pagination from "./UI/Pagination";
+import { useState, useEffect, useRef, useContext } from "react";
+import Button from "../UI/Button.jsx";
+import RoleModal from "./RoleModal.jsx";
+import Search from "../UI/Search.jsx";
+import { TokenContext } from "../TokenContext.jsx";
+import NoPermission from "../UI/NoPermission.jsx";
+import Pagination from "../UI/Pagination.jsx";
 
-export default function AgencyView() {
-  const [agencies, setAgencies] = useState([]);
+export default function RoleView() {
+  const [roles, setRoles] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(5); // Number of items per page
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
   useEffect(() => {
-    fetchAgencies();
+    fetchRoles();
     fetchUserPermissions();
   }, []);
 
-  function fetchAgencies() {
+  function fetchRoles() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/agencies", {
+    fetch("http://localhost:8080/api/roles", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch agencies");
+          throw new Error("Failed to fetch roles");
         }
         return res.json();
       })
-      .then((data) => setAgencies(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        console.log("Fetched roles:", data);
+        setRoles(data);
+      })
+      .catch((err) => {
+        console.error("Error fetching roles:", err);
+      });
   }
 
   function handleChange(event) {
@@ -52,15 +57,16 @@ export default function AgencyView() {
     setCurrentPage(pageNumber);
   }
 
-  const filteredAgencies = agencies.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
+  const filteredItems = roles.filter((item) =>
+    typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Calculate the current items to display
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredAgencies.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(filteredAgencies.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   const hasPermission = (permission) => {
     return permissions.some((perm) => perm.name === permission);
@@ -73,8 +79,8 @@ export default function AgencyView() {
   return (
     <>
       <div className="head-div">
-        <h2>Agency</h2>
-        Administer and oversee user accounts and privileges within the platform
+        <h2>Roles</h2>
+        Administer and oversee roles within the platform
       </div>
       <div className="main-div">
         <div className="table-top-div">
@@ -85,13 +91,13 @@ export default function AgencyView() {
           ></Search>
           {hasPermission("Create") && (
             <Button
-              text="+ Add new agency"
+              text="+ Add new role"
               onClick={() => openDialog.current()}
               className="create"
             />
           )}
         </div>
-        <div className="responsive-table">
+        <div>
           <table className="table">
             <thead>
               <tr>
@@ -125,10 +131,10 @@ export default function AgencyView() {
               ))}
             </tbody>
           </table>
-          <AgencyCreate
+          <RoleModal
             openDialog={openDialog}
-            placeholder="Agency Name"
-            onSuccess={fetchAgencies}
+            placeholder="Role Name"
+            onSuccess={fetchRoles}
           />
         </div>
       </div>
