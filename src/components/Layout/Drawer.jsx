@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Button from "./Button";
+import Button from "../UI/Button";
 import "./Drawer.css";
-import { TokenContext } from "./TokenContext";
+import { TokenContext } from "../TokenContext";
 import { useContext } from "react";
 
 export default function Drawer() {

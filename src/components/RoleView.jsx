@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import Button from "./Button";
+import Button from "./UI/Button";
 import RoleModal from "./RoleModal";
-import Search from "./Search.jsx";
+import Search from "./UI/Search.jsx";
 import { TokenContext } from "./TokenContext";
 import NoPermission from "./NoPermission";
-import Pagination from "./Pagination"; // Import the Pagination component
+import Pagination from "./UI/Pagination";
 
 export default function RoleView() {
   const [roles, setRoles] = useState([]);

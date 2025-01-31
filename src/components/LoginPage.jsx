@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./UI/Button";
 import "./LoginPage.css";
 import google from "../assets/google.svg";
 import { useState, useContext } from "react";

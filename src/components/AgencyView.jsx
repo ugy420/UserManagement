@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import Button from "./Button";
+import Button from "./UI/Button";
 import AgencyCreate from "./AgencyModal";
-import Search from "./Search.jsx";
+import Search from "./UI/Search.jsx";
 import { TokenContext } from "./TokenContext";
 import NoPermission from "./NoPermission";
-import Pagination from "./Pagination";
+import Pagination from "./UI/Pagination";
 
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);

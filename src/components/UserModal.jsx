@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./UI/Button";
 import { useRef, useState, useEffect, useContext } from "react";
 import { TokenContext } from "./TokenContext";
 import "./UserModal.css"; // Import the CSS file

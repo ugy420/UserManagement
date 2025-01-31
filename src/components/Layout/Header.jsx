@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import govtech from '../assets/govtech.png';
+import govtech from '../../assets/govtech.png';
 import { Link, useLocation } from 'react-router-dom';
-import './Header.css';
+import './header.css';
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);

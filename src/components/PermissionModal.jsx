@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./UI/Button";
 import { useRef, useState } from "react";
 import "./Modal.css";
 

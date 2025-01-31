@@ -27,7 +27,11 @@ export default function DashboardView() {
         .catch((err) => console.error(err));
     
 
-    fetch("http://localhost:8080/api/roles")
+    fetch("http://localhost:8080/api/roles", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setRoles(data))
       .catch((err) => console.error(err));

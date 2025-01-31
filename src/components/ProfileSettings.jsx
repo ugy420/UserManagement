@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import './ProfileSettings.css'; // Ensure you have this CSS file linked properly
-import Header from './Header';
 
 const ProfileSettings = () => {
     // State for cover photo and profile picture

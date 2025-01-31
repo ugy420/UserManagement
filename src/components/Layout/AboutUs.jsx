@@ -2,15 +2,14 @@ import React, { useEffect } from "react";
 import "./AboutUs.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import missionImage from "../assets/background.jpg"; // Replace with your mission image
-import Header from "./Header";
-import teamImage1 from "../assets/background.jpg"; // Replace with your team images
+import missionImage from "../../assets/background.jpg";
+import teamImage1 from "../../assets/background.jpg";
 
 const AboutUs = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      once: true, // Ensure animations run only once
+      duration: 1000,
+      once: true,
     });
   }, []);
 
