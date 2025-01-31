@@ -13,7 +13,6 @@ export default function Drawer() {
         <img src="vite.svg" className="img-pfp" />
         {user || "User"}
       </div>
-      <hr />
       <ul className="drawer-list">
         <li>
           <Link to="/dashboard" className="no-underline">

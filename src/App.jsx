@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import { TokenProvider, TokenContext } from "./components/TokenContext";
+import './components/UI/Modal.css';
 import UserView from "./components/User/UserView";
 import Drawer from "./components/Layout/Drawer";
 import Header from "./components/Layout/Header";

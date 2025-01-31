@@ -5,6 +5,7 @@ import Search from "../UI/Search.jsx";
 import { TokenContext } from "../TokenContext.jsx";
 import NoPermission from "../UI/NoPermission.jsx";
 import Pagination from "../UI/Pagination.jsx";
+import { fetchData } from "../../utils/apiUtils.js";
 
 export default function AgencyView() {
   const [agencies, setAgencies] = useState([]);
@@ -19,21 +20,15 @@ export default function AgencyView() {
     fetchUserPermissions();
   }, []);
 
-  function fetchAgencies() {
+  async function fetchAgencies() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/agencies", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch agencies");
-        }
-        return res.json();
-      })
-      .then((data) => setAgencies(data))
-      .catch((err) => console.error(err));
+    try{
+      const data = await fetchData("http://localhost:8080/api/agencies", token);
+      setAgencies(data);
+    }
+    catch(error){
+      console.error(error);
+    }
   }
 
   function handleChange(event) {

@@ -5,6 +5,7 @@ import Search from "../UI/Search.jsx";
 import { TokenContext } from "../TokenContext.jsx";
 import NoPermission from "../UI/NoPermission.jsx";
 import Pagination from "../UI/Pagination.jsx";
+import { fetchData } from "../../utils/apiUtils.js";
 
 export default function UserView() {
   const [users, setUsers] = useState([]);
@@ -14,24 +15,20 @@ export default function UserView() {
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     fetchUsers();
     fetchUserPermissions();
   }, []);
 
-  function fetchUsers() {
-    const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/users", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched users:", data); // Debugging log
-        setUsers(data);
-      })
-      .catch((err) => console.error(err));
+  async function fetchUsers() {
+    try {
+      const data = await fetchData("http://localhost:8080/api/users", token);
+      setUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   }
 
   function handleChange(event) {
@@ -43,7 +40,6 @@ export default function UserView() {
       `Are you sure you want to delete user ${user.name}?`
     );
     if (confirmDelete) {
-      const token = localStorage.getItem("token");
       fetch(`http://localhost:8080/api/users/${user.id}`, {
         method: "DELETE",
         headers: {
@@ -73,7 +69,6 @@ export default function UserView() {
     user.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Calculate the current items to display
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
@@ -85,7 +80,6 @@ export default function UserView() {
   }
 
   const getCreatorName = (creatorId) => {
-    console.log("Creator ID:", creatorId); // Debugging log
     const creator = users.find((user) => user.id === creatorId);
     if (creator) {
       const firstName = creator.name.split(" ")[0];
@@ -175,10 +169,10 @@ export default function UserView() {
         />
       </div>
       <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 }

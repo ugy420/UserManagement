@@ -5,12 +5,13 @@ import Search from "../UI/Search.jsx";
 import { TokenContext } from "../TokenContext.jsx";
 import NoPermission from "../UI/NoPermission.jsx";
 import Pagination from "../UI/Pagination.jsx";
+import { fetchData } from "../../utils/apiUtils.js";
 
 export default function PermissionView() {
   const [perms, setPerms] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items per page
+  const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
@@ -19,25 +20,14 @@ export default function PermissionView() {
     fetchUserPermissions();
   }, []);
 
-  function fetchPermissions() {
+  async function fetchPermissions() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/permissions", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch permissions");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setPerms(data);
-      })
-      .catch((err) => {
-        console.error("Error fetching permissions:", err);
-      });
+    try {
+      const data = await fetchData("http://localhost:8080/api/permissions", token);
+      setPerms(data);
+    } catch (error) {
+      console.error("Error fetching permissions:", error);
+    }
   }
 
   function handleChange(event) {
@@ -71,7 +61,7 @@ export default function PermissionView() {
     return permissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Role-Permissions")) {
+  if (!hasPermission("Read")) {
     return <NoPermission />;
   }
 
@@ -96,7 +86,7 @@ export default function PermissionView() {
             />
           )}
         </div>
-        <div>
+        <div className="responsive-table">
           <table className="table">
             <thead>
               <tr>
@@ -130,18 +120,18 @@ export default function PermissionView() {
               ))}
             </tbody>
           </table>
-        </div>
           <PermissionModal
             openDialog={openDialog}
             placeholder="Permission Name"
             onSuccess={fetchPermissions}
           />
+        </div>
       </div>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 }

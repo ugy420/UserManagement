@@ -1,6 +1,7 @@
 import Button from "../UI/Button";
 import { useRef, useState, useEffect, useContext } from "react";
 import { TokenContext } from "../TokenContext";
+import { fetchData } from "../../utils/apiUtils.js";
 import "./UserModal.css";
 
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
@@ -18,21 +19,19 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     createdBy: user ? user.id : null,
   });
   const [error, setError] = useState({});
-  
+
   useEffect(() => {
     fetchAgencies();
   }, []);
 
-  function fetchAgencies() {
+  async function fetchAgencies() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/agencies", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setAgencies(data))
-      .catch((err) => console.error("Error fetching agencies:", err));
+    try {
+      const data = await fetchData("http://localhost:8080/api/agencies", token);
+      setAgencies(data);
+    } catch (error) {
+      console.error("Error fetching agencies:", error);
+    }
   }
 
   openDialog.current = (item) => {
@@ -66,7 +65,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     dialogRef.current.close();
   }
 
-  // Validation logic
   function validateForm() {
     const newErrors = {};
 
@@ -92,7 +90,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     } else {
       const phoneRegex = /^[0-9]{8}$/;
       if (!phoneRegex.test(formData.phone_number)) {
-      newErrors.phone_number = "Phone number must be exactly 8 digits long!";
+        newErrors.phone_number = "Phone number must be exactly 8 digits long!";
       }
     }
 
@@ -108,41 +106,26 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     setError(newErrors);
     return Object.keys(newErrors).length === 0; // Return true if no errors
   }
-  function handleCreate() {
+
+  async function handleCreate() {
     if (!validateForm()) {
       return;
     }
-  
+
     const url = formData.id
       ? `http://localhost:8080/api/users/${formData.id}`
       : "http://localhost:8080/api/users";
-  
+
     const method = formData.id ? "PUT" : "POST";
     const token = localStorage.getItem("token");
-  
-    fetch(url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify(formData),
-    })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(data => {
-            throw new Error(data.error);
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        onSuccess();
-        dialogRef.current.close();
-      })
-      .catch(error => {
-        setError({ general: error.message });
-      });
+
+    try {
+      await fetchData(url, token, method, formData);
+      onSuccess();
+      dialogRef.current.close();
+    } catch (error) {
+      setError({ general: error.message });
+    }
   }
 
   function handleChange(event) {
@@ -156,9 +139,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         <h3 id="user-title">
           {formData.id === "" ? "Add New User" : "Edit User Details"}
         </h3>
-        {/* {formData.id && (
-          <input type="text" name="id" value={formData.id} readOnly />
-        )} */}
         <input
           type="text"
           name="username"

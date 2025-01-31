@@ -5,6 +5,7 @@ import Search from "../UI/Search.jsx";
 import { TokenContext } from "../TokenContext.jsx";
 import NoPermission from "../UI/NoPermission.jsx";
 import Pagination from "../UI/Pagination.jsx";
+import { fetchData } from "../../utils/apiUtils.js";
 
 export default function RoleView() {
   const [roles, setRoles] = useState([]);
@@ -19,26 +20,14 @@ export default function RoleView() {
     fetchUserPermissions();
   }, []);
 
-  function fetchRoles() {
+  async function fetchRoles() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/roles", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch roles");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Fetched roles:", data);
-        setRoles(data);
-      })
-      .catch((err) => {
-        console.error("Error fetching roles:", err);
-      });
+    try {
+      const data = await fetchData("http://localhost:8080/api/roles", token);
+      setRoles(data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+    }
   }
 
   function handleChange(event) {
@@ -138,11 +127,11 @@ export default function RoleView() {
           />
         </div>
       </div>
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 }

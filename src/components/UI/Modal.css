@@ -1,0 +1,24 @@
+.modal-dialog {
+    border: inset;
+    border-radius: 10px;
+    border-color: rgb(243, 243, 243);
+    background-color: rgb(243, 243, 243);
+}
+
+.modal-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
