@@ -49,22 +49,6 @@ const ContactPage = () => {
           className="animated-map"
         ></iframe>
       </div>
-
-      {/* <footer className="footer">
-        <div className="useful-links">
-          <h3>Useful Links</h3>
-          <ul>
-            <li><a href="#">Bhutan Computer Incident Response Team</a></li>
-            <li><a href="#">Leave and Attendance System</a></li>
-          </ul>
-        </div>
-
-        <div className="footer-address">
-          <h3>Address</h3>
-          <p>GovTech Agency</p>
-          <p>Thori Lam, Upper Chubachu, Thimphu</p>
-        </div>
-      </footer> */}
     </div>
   );
 };
