@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { fetchData } from "../../utils/apiUtils.js";
 
 export default function UserRoleMapping() {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [userRoles, setUserRoles] = useState({});
   const [selectedUser, setSelectedUser] = useState("");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchUsers();
@@ -17,74 +19,53 @@ export default function UserRoleMapping() {
     }
   }, [selectedUser]);
 
-  function fetchUsers() {
-    const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/users", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((err) => console.error("Error fetching users:", err));
+  async function fetchUsers() {
+    try {
+      const data = await fetchData("http://localhost:8080/api/users", token);
+      setUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   }
 
-  function fetchRoles() {
-    const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/roles", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setRoles(data))
-      .catch((err) => console.error("Error fetching roles:", err));
+  async function fetchRoles() {
+    try {
+      const data = await fetchData("http://localhost:8080/api/roles", token);
+      setRoles(data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+    }
   }
 
-  function fetchUserRoles(userId) {
-    const token = localStorage.getItem("token");
-    fetch(`http://localhost:8080/api/userroles/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const rolesMap = {};
-        data.forEach((role) => {
-          rolesMap[role.rid] = true;
-        });
-        setUserRoles(rolesMap);
-      })
-      .catch((err) => console.error("Error fetching user roles:", err));
+  async function fetchUserRoles(userId) {
+    try {
+      const data = await fetchData(`http://localhost:8080/api/userroles/${userId}`, token);
+      const rolesMap = {};
+      data.forEach((role) => {
+        rolesMap[role.rid] = true;
+      });
+      setUserRoles(rolesMap);
+    } catch (error) {
+      console.error("Error fetching user roles:", error);
+    }
   }
 
   function handleUserChange(event) {
     setSelectedUser(event.target.value);
   }
 
-  function handleRoleChange(event) {
+  async function handleRoleChange(event) {
     const { id, checked } = event.target;
-    const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:8080/api/userroles/${selectedUser}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ role: { [id]: checked } }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to update user role");
-        }
-        setUserRoles((prevRoles) => ({
-          ...prevRoles,
-          [id]: checked,
-        }));
-      })
-      .catch((err) => console.error("Error updating user role:", err));
+    try {
+      await fetchData(`http://localhost:8080/api/userroles/${selectedUser}`, token, "PUT", { role: { [id]: checked } });
+      setUserRoles((prevRoles) => ({
+        ...prevRoles,
+        [id]: checked,
+      }));
+    } catch (error) {
+      console.error("Error updating user role:", error);
+    }
   }
 
   return (

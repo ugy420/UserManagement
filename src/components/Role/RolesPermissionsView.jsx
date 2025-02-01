@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { TokenContext } from "../TokenContext";
 import NoPermission from "../UI/NoPermission.jsx";
+import { fetchData } from "../../utils/apiUtils.js";
 
 export default function RolesPermissionsView() {
   const [roles, setRoles] = useState([]);
@@ -21,74 +22,57 @@ export default function RolesPermissionsView() {
     }
   }, [selectedRole]);
 
-  function fetchRoles() {
+  async function fetchRoles() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/roles", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setRoles(data))
-      .catch((err) => console.error("Error fetching roles:", err));
+    try {
+      const data = await fetchData("http://localhost:8080/api/roles", token);
+      setRoles(data);
+    } catch (error) {
+      console.error("Error fetching roles:", error);
+    }
   }
 
-  function fetchPermissions() {
+  async function fetchPermissions() {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:8080/api/permissions", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setPermissions(data))
-      .catch((err) => console.error("Error fetching permissions:", err));
+    try {
+      const data = await fetchData("http://localhost:8080/api/permissions", token);
+      setPermissions(data);
+    } catch (error) {
+      console.error("Error fetching permissions:", error);
+    }
   }
 
-  function fetchRolePermissions(roleId) {
+  async function fetchRolePermissions(roleId) {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:8080/api/rolepermissions/${roleId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const permissionsMap = {};
-        data.forEach((permission) => {
-          permissionsMap[permission.pid] = true;
-        });
-        setRolePermissions(permissionsMap);
-      })
-      .catch((err) => console.error("Error fetching role permissions:", err));
+    try {
+      const data = await fetchData(`http://localhost:8080/api/rolepermissions/${roleId}`, token);
+      const permissionsMap = {};
+      data.forEach((permission) => {
+        permissionsMap[permission.pid] = true;
+      });
+      setRolePermissions(permissionsMap);
+    } catch (error) {
+      console.error("Error fetching role permissions:", error);
+    }
   }
 
   function handleRoleChange(event) {
     setSelectedRole(event.target.value);
   }
 
-  function handlePermissionChange(event) {
+  async function handlePermissionChange(event) {
     const { id, checked } = event.target;
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:8080/api/rolepermissions/${selectedRole}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ permission: { [id]: checked } }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to update role permission");
-        }
-        setRolePermissions((prevPermissions) => ({
-          ...prevPermissions,
-          [id]: checked,
-        }));
-      })
-      .catch((err) => console.error("Error updating role permission:", err));
+    try {
+      await fetchData(`http://localhost:8080/api/rolepermissions/${selectedRole}`, token, "PUT", { permission: { [id]: checked } });
+      setRolePermissions((prevPermissions) => ({
+        ...prevPermissions,
+        [id]: checked,
+      }));
+    } catch (error) {
+      console.error("Error updating role permission:", error);
+    }
   }
 
   const hasPermission = (permission) => {

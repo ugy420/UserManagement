@@ -17,10 +17,10 @@ export async function fetchData(url, token, method = 'GET', body=null) {
       if (!response.ok) {
         throw new Error(`Failed to fetch data from ${url}`);
       }
-      else if (method === 'DELETE' && response.status === 204) {
+      else if (response.status === 204) {
         return;
       }
-
+      
       const data = await response.json();
       return data;
     } catch (error) {
