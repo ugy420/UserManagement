@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import DasCompo from "./DashCompo";
 import "./Dashboard.css";
 import ProfileCard from "../UI/ProfileCard";
-import { useState, useEffect } from "react";
 
 export default function DashboardView() {
   const [users, setUsers] = useState([]);
@@ -50,13 +49,13 @@ export default function DashboardView() {
               icon="fa-users"
               className="green"
               nextName="lightgreen"
-              reff="https://www.figma.com/design/KclT8XSx6rr3eGRl6pzNjl/AdminLTE-Admin-dasboard-UI-Kit-v3-(Community)?node-id=1-5425&t=qon163pq6CXVjeOK-0"
+              link="/user"
             />
             <DasCompo
               value={agencies.length}
               label="New Agencies"
               icon="fas fa-building"
-              reff="https://github.com/ugy420/UserManagement"
+              link="/agency"
             />
             <DasCompo
               value={roles.length}
@@ -64,7 +63,7 @@ export default function DashboardView() {
               icon="fa-check-circle"
               className="yellow"
               nextName="lightyellow"
-              reff="https://chatgpt.com/c/677f82e4-593c-800c-892a-f7b33e725b50"
+              link="/roles"
             />
           </main>
           {/* <div className="profile-card-holder">
