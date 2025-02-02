@@ -1,24 +1,30 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./DashCompo.css";
 
-export default function DasCompo({ value, label, icon, className, nextName, link }) {
+export default function DasCompo({ value, label, icon, link, className, nextName }) {
+
   const navigate = useNavigate();
-
   const handleMoreInfoClick = () => {
-    navigate(link);
-  };
+  navigate(link);
+  }
 
   return (
-    <div className={`dashboard-compo ${className}`}>
-      <div className="dashboard-compo-icon">
-        <i className={`fas ${icon}`}></i>
+    <div className={`container ${className}`}>
+      <div className="outer">
+        <div className='inner'>
+          <h1>{value}</h1>
+          <div className="dashboard-content1">
+            <p className="title">{label}</p>
+          </div>
+        </div>
+        <i className={`fa-solid ${icon} icon`}></i>
       </div>
-      <div className="dashboard-compo-info">
-        <h3>{value}</h3>
-        <p>{label}</p>
-        <button onClick={handleMoreInfoClick} className="more-info-button">
-          More Info
-        </button>
+
+      <div className={`next-Link ${nextName}`}>
+      <button onClick={handleMoreInfoClick} className="more-info-button">
+        More Info
+      </button>
       </div>
     </div>
   );
