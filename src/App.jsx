@@ -3,21 +3,23 @@ import { useContext } from "react";
 import { TokenProvider, TokenContext } from "./components/TokenContext";
 import './components/UI/Modal.css';
 import UserView from "./components/User/UserView";
+import UserRoleMapping from "./components/User/UserRoleMapping";
 import Drawer from "./components/Layout/Drawer";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
+import AboutUs from "./components/Layout/AboutUs.jsx";
 import LoginPage from "./components/Auth/LoginPage";
 import SignupPage from "./components/Auth/SignupPage";
+import PrivateRoute from "./components/Auth/PrivateRoute";
 import AgencyView from "./components/Agency/AgencyView";
 import Permissions from "./components/Permission/PermissionView";
 import DashboardView from "./components/Dashboard/DashboardView.jsx";
 import ProfileSettings from "./components/Profile/ProfileSettings";
-import AboutUs from "./components/Layout/AboutUs.jsx";
 import ContactPage from "./components/Contact/ContactPage";
 import RolesPermissionsView from "./components/Role/RolesPermissionsView";
 import Roles from "./components/Role/RoleView";
-import PrivateRoute from "./components/Auth/PrivateRoute";
-import UserRoleMapping from "./components/User/UserRoleMapping";
+import Driver from './components/Driver/Vehicle.jsx';
+import VehicleReq from "./components/Driver/Vehicle.jsx";
 
 function App() {
   const { token } = useContext(TokenContext);
@@ -107,6 +109,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <UserRoleMapping />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/vehiclereq"
+              element={
+                <PrivateRoute>
+                  <VehicleReq/>
                 </PrivateRoute>
               }
             />
