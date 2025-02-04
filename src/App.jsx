@@ -20,6 +20,7 @@ import RolesPermissionsView from "./components/Role/RolesPermissionsView";
 import Roles from "./components/Role/RoleView";
 import VehicleReq from "./components/Vehicle/VehicleRequest.jsx";
 import Vehicle from "./components/Vehicle/Vehicle.jsx";
+import Driver from "./components/Driver/Driver.jsx";
 
 function App() {
   const { token } = useContext(TokenContext);
@@ -125,6 +126,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Vehicle/>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/driver"
+              element={
+                <PrivateRoute>
+                  <Driver />
                 </PrivateRoute>
               }
             />
