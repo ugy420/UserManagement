@@ -1,6 +1,8 @@
+import './select.css';
+
 export default function Select({ label, options, name, onChange }) {
   return(
-    <> 
+    <div className="input-div"> 
         <label htmlFor={name} className="input-label">
             {label}
         </label>
@@ -9,6 +11,6 @@ export default function Select({ label, options, name, onChange }) {
             <option key={index} value={option}>{option}</option>
             ))}
         </select>
-    </>
+    </div>
     );
 }

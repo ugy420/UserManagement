@@ -24,6 +24,26 @@ body {
     background-color: white;
 }
 
+.form-div{
+    border: 3px solid #16161D;
+    border-radius: 5px;
+    padding:3rem 3rem;
+    margin:auto;
+    margin-block: 25px;
+    width: 45%;
+}
+
+.form-div h3{
+    text-align: center;
+}
+
+.form-btns{
+    display:flex;
+    gap: 1.5rem;
+    flex-direction: row;
+    justify-content: right;
+}
+
 .head-div{
     margin-block: 20px;
     color: #5D7285;
@@ -133,15 +153,27 @@ hr {
 }
 
 .edit {
-    background-color: #4545a0;
-    border-color: #4549a0;
+    background-color: #007BFF;
+    border-color: #007BFF;
     color: white;
 }
 
 .edit:hover {
-    background-color: white;
+    background-color: #4c57af;
     border-color: #4549a0;
-    color: #4c57af;
+    color: white;
+}
+
+.cancel{
+    background-color: white;
+    border-color: gray;
+    color: black;
+}
+
+.cancel:hover{
+    background-color: #a04545;
+    border-color: #a04545;
+    color: white;
 }
 
 .delete {
