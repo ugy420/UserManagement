@@ -2,7 +2,9 @@ import {
     getAllVehicles,
     createVehicle,
     updateVehicle,
-    deleteVehicle
+    deleteVehicle,
+    createVehicleRequest
+
 } from '../models/vehicleModel.js';
 
 export async function getVehicles(req, res) {
@@ -37,6 +39,18 @@ export async function removeVehicle(req,res){
         await deleteVehicle(req.params.id);
         res.status(204).send();
     } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export async function createNewVehicleRequest(req, res) {
+    try {
+        console.log(req.body);
+        await createVehicleRequest(req.body);
+        res.status(201).json({ message: "Vehicle request created" });
+
+    }
+    catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
