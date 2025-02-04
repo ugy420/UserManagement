@@ -16,7 +16,6 @@ export default function VehicleReq() {
           <div className="form-head">
             <h3>Please enter your details</h3>
           </div>
-
           <div className="div-space">
             <Input label="Destination:" name="dest" placeholder="Destination" />
             <Input label="Date:" type="date" name="date" />

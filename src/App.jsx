@@ -18,8 +18,8 @@ import ProfileSettings from "./components/Profile/ProfileSettings";
 import ContactPage from "./components/Contact/ContactPage";
 import RolesPermissionsView from "./components/Role/RolesPermissionsView";
 import Roles from "./components/Role/RoleView";
-import Driver from './components/Driver/Vehicle.jsx';
-import VehicleReq from "./components/Driver/Vehicle.jsx";
+import VehicleReq from "./components/Vehicle/VehicleRequest.jsx";
+import Vehicle from "./components/Vehicle/Vehicle.jsx";
 
 function App() {
   const { token } = useContext(TokenContext);
@@ -117,6 +117,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <VehicleReq/>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/vehicle"
+              element={
+                <PrivateRoute>
+                  <Vehicle/>
                 </PrivateRoute>
               }
             />
