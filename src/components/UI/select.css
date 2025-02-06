@@ -1,0 +1,12 @@
+.select-frm{
+    height:2rem;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    padding-left: 1rem;
+    margin-left: 1rem;
+    background-color: white;
+}
+
+.select-frm:focus{
+    border-color: gray;
+}

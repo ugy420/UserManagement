@@ -16,20 +16,60 @@ body {
     background-color: #e9e9e9;
 }
 
+.main-div {
+    width: 90%;
+    border-radius: 5px;
+    margin-inline:35px;
+    padding:20px;
+    background-color: white;
+}
+
+.form-div{
+    border: 3px solid #16161D;
+    border-radius: 5px;
+    padding:3rem 3rem;
+    margin:auto;
+    margin-block: 25px;
+    width: 45%;
+}
+
+.form-div h3{
+    text-align: center;
+}
+
+.form-btns{
+    display:flex;
+    gap: 1.5rem;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.head-div{
+    margin-block: 20px;
+    color: #5D7285;
+    background-color: #e9e9e9;
+    margin-left:35px;
+}
+
+.head-div h2{
+    text-align: left;
+    color: black;
+}
+
+.table-top-div {
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+
 .no-underline {
     text-decoration: none;
-}
-
-input {
-    padding: .5rem;
-    border-radius: 5px;
-    border-width: 1px;
-    box-sizing: border-box;
-}
-
-input:focus {
-    outline: none;
-    border-color: grey;
 }
 
 button {
@@ -75,7 +115,6 @@ hr {
     border: inset #007BFF;
 }
 
-/* Profile Section */
 .profile-div {
     color: #007BFF;
     display: flex;
@@ -86,39 +125,6 @@ hr {
 .error-div {
     color: red;
     font-size: 12px;
-}
-
-.main-div {
-    width: 90%;
-    height: 23rem;
-    border-radius: 5px;
-    margin-inline:35px;
-    padding:20px;
-    background-color: white;
-}
-
-.head-div{
-    margin-block: 20px;
-    color: #5D7285;
-    background-color: #e9e9e9;
-    margin-left:35px;
-}
-
-.head-div h2{
-    text-align: left;
-    color: black;
-}
-
-.table-top-div {
-    display: flex;
-    justify-content:space-between;
-    margin-bottom: 20px;
-}
-
-.button-container {
-    display: flex;
-    justify-content: left;
-    gap: 10px;
 }
 
 .create {
@@ -147,15 +153,27 @@ hr {
 }
 
 .edit {
-    background-color: #4545a0;
-    border-color: #4549a0;
+    background-color: #007BFF;
+    border-color: #007BFF;
     color: white;
 }
 
 .edit:hover {
-    background-color: white;
+    background-color: #4c57af;
     border-color: #4549a0;
-    color: #4c57af;
+    color: white;
+}
+
+.cancel{
+    background-color: white;
+    border-color: gray;
+    color: black;
+}
+
+.cancel:hover{
+    background-color: #a04545;
+    border-color: #a04545;
+    color: white;
 }
 
 .delete {
@@ -177,7 +195,7 @@ hr {
 
 .selector-header{
     display: flex;
-    align-items: center; /* Center items vertically */
+    align-items: center;
     gap: 10px;
     margin-bottom: 25px;
 }
@@ -187,7 +205,6 @@ hr {
     border-radius: 5px;
     border-width: 1px;
     box-sizing: border-box;
-
 }
 
 .checkbox-header{
@@ -235,4 +252,10 @@ color: white;
 
 .pagination button:hover:not(.active) {
 background-color: #e0e0e0;
+}
+
+.div-space{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
 }
