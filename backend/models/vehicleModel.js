@@ -41,3 +41,7 @@ LEFT JOIN
     const [rows] = await pool.query(query);
     return rows;
 }
+
+export async function putVehicleRequest(id, data) {
+    await pool.query('UPDATE vehi_request SET driverId = ?, vehicleId = ?, statusId = 1, remarks = ? WHERE id = ?', [data.driverId, data.vehicleId, data.remarks, id]);
+}

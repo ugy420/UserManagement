@@ -7,8 +7,8 @@ export default function Select({ label, options, name, onChange }) {
             {label}
         </label>
         <select name={name} onChange={onChange} className="select-frm" id={name}>
-            {options.map((option, index) => (
-            <option key={index} value={option}>{option}</option>
+            {options.map((option) => (
+            <option key={option.value} value={option.value}>{option.label}</option>
             ))}
         </select>
     </div>

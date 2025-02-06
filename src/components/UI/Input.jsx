@@ -5,9 +5,18 @@ export default function Input({
   type,
   placeholder,
   name,
+  value,
   textarea,
+  readOnly,
   onChange,
+  children
 }){
+
+  let cssCls = "input-field";
+
+  if(readOnly){
+    cssCls += " read-only";
+  }
   return (
     <div className="input-div">
       <label htmlFor={name} className="input-label">
@@ -18,18 +27,21 @@ export default function Input({
           placeholder={placeholder}
           name={name}
           onChange={onChange}
-          className="input-field"
+          value={value}
+          className={cssCls}
           id={name}
-        />
+        >{children}</textarea>
       ) : (
         <input
           placeholder={placeholder}
           type={type}
           name={name}
           onChange={onChange}
-          className="input-field"
+          value={value}
+          className={cssCls}
           id={name}
-        />
+          readOnly={readOnly}
+        >{children}</input>
       )}
     </div>
   );

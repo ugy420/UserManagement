@@ -25,7 +25,7 @@ app.use('/api/permissions', authenticateToken, permissionRoutes);
 app.use('/api/roles', authenticateToken, roleRoutes);
 app.use('/api/userroles', authenticateToken, userRoleRoutes);
 app.use('/api/rolepermissions', authenticateToken, rolePermissionRoutes);
-app.use('/api/vehicles', authenticateToken, vehicleRoutes);
+app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/drivers', authenticateToken, driverRoutes); // Add driver routes
 
 app.listen(PORT, () => {

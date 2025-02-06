@@ -23,7 +23,7 @@ export default function VehicleRequestManage() {
   async function fetchRequests() {
     const token = localStorage.getItem("token");
     try {
-      const data = await fetchData("http://localhost:8080/api/vehicles/request", token);
+      const data = await fetchData(`http://localhost:8080/api/vehicles/request`, token);
       setRequests(data);
     } catch (error) {
       console.error(error);
@@ -109,7 +109,7 @@ export default function VehicleRequestManage() {
                       <Button
                         text={item.status === "Pending" ? "Assign" : "View"}
                         onClick={item.status === "Pending" ? () => handleAssign(item) : () => handleView(item)}
-                        className={item.status === "Pending" ? "confirm" : "edit"}
+                        className={item.status === "Pending" ? "edit" : "confirm"}
                       />
                     </div>
                   </td>

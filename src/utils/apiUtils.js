@@ -20,7 +20,6 @@ export async function fetchData(url, token, method = 'GET', body=null) {
       else if (response.status === 204) {
         return;
       }
-      
       const data = await response.json();
       return data;
     } catch (error) {

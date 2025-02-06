@@ -5,6 +5,7 @@ import {
     deleteVehicle,
     createVehicleRequest,
     selVehicleRequest,
+    putVehicleRequest
 
 } from '../models/vehicleModel.js';
 
@@ -59,8 +60,17 @@ export async function createNewVehicleRequest(req, res) {
 export async function getVehicleRequests(req, res) {
     try {
         const vehicleRequests = await selVehicleRequest();
-        console.log(vehicleRequests);
         res.json(vehicleRequests);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export async function updateVehicleRequest(req, res) {
+    try {
+        console.log(req.body);
+        await putVehicleRequest(req.params.id, req.body);
+        res.status(204).send();
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
