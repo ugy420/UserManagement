@@ -123,6 +123,15 @@ export default function Drawer() {
               }
             />
           </Link>
+          <Link to="/receipt" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-user-shield"></i> Receipt
+                </>
+              }
+            />
+          </Link>
         </li>
       </ul>
     </div>
