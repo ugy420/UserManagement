@@ -3,7 +3,8 @@ import {
     createVehicle,
     updateVehicle,
     deleteVehicle,
-    createVehicleRequest
+    createVehicleRequest,
+    selVehicleRequest,
 
 } from '../models/vehicleModel.js';
 
@@ -51,6 +52,16 @@ export async function createNewVehicleRequest(req, res) {
 
     }
     catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export async function getVehicleRequests(req, res) {
+    try {
+        const vehicleRequests = await selVehicleRequest();
+        console.log(vehicleRequests);
+        res.json(vehicleRequests);
+    } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }

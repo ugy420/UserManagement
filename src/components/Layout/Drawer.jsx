@@ -63,7 +63,7 @@ export default function Drawer() {
             <Button
               text={
                 <>
-                  <i className="fas fa-user-shield"></i> Roles
+                  <i className="fas fa-user-cog"></i> Roles
                 </>
               }
             />
@@ -79,14 +79,49 @@ export default function Drawer() {
               }
             />
           </Link>
+        </li>
+        <li>
           <Link to="/userroles" className="no-underline">
-              <Button
+            <Button
               text={
                 <>
-                  <i className="fas fa-user-shield"></i> User-Roles
+                  <i className="fas fa-users-cog"></i> User-Roles
                 </>
               }
-              />
+            />
+          </Link>
+        </li>
+        <li>
+          <Link to="/vehicle" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-car"></i> Vehicle
+                </>
+              }
+            />
+          </Link>
+        </li>
+        <li>
+          <Link to="/driver" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-id-card"></i> Driver
+                </>
+              }
+            />
+          </Link>
+        </li>
+        <li>
+          <Link to="/vehiclereqmanage" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-route"></i> Trip
+                </>
+              }
+            />
           </Link>
         </li>
       </ul>

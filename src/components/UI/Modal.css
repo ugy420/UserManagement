@@ -9,7 +9,7 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal {
+.modal{
     gap: 5px;
     display: flex;
     flex-direction: column;
@@ -17,8 +17,7 @@
     padding: 20px;
 }
 
-.modal-buttons {
+.modal-buttons{
     display: flex;
-    justify-content: right;
-    gap: 10px;
+    justify-content: left;
 }

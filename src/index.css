@@ -33,6 +33,14 @@ body {
     width: 45%;
 }
 
+.form-div-modal{
+    border: 3px solid #16161D;
+    border-radius: 5px;
+    padding:3rem 3rem;
+    margin:auto;
+    margin-block: 25px;
+}
+
 .form-div h3{
     text-align: center;
 }

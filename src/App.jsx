@@ -21,6 +21,7 @@ import Roles from "./components/Role/RoleView";
 import VehicleReq from "./components/Vehicle/VehicleRequest.jsx";
 import Vehicle from "./components/Vehicle/Vehicle.jsx";
 import Driver from "./components/Driver/Driver.jsx";
+import VehicleRequestManage from './components/Vehicle/VehicleRequestManage.jsx';
 
 function App() {
   const { token } = useContext(TokenContext);
@@ -134,6 +135,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Driver />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/vehiclereqmanage"
+              element={
+                <PrivateRoute>
+                  <VehicleRequestManage />
                 </PrivateRoute>
               }
             />
