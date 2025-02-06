@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import { TokenProvider, TokenContext } from "./components/TokenContext";
-import './components/UI/Modal.css';
+import "./components/UI/Modal.css";
 import UserView from "./components/User/UserView";
 import Drawer from "./components/Layout/Drawer";
 import Header from "./components/Layout/Header";
@@ -18,6 +18,7 @@ import RolesPermissionsView from "./components/Role/RolesPermissionsView";
 import Roles from "./components/Role/RoleView";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import UserRoleMapping from "./components/User/UserRoleMapping";
+import Receipt from "./components/receipt/receipt";
 
 function App() {
   const { token } = useContext(TokenContext);
@@ -39,15 +40,7 @@ function App() {
               }
             />
             <Route
-              path="/agency"
-              element={
-                <PrivateRoute>
-                  <AgencyView />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/user"
+              path="/users"
               element={
                 <PrivateRoute>
                   <UserView />
@@ -55,26 +48,10 @@ function App() {
               }
             />
             <Route
-              path="/about"
+              path="/agencies"
               element={
                 <PrivateRoute>
-                  <AboutUs />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <PrivateRoute>
-                  <ProfileSettings />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="/contact"
-              element={
-                <PrivateRoute>
-                  <ContactPage />
+                  <AgencyView />
                 </PrivateRoute>
               }
             />
@@ -87,6 +64,30 @@ function App() {
               }
             />
             <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <ProfileSettings />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <PrivateRoute>
+                  <AboutUs />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <PrivateRoute>
+                  <ContactPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
               path="/roles"
               element={
                 <PrivateRoute>
@@ -95,7 +96,7 @@ function App() {
               }
             />
             <Route
-              path="/rolespermissions"
+              path="/roles-permissions"
               element={
                 <PrivateRoute>
                   <RolesPermissionsView />
@@ -103,10 +104,18 @@ function App() {
               }
             />
             <Route
-              path="/userroles"
+              path="/user-role-mapping"
               element={
                 <PrivateRoute>
                   <UserRoleMapping />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/receipt"
+              element={
+                <PrivateRoute>
+                  <Receipt />
                 </PrivateRoute>
               }
             />
@@ -118,12 +127,4 @@ function App() {
   );
 }
 
-export default function AppWithRouter() {
-  return (
-    <Router>
-      <TokenProvider>
-        <App />
-      </TokenProvider>
-    </Router>
-  );
-}
+export default App;

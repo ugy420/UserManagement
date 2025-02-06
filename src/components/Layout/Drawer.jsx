@@ -80,13 +80,22 @@ export default function Drawer() {
             />
           </Link>
           <Link to="/userroles" className="no-underline">
-              <Button
+            <Button
               text={
                 <>
                   <i className="fas fa-user-shield"></i> User-Roles
                 </>
               }
-              />
+            />
+          </Link>
+          <Link to="/receipt" className="no-underline">
+            <Button
+              text={
+                <>
+                  <i className="fas fa-user-shield"></i> Receipt
+                </>
+              }
+            />
           </Link>
         </li>
       </ul>
