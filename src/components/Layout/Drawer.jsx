@@ -70,7 +70,7 @@ export default function Drawer() {
           </Link>
         </li>
         <li>
-          <Link to="/rolespermissions" className="no-underline">
+          <Link to="/roles-permissions" className="no-underline">
             <Button
               text={
                 <>
@@ -81,7 +81,7 @@ export default function Drawer() {
           </Link>
         </li>
         <li>
-          <Link to="/userroles" className="no-underline">
+          <Link to="/user-roles" className="no-underline">
             <Button
               text={
                 <>

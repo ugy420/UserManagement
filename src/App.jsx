@@ -44,7 +44,7 @@ function App() {
               }
             />
             <Route
-              path="/users"
+              path="/user"
               element={
                 <PrivateRoute>
                   <UserView />
@@ -52,7 +52,7 @@ function App() {
               }
             />
             <Route
-              path="/agencies"
+              path="/agency"
               element={
                 <PrivateRoute>
                   <AgencyView />
@@ -108,7 +108,7 @@ function App() {
               }
             />
             <Route
-              path="/user-role-mapping"
+              path="/user-roles"
               element={
                 <PrivateRoute>
                   <UserRoleMapping />
