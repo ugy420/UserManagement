@@ -68,16 +68,34 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
   };
 
   const handleCancel = () => {
+    setFormData({
+      id: "",
+      name: "",
+      datetime: "",
+      driverId: "",
+      vehicleId: "",
+      agency: "",
+      selfDrive: "",
+      destination: "",
+      distance: "",
+      remarks: "",
+    });
+    setErrorMsg("");
     dialogRef.current.close();
   };
 
   async function handleAssign() {
-    if (
-      formData.vehicleId === "" ||
-      (formData.selfDrive === "Yes" && formData.driverId === "")
-    ) {
-      setErrorMsg("Please select a vehicle and driver");
+    if (formData.vehicleId === "") {
+      setErrorMsg("Please select a vehicle");
       return;
+    } else if (formData.selfDrive === "No" && formData.driverId === "") {
+      setErrorMsg("Please select a driver");
+      return;
+    }
+
+    const payload = { ...formData };
+    if (formData.selfDrive === "Yes") {
+      payload.driverId = null;
     }
 
     try {
@@ -85,7 +103,7 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
         `http://localhost:8080/api/vehicles/request/${formData.id}`,
         token,
         "PUT",
-        formData
+        payload
       );
       onSuccess();
       dialogRef.current.close();
@@ -136,25 +154,16 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
         <Select
           label="Vehicle:"
           name="vehicleId"
-          options={vehicles.map((vehicle) => ({
-            value: vehicle.id,
-            label: vehicle.number,
-          }))}
+          options={[
+            { value: "", label: "Select a vehicle" },
+            ...vehicles.map((vehicle) => ({
+              value: vehicle.id,
+              label: vehicle.number,
+            })),
+          ]}
           value={formData.vehicleId}
           onChange={handleChange}
         />
-        {formData.selfDrive === "No" ? (
-          <Select
-            label="Driver:"
-            name="driverId"
-            options={drivers.map((driver) => ({
-              value: driver.id,
-              label: driver.name,
-            }))}
-            value={formData.driverId}
-            onChange={handleChange}
-          />
-        ) : null}
         <Input
           label="Remarks:"
           name="remarks"
@@ -163,7 +172,25 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
           onChange={handleChange}
         ></Input>
       </div>
-      <div className="error-msg">{errorMsg}</div>
+      <div className="div-space">
+        {formData.selfDrive === "No" ? (
+          <Select
+            label="Driver:"
+            name="driverId"
+            options={[
+              { value: "", label: "Select a driver" },
+              ...drivers.map((driver) => ({
+                value: driver.id,
+                label: driver.name,
+              })),
+            ]}
+            value={formData.driverId}
+            onChange={handleChange}
+          />
+        ) : null}
+        <div className="error-div">{errorMsg}</div>
+      </div>
+
       <div className="form-btns">
         <Button text="Cancel" className="cancel" onClick={handleCancel} />
         <Button text="Assign" className="edit" onClick={handleAssign} />

@@ -112,7 +112,11 @@ export default function VehicleReq() {
             />
             <Select
               label="Self-drive:"
-              options={options}
+              options={options.map((option) => ({
+                value: option,
+                label: option,
+              }))
+              }
               name="sel"
               value={formData.sel}
               onChange={handleChange}

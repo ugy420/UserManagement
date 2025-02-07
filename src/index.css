@@ -138,6 +138,9 @@ hr {
 }
 
 .error-div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: red;
     font-size: 12px;
 }

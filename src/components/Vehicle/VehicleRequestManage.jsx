@@ -99,7 +99,7 @@ export default function VehicleRequestManage() {
                   <td>{item.name}</td>
                   <td>{item.destination}</td>
                   <td>{item.distance}</td>
-                  <td>{item.datetime}</td>
+                  <td>{new Date(item.datetime).toLocaleDateString()}</td>
                   <td>{item.selfdrive}</td>
                   <td>{item.purpose}</td>
                   <td>{item.agency}</td>
