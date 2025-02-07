@@ -6,8 +6,7 @@ import { TokenContext } from "../TokenContext.jsx";
 import { fetchData } from "../../utils/apiUtils.js";
 
 export default function VehicleRequestAssign({ openDialog, onSuccess }) {
-  const { token } = useContext(TokenContext);
-  const [formData, setFormData] = useState({
+  let initialFormData = {
     id: "",
     name: "",
     datetime: "",
@@ -18,7 +17,10 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
     destination: "",
     distance: "",
     remarks: "",
-  });
+  };
+
+  const { token } = useContext(TokenContext);
+  const [formData, setFormData] = useState({initialFormData});
   const [drivers, setDrivers] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
@@ -46,6 +48,7 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
   };
 
   openDialog.current = (item) => {
+    console.log(item);
     setFormData((prevData) => ({
       ...prevData,
       id: item.id,
@@ -68,27 +71,16 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
   };
 
   const handleCancel = () => {
-    setFormData({
-      id: "",
-      name: "",
-      datetime: "",
-      driverId: "",
-      vehicleId: "",
-      agency: "",
-      selfDrive: "",
-      destination: "",
-      distance: "",
-      remarks: "",
-    });
+    setFormData(initialFormData);
     setErrorMsg("");
     dialogRef.current.close();
   };
 
   async function handleAssign() {
-    if (formData.vehicleId === "") {
+    if (!formData.vehicleId) {
       setErrorMsg("Please select a vehicle");
       return;
-    } else if (formData.selfDrive === "No" && formData.driverId === "") {
+    } else if (formData.selfDrive === "No" && !formData.driverId ) {
       setErrorMsg("Please select a driver");
       return;
     }
@@ -106,6 +98,7 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
         payload
       );
       onSuccess();
+      setFormData(initialFormData);
       dialogRef.current.close();
     } catch (error) {
       console.error("Error assigning vehicle:", error);
@@ -152,6 +145,7 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
       </div>
       <div className="div-space space-between">
         <Select
+          val={formData.vehicleId}
           label="Vehicle:"
           name="vehicleId"
           options={[
@@ -175,6 +169,7 @@ export default function VehicleRequestAssign({ openDialog, onSuccess }) {
       <div className="div-space">
         {formData.selfDrive === "No" ? (
           <Select
+          val={formData.driverId}
             label="Driver:"
             name="driverId"
             options={[
