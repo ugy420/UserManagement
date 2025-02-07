@@ -18,7 +18,7 @@ import ProfileSettings from "./components/Profile/ProfileSettings";
 import ContactPage from "./components/Contact/ContactPage";
 import RolesPermissionsView from "./components/Role/RolesPermissionsView";
 import Roles from "./components/Role/RoleView";
-import VehicleReq from "./components/Vehicle/VehicleRequest.jsx";
+import VehicleReq from "./components/Vehicle/VehicleRequestIndividual.jsx";
 import Vehicle from "./components/Vehicle/Vehicle.jsx";
 import Driver from "./components/Driver/Driver.jsx";
 import VehicleRequestManage from './components/Vehicle/VehicleRequestManage.jsx';

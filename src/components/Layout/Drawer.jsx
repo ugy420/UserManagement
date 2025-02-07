@@ -6,11 +6,15 @@ import { useContext, useState } from "react";
 
 export default function Drawer() {
   const user = useContext(TokenContext).user.name;
-  const [showUserManagement, setShowUserManagement] = useState(false);
+  const [showUser, setShowUser] = useState(false);
   const [showVehicleManagement, setShowVehicleManagement] = useState(false);
+  const [showRolesPermissions, setShowRolesPermissions] = useState(false);
+  const [showServices, setShowServices] = useState(false);
 
-  const toggleUserManagement = () => setShowUserManagement(!showUserManagement);
+  const toggleUser = () => setShowUser(!showUser);
   const toggleVehicleManagement = () => setShowVehicleManagement(!showVehicleManagement);
+  const toggleRolesPermissions = () => setShowRolesPermissions(!showRolesPermissions);
+  const toggleServices = () => setShowServices(!showServices);
 
   return (
     <div className="drawer">
@@ -37,9 +41,9 @@ export default function Drawer() {
                 <i className="fas fa-users"></i> User Management
               </>
             }
-            onClick={toggleUserManagement}
+            onClick={toggleUser}
           />
-          {showUserManagement && (
+          {showUser && (
             <ul className="nested-list">
               <li>
                 <Link to="/user" className="no-underline">
@@ -47,6 +51,42 @@ export default function Drawer() {
                     text={
                       <>
                         <i className="fas fa-user"></i> User
+                      </>
+                    }
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link to="/user-roles" className="no-underline">
+                  <Button
+                    text={
+                      <>
+                        <i className="fas fa-users-cog"></i> User-Roles
+                      </>
+                    }
+                  />
+                </Link>
+              </li>
+            </ul>
+          )}
+        </li>
+        <li>
+          <Button
+            text={
+              <>
+                <i className="fas fa-user-shield"></i> Roles and Permissions
+              </>
+            }
+            onClick={toggleRolesPermissions}
+          />
+          {showRolesPermissions && (
+            <ul className="nested-list">
+              <li>
+                <Link to="/roles-permissions" className="no-underline">
+                  <Button
+                    text={
+                      <>
+                        <i className="fas fa-user-shield"></i> Mapping
                       </>
                     }
                   />
@@ -69,28 +109,6 @@ export default function Drawer() {
                     text={
                       <>
                         <i className="fas fa-user-cog"></i> Roles
-                      </>
-                    }
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link to="/roles-permissions" className="no-underline">
-                  <Button
-                    text={
-                      <>
-                        <i className="fas fa-user-shield"></i> Roles-Permissions
-                      </>
-                    }
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link to="/user-roles" className="no-underline">
-                  <Button
-                    text={
-                      <>
-                        <i className="fas fa-users-cog"></i> User-Roles
                       </>
                     }
                   />
@@ -143,6 +161,20 @@ export default function Drawer() {
                   />
                 </Link>
               </li>
+            </ul>
+          )}
+        </li>
+        <li>
+          <Button
+            text={
+              <>
+                <i className="fas fa-concierge-bell"></i> Services
+              </>
+            }
+            onClick={toggleServices}
+          />
+          {showServices && (
+            <ul className="nested-list">
               <li>
                 <Link to="/receipt" className="no-underline">
                   <Button
@@ -154,8 +186,20 @@ export default function Drawer() {
                   />
                 </Link>
               </li>
+              <li>
+                <Link to="/vehiclereq" className="no-underline">
+                  <Button
+                    text={
+                      <>
+                        <i className="fas fa-concierge-bell"></i> Service
+                      </>
+                    }
+                  />
+                </Link>
+              </li>
             </ul>
           )}
+          
         </li>
         <li>
           <Link to="/agency" className="no-underline">

@@ -7,7 +7,7 @@ import Pagination from "../UI/Pagination.jsx";
 import { fetchData } from "../../utils/apiUtils.js";
 import VehicleRequestAssign from "./VehicleRequestDetails.jsx";
 
-export default function VehicleRequestManage() {
+export default function VehicleRequestIndividual() {
   const [requests, setRequests] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -107,7 +107,7 @@ export default function VehicleRequestManage() {
                   <td>
                     <div className="button-container">
                       <Button
-                        text={item.status === "Pending" ? "Assign" : "View"}
+                        text={item.status === "Pending" ? "Edit" : "View"}
                         onClick={item.status === "Pending" ? () => handleAssign(item) : () => handleView(item)}
                         className={item.status === "Pending" ? "edit" : "confirm"}
                       />

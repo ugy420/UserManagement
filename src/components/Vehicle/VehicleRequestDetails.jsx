@@ -5,7 +5,7 @@ import Button from "../UI/Button.jsx";
 import { TokenContext } from "../TokenContext.jsx";
 import { fetchData } from "../../utils/apiUtils.js";
 
-export default function VehicleRequestAssign({ openDialog, onSuccess }) {
+export default function VehicleRequestDetails({ openDialog, onSuccess }) {
   let initialFormData = {
     id: "",
     name: "",
