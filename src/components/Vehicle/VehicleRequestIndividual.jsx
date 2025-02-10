@@ -6,6 +6,7 @@ import NoPermission from "../UI/NoPermission.jsx";
 import Pagination from "../UI/Pagination.jsx";
 import { fetchData } from "../../utils/apiUtils.js";
 import VehicleRequestAssign from "./VehicleRequestDetails.jsx";
+import VehicleRequestForm from "./VehicleRequest.jsx";
 
 export default function VehicleRequestIndividual() {
   const [requests, setRequests] = useState([]);
@@ -13,6 +14,7 @@ export default function VehicleRequestIndividual() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
+  const openRequestFormDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function VehicleRequestIndividual() {
     try {
       const data = await fetchData(`http://localhost:8080/api/vehicles/request`, token);
       setRequests(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -56,12 +59,16 @@ export default function VehicleRequestIndividual() {
     return <NoPermission />;
   }
 
-  const handleAssign = (item) => {
-    openDialog.current(item);
+  const handleEdit = (item) => {
+    openRequestFormDialog.current(item);
+  };
+  
+  const handleView = (item) => {
+    openDialog.current(item, "view");
   };
 
-  const handleView = (item) => {
-    openDialog.current(item);
+  const handleAddRequest = () => {
+    openRequestFormDialog.current();
   };
 
   return (
@@ -77,6 +84,11 @@ export default function VehicleRequestIndividual() {
             placeHolder="Search"
             onChange={handleChange}
           ></Search>
+          <Button
+            text="Request Vehicle"
+            onClick={handleAddRequest}
+            className="add-request"
+          />
         </div>
         <div className="responsive-table">
           <table className="table">
@@ -108,7 +120,7 @@ export default function VehicleRequestIndividual() {
                     <div className="button-container">
                       <Button
                         text={item.status === "Pending" ? "Edit" : "View"}
-                        onClick={item.status === "Pending" ? () => handleAssign(item) : () => handleView(item)}
+                        onClick={item.status === "Pending" ? () => handleEdit(item) : () => handleView(item)}
                         className={item.status === "Pending" ? "edit" : "confirm"}
                       />
                     </div>
@@ -126,6 +138,10 @@ export default function VehicleRequestIndividual() {
       />
       <VehicleRequestAssign
         openDialog={openDialog}
+        onSuccess={fetchRequests}
+      />
+      <VehicleRequestForm
+        openDialog={openRequestFormDialog}
         onSuccess={fetchRequests}
       />
     </>

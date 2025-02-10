@@ -116,13 +116,6 @@ hr {
     border: 1px solid gray;
 }
 
-.read-only {
-    background-color: #f0f0f0;
-    border: none;
-    cursor:default;
-    caret-color: transparent;
-}
-
 .img-pfp {
     border-radius: 30px;
     width: 25px;

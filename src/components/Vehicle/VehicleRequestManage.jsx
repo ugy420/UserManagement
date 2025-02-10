@@ -57,11 +57,11 @@ export default function VehicleRequestManage() {
   }
 
   const handleAssign = (item) => {
-    openDialog.current(item);
+    openDialog.current(item, "Assign");
   };
 
   const handleView = (item) => {
-    openDialog.current(item);
+    openDialog.current(item, "Assign");
   };
 
   return (

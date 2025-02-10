@@ -43,5 +43,9 @@ LEFT JOIN
 }
 
 export async function putVehicleRequest(id, data) {
+    await pool.query('UPDATE vehi_request SET  destination = ?,  distance = ?,  datetime= ?, selfdrive = ?, purpose = ? WHERE id = ?', [data.dest, data.dis, data.date, data.sel, data.pur, id]);
+}
+
+export async function assVehicleRequest(id, data) {
     await pool.query('UPDATE vehi_request SET driverId = ?, vehicleId = ?, statusId = 1, remarks = ? WHERE id = ?', [data.driverId, data.vehicleId, data.remarks, id]);
 }

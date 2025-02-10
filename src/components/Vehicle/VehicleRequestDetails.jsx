@@ -20,10 +20,11 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
   };
 
   const { token } = useContext(TokenContext);
-  const [formData, setFormData] = useState({initialFormData});
+  const [formData, setFormData] = useState(initialFormData);
   const [drivers, setDrivers] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [mode, setMode] = useState("view");
   const dialogRef = useRef();
 
   useEffect(() => {
@@ -47,13 +48,13 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
     }
   };
 
-  openDialog.current = (item) => {
-    console.log(item);
+  openDialog.current = (item, mode) => {
+    setMode(mode);
     setFormData((prevData) => ({
       ...prevData,
       id: item.id,
       name: item.name,
-      datetime: new Date(item.datetime).toISOString().split("T")[0],
+      datetime: new Date(item.datetime).toLocaleDateString('en-CA'),
       driverId: item.driverId || "",
       vehicleId: item.vehicleId || "",
       agency: item.agency,
@@ -80,7 +81,7 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
     if (!formData.vehicleId) {
       setErrorMsg("Please select a vehicle");
       return;
-    } else if (formData.selfDrive === "No" && !formData.driverId ) {
+    } else if (formData.selfDrive === "No" && !formData.driverId) {
       setErrorMsg("Please select a driver");
       return;
     }
@@ -92,7 +93,7 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
 
     try {
       await fetchData(
-        `http://localhost:8080/api/vehicles/request/${formData.id}`,
+        `http://localhost:8080/api/vehicles/assign/${formData.id}`,
         token,
         "PUT",
         payload
@@ -111,7 +112,7 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
         <h3>Request Details</h3>
       </div>
       <div className="div-space">
-        <Input label="Name:" name="name" value={formData.name} readOnly></Input>
+        <Input label="Name:" name="name" value={formData.name} readOnly />
         <Input label="Agency:" name="agency" value={formData.agency} readOnly />
       </div>
       <div className="div-space">
@@ -157,6 +158,7 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
           ]}
           value={formData.vehicleId}
           onChange={handleChange}
+          disabled={mode === "view"}
         />
         <Input
           label="Remarks:"
@@ -164,12 +166,13 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
           value={formData.remarks}
           placeholder="Remarks"
           onChange={handleChange}
-        ></Input>
+          readOnly={mode === "view"}
+        />
       </div>
       <div className="div-space">
         {formData.selfDrive === "No" ? (
           <Select
-          val={formData.driverId}
+            val={formData.driverId}
             label="Driver:"
             name="driverId"
             options={[
@@ -181,14 +184,17 @@ export default function VehicleRequestDetails({ openDialog, onSuccess }) {
             ]}
             value={formData.driverId}
             onChange={handleChange}
+            disabled={mode === "view"}
           />
         ) : null}
         <div className="error-div">{errorMsg}</div>
       </div>
 
       <div className="form-btns">
-        <Button text="Cancel" className="cancel" onClick={handleCancel} />
-        <Button text="Assign" className="edit" onClick={handleAssign} />
+        <Button text={mode === "view" ? "Close" : "Cancel"} className="cancel" onClick={handleCancel} />
+        {mode === "Assign" && (
+          <Button text="Assign" className="edit" onClick={handleAssign} />
+        )}
       </div>
     </dialog>
   );

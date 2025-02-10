@@ -41,3 +41,12 @@ input:focus {
 .input-div textarea:focus {
     border-color: gray;    
 }
+
+.read-only {
+    background-color: #f0f0f0;
+    appearance: none;
+    color: #000000;
+    border: none;
+    cursor:default;
+    caret-color: transparent;
+}
