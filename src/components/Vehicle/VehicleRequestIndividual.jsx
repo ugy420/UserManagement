@@ -87,7 +87,7 @@ export default function VehicleRequestIndividual() {
           <Button
             text="Request Vehicle"
             onClick={handleAddRequest}
-            className="add-request"
+            className="create"
           />
         </div>
         <div className="responsive-table">
