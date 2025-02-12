@@ -4,16 +4,21 @@ body {
     margin: 0;
 }
 
-.app {
+.app{
     display: flex;
-    background-color: #1E1E1E;   
+    flex-direction: column;
+    width: 100%;
 }
 
 .app-sub{
     display: flex;
-    width:100%;
-    flex-direction: column;
-    background-color: #e9e9e9;
+    flex-direction: row;
+    justify-content: left;
+
+}
+
+.app-content{
+    width: -moz-available;
 }
 
 .main-div {
@@ -87,6 +92,7 @@ button {
     border-width: 1px;
     border-style: inset;
 }
+
 
 table {
     width: 100%;
@@ -170,9 +176,9 @@ hr {
 }
 
 .edit:hover {
-    background-color: #4c57af;
-    border-color: #4549a0;
-    color: white;
+    background-color: white;
+    border-color: #007BFF;
+    color: #007BFF;
 }
 
 .cancel{

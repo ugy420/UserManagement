@@ -2,6 +2,8 @@ import Button from "../UI/Button";
 import { useRef, useState, useEffect, useContext } from "react";
 import { TokenContext } from "../TokenContext";
 import { fetchData } from "../../utils/apiUtils.js";
+import Input from "../UI/Input";
+import Select from "../UI/Select";
 import "./UserModal.css";
 
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
@@ -12,7 +14,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     id: "",
     username: "",
     email: "",
-    password: "",
     agency_id: "",
     phone_number: "",
     cid: "",
@@ -36,7 +37,9 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
 
   openDialog.current = (item) => {
     if (item) {
-      const agency = agencies.find((agency) => agency.name === item.agency_name);
+      const agency = agencies.find(
+        (agency) => agency.name === item.agency_name
+      );
       setFormData({
         id: item.id,
         username: item.name,
@@ -51,7 +54,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         id: "",
         username: "",
         email: "",
-        password: "",
         agency_id: "",
         phone_number: "",
         cid: "",
@@ -62,49 +64,49 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
   };
 
   function handleCancel() {
+    setFormData({
+      id: "",
+      username: "",
+      email: "",
+      agency_id: "",
+      phone_number: "",
+      cid: "",
+      createdBy: user ? user.id : null,
+    });
+    setError({});
     dialogRef.current.close();
   }
 
   function validateForm() {
     const newErrors = {};
 
-    if (!formData.username) {
-      newErrors.username = "Username is required!";
+    if (!formData.username || !formData.email || !formData.agency_id || !formData.phone_number || !formData.cid) {
+      newErrors.general = "Please fill the form!";
     }
 
-    if (!formData.email) {
-      newErrors.email = "Email is required!";
-    } else {
+    if (formData.email) {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (!emailRegex.test(formData.email)) {
-        newErrors.email = "Please enter a valid email address!";
+      newErrors.email = "Please enter a valid email address!";
       }
     }
 
-    if (!formData.agency_id) {
-      newErrors.agency_id = "Agency is required!";
-    }
-
-    if (!formData.phone_number) {
-      newErrors.phone_number = "Phone number is required!";
-    } else {
+    if (formData.phone_number) {
       const phoneRegex = /^[0-9]{8}$/;
       if (!phoneRegex.test(formData.phone_number)) {
-        newErrors.phone_number = "Phone number must be exactly 8 digits long!";
+      newErrors.phone_number = "Phone number must be exactly 8 digits long!";
       }
     }
 
-    if (!formData.cid) {
-      newErrors.cid = "CID is required!";
-    } else {
+    if (formData.cid) {
       const cidRegex = /^[0-9]{11}$/;
       if (!cidRegex.test(formData.cid)) {
-        newErrors.cid = "CID must be exactly 12 digits long!";
+      newErrors.cid = "CID must be exactly 11 digits long!";
       }
     }
 
     setError(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0;
   }
 
   async function handleCreate() {
@@ -120,11 +122,16 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     const token = localStorage.getItem("token");
 
     try {
-      await fetchData(url, token, method, formData);
+      const res = await fetchData(url, token, method, formData);
+      if (res.error) {
+        setError({ general: res.error });
+        return;
+      }
+
       onSuccess();
       dialogRef.current.close();
     } catch (error) {
-      setError({ general: error.message });
+      setError({ general: error });
     }
   }
 
@@ -134,49 +141,22 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-dialog">
-      <div className="modal">
-        <h3 id="user-title">
-          {formData.id === "" ? "Add New User" : "Edit User Details"}
-        </h3>
-        <input
+    <dialog ref={dialogRef} className="form-div-modal">
+      <div className="form-head">
+        <h3>{formData.id === "" ? "Add New User" : "Edit User Details"}</h3>
+      </div>
+      <div className="div-space">
+        <Input
           type="text"
+          label="Username:"
           name="username"
           placeholder={placeholder.username || "Enter username"}
           value={formData.username}
           onChange={handleChange}
           className={error.username ? "error-input" : ""}
         />
-        <input
-          type="email"
-          name="email"
-          placeholder={placeholder.email || "Enter email"}
-          value={formData.email}
-          onChange={handleChange}
-          className={error.email ? "error-input" : ""}
-        />
-        <select
-          name="agency_id"
-          value={formData.agency_id}
-          onChange={handleChange}
-          className={error.agency_id ? "error-input" : ""}
-        >
-          <option value="">Select Agency</option>
-          {agencies.map((agency) => (
-            <option key={agency.id} value={agency.id}>
-              {agency.name}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          name="phone_number"
-          placeholder="Enter phone number"
-          value={formData.phone_number}
-          onChange={handleChange}
-          className={error.phone_number ? "error-input" : ""}
-        />
-        <input
+        <Input
+          label="CID:"
           type="text"
           name="cid"
           placeholder="Enter CID"
@@ -184,15 +164,56 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
           onChange={handleChange}
           className={error.cid ? "error-input" : ""}
         />
-        <div className="modal-buttons">
-          <Button text="Cancel" className="delete" onClick={handleCancel} />
-          <Button text="Confirm" className="confirm" onClick={handleCreate} />
-        </div>
-        {error.general && <div className="error-message">{error.general}</div>}
-        {Object.values(error).map((err, index) => (
-          err && <div key={index} className="error-message">{err}</div>
-        ))}
       </div>
+      <div className="div-space">
+        <Input
+          label="Email:"
+          type="email"
+          name="email"
+          placeholder={placeholder.email || "Enter email"}
+          value={formData.email}
+          onChange={handleChange}
+          className={error.email ? "error-input" : ""}
+        />
+        <Input
+          label="Phone Number:"
+          type="text"
+          name="phone_number"
+          placeholder="Enter phone number"
+          value={formData.phone_number}
+          onChange={handleChange}
+          className={error.phone_number ? "error-input" : ""}
+        />
+      </div>
+      <div className="div-space">
+        <Select
+          label="Agency:"
+          name="agency_id"
+          value={formData.agency_id}
+          onChange={handleChange}
+          className={error.agency_id ? "error-input" : ""}
+          options={[
+            { value: "", label: "Select Agency" },
+            ...agencies.map((agency) => ({
+              value: agency.id,
+              label: agency.name,
+            })),
+          ]}
+        />
+      </div>
+
+      <div className="form-btns">
+        <Button text="Cancel" className="delete" onClick={handleCancel} />
+        <Button text="Confirm" className="confirm" onClick={handleCreate} />
+      </div>
+      {Object.values(error).map(
+        (err, index) =>
+          err && (
+            <div key={index} className="error-message">
+              {err}
+            </div>
+          )
+      )}
     </dialog>
   );
 }

@@ -28,9 +28,9 @@ function App() {
   const { token } = useContext(TokenContext);
   return (
     <div className="app">
-      {token && <Drawer />}
+      <Header/>
       <div className="app-sub">
-        {token && <Header />}
+      {token && <Drawer />}
         <div className="app-content">
           <Routes>
             <Route path="/" element={<LoginPage />} />
@@ -78,17 +78,13 @@ function App() {
             <Route
               path="/about"
               element={
-                <PrivateRoute>
                   <AboutUs />
-                </PrivateRoute>
               }
             />
             <Route
               path="/contact"
               element={
-                <PrivateRoute>
                   <ContactPage />
-                </PrivateRoute>
               }
             />
             <Route
@@ -157,8 +153,8 @@ function App() {
             />
           </Routes>
         </div>
-        {token && <Footer />}
       </div>
+      {token && <Footer />}
     </div>
   );
 }

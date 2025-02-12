@@ -117,6 +117,7 @@ export default function UserView() {
             />
           )}
         </div>
+        <div className="table-div">
         <table>
           <thead>
             <tr>
@@ -127,7 +128,7 @@ export default function UserView() {
               <th>Agency</th>
               <th>Created By</th>
               <th>Created Date</th>
-              <th>Action</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -144,14 +145,14 @@ export default function UserView() {
                   <div className="button-container">
                     {hasPermission("Edit") && (
                       <Button
-                        text="Edit"
+                        text={<i className="fa-solid fa-pen"></i>}
                         onClick={() => handleEdit(user)}
                         className="edit"
                       />
                     )}
                     {hasPermission("Delete") && (
                       <Button
-                        text="Delete"
+                        text={<i className="fa-solid fa-trash"></i>}
                         onClick={() => handleDelete(user)}
                         className="delete"
                       />
@@ -162,6 +163,7 @@ export default function UserView() {
             ))}
           </tbody>
         </table>
+        </div>
         <UserModal
           openDialog={openDialog}
           placeholder={{ username: "Username", email: "Email" }}

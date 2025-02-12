@@ -1,47 +1,32 @@
 .drawer {
   width: fit-content;
-  padding:20px;
-  padding-right: 50px;
-  background-color: #1E1E1E;    
+  padding: 20px;
+  background-color: #1E1E1E;
   color: #5D7285;
-  height: 100%;                
   display: flex;
   flex-direction: column;
 }
 
-.Header {
-  display: flex;               
-  align-items: center;         
-  justify-content: flex-start;
-  margin-bottom: 30px;
-}
-
-.Header img {
-  width: 40px;                 
-  margin-right: 10px;          /* Space between the logo and the text */
-}
-
-.Header h3 {
-  font-size: 1.5em;           
-  margin: 0;                   /* Remove default margin */
-  font-weight: 400;            /* Slightly lighter font weight */
-  color: #fff;                 /* White text color */
-}
-
 .drawer ul {
-  list-style-type: none;       /* Remove default list bullets */
-  padding: 0;                  /* Remove padding */
-  margin: 0;                   /* Remove margin */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;         
 }
 
-.drawer-list li button {
+.drawer-list li button{
   color: #939BA2;
   background-color: inherit;
   width: 100%;
+  border: none;
   text-align: left;
   display: flex;
+}
+
+.drop-down-btns{
+  text-align: left;
   align-items: center;
-  border: none;
+  display: flex;
+  justify-content: space-between;
 }
 
 .drawer button:hover {
@@ -50,79 +35,23 @@
 }
 
 .drawer-list li i {
-  margin-right: 8px;
+  margin-right: 3px;
   font-size: 16px;
   width: 20px;
   height: 20px;
 }
 
-/* Responsive Styles */
-@media (max-width: 1024px) {
-  .drawer {
-      width: 200px;            /* Narrower drawer for tablets */
-  }
-
-  .Header h3 {
-      font-size: 1.2em;        /* Slightly smaller heading */
-  }
-
-  .drawer li {
-      font-size: 1em;          /* Adjust list item font size */
-      padding: 8px 12px;       /* Adjust padding */
-  }
+.nested-list {
+  margin-left: 20px;
 }
 
-@media (max-width: 768px) {
-  .drawer {
-      width: 180px;            /* Smaller width for smaller devices */
-      padding: 15px;           /* Reduce padding inside the drawer */
-  }
-
-  .Header img {
-      width: 30px;             /* Smaller logo size */
-  }
-
-  .Header h3 {
-      font-size: 1em;          /* Smaller heading */
-  }
-
-  .drawer li {
-      font-size: 0.9em;        /* Reduce font size */
-      padding: 6px 10px;       /* Adjust padding */
-  }
+.arrow {
+  width: 25px;
+  height: 25px;
+  transition: 0.5s;
 }
 
-@media (max-width: 480px) {
-  .drawer {
-      width: 100%;             /* Full width for mobile screens */
-      height: auto;            /* Fit content height */
-      position: fixed;         /* Fixed positioning for toggleable menu */
-      bottom: 0;               /* Place at the bottom of the screen */
-      top: auto;
-      overflow-y: auto;        /* Scrollable content */
-  }
-
-  .Header {
-      justify-content: center; /* Center the header content */
-  }
-
-  .Header img {
-      width: 25px;             /* Even smaller logo size */
-  }
-
-  .Header h3 {
-      font-size: 0.9em;        /* Small heading */
-  }
-
-  .drawer ul {
-      display: flex;           /* Stack items in a row for horizontal layout */
-      flex-wrap: wrap;         /* Wrap items to the next line */
-      justify-content: center; /* Center items */
-  }
-
-  .drawer li {
-      font-size: 0.8em;        /* Reduce font size */
-      margin: 5px;             /* Smaller margin */
-      padding: 5px 8px;        /* Adjust padding */
-  }
+.rotate {
+  rotate: 180deg;
+  transition: 0.5s;
 }
