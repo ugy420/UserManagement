@@ -122,16 +122,11 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetchData(url, token, method, formData);
-      if (res.error) {
-        setError({ general: res.error });
-        return;
-      }
-
+      await fetchData(url, token, method, formData);
       onSuccess();
       dialogRef.current.close();
     } catch (error) {
-      setError({ general: error });
+      setError({ general: error.message });
     }
   }
 

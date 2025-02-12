@@ -15,6 +15,10 @@ export async function fetchData(url, token, method = 'GET', body=null) {
       const response = await fetch(url, options);
   
       if (!response.ok) {
+        if(response.status === 409) {
+          const errorData = await response.json();
+          throw new Error(errorData.error);
+        }
         throw new Error(`Failed to fetch data from ${url}`);
       }
       else if (response.status === 204) {
