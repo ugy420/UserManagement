@@ -75,7 +75,7 @@ export async function updateExistingUser(req, res) {
         res.json(updatedUser);
     } catch (error) {
         if (error.message.includes('already exists')) {
-            return res.status(400).json({ error: error.message });
+            return res.status(409).json({ error: error.message });
         }
         res.status(500).json({ error: error.message });
     }

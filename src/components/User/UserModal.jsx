@@ -10,6 +10,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
   const { user } = useContext(TokenContext);
   const [agencies, setAgencies] = useState([]);
+  const newErrors = {};
   const [formData, setFormData] = useState({
     id: "",
     username: "",
@@ -30,6 +31,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
     try {
       const data = await fetchData("http://localhost:8080/api/agencies", token);
       setAgencies(data);
+      console.log(data);
     } catch (error) {
       console.error("Error fetching agencies:", error);
     }
@@ -37,6 +39,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
 
   openDialog.current = (item) => {
     if (item) {
+      console.log(item);
       const agency = agencies.find(
         (agency) => agency.name === item.agency_name
       );
@@ -78,7 +81,6 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
   }
 
   function validateForm() {
-    const newErrors = {};
 
     if (!formData.username || !formData.email || !formData.agency_id || !formData.phone_number || !formData.cid) {
       newErrors.general = "Please fill the form!";
@@ -133,6 +135,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+    setError({ });
   }
 
   return (
@@ -184,7 +187,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         <Select
           label="Agency:"
           name="agency_id"
-          value={formData.agency_id}
+          val={formData.agency_id}
           onChange={handleChange}
           className={error.agency_id ? "error-input" : ""}
           options={[
@@ -197,18 +200,24 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         />
       </div>
 
+      {Object.values(error).length > 0 ? (
+        Object.values(error).map(
+          (err, index) =>
+            err && (
+              <div key={index} className="error-message">
+                {err}
+              </div>
+            )
+        )
+      ) : (
+        <div className="error-message">&nbsp;</div>
+      )}
+
       <div className="form-btns">
         <Button text="Cancel" className="delete" onClick={handleCancel} />
         <Button text="Confirm" className="confirm" onClick={handleCreate} />
       </div>
-      {Object.values(error).map(
-        (err, index) =>
-          err && (
-            <div key={index} className="error-message">
-              {err}
-            </div>
-          )
-      )}
+      
     </dialog>
   );
 }
