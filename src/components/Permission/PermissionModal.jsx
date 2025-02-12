@@ -1,8 +1,13 @@
 import Button from "../UI/Button";
 import { useRef, useState } from "react";
 import { fetchData } from "../../utils/apiUtils.js";
+import Input from "../UI/Input";
 
-export default function PermissionModal({ openDialog, placeholder, onSuccess }) {
+export default function PermissionModal({
+  openDialog,
+  placeholder,
+  onSuccess,
+}) {
   const dialogRef = useRef();
   const [formData, setFormData] = useState({ id: "", name: "" });
   const [delMode, setDelMode] = useState(false);
@@ -68,27 +73,38 @@ export default function PermissionModal({ openDialog, placeholder, onSuccess }) 
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-dialog">
-      <div className="modal">
-        <h3 id="modal-title">
-          {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Permission Name" : "Edit Permission Name")}
+    <dialog ref={dialogRef} className="form-div-modal">
+      <div className="form-head">
+        <h3>
+          {delMode
+            ? `DELETE "${formData.name}"`
+            : formData.id === ""
+            ? "Enter New Permission"
+            : "Edit Permission"}
         </h3>
-        {!delMode && (
-          <input
+      </div>
+      {!delMode && (
+        <div className="div-space">
+          <Input
+            label="Name:"
             type="text"
             name="name"
             placeholder={placeholder}
             value={formData.name}
             onChange={handleChange}
           />
-        )}
-        <div className="error-div">
-          {errorMsg && <p className="error">{errorMsg}</p>}
         </div>
-        <div className="modal-buttons">
-          <Button text="Cancel" className="delete" onClick={handleCancel} />
-          <Button text="Confirm" className="confirm" onClick={!delMode ? handleCreate : handleDelete} />
-        </div>
+      )}
+      <div className="error-div">
+        {errorMsg ? <p className="error">{errorMsg}</p> : <p></p>}
+      </div>
+      <div className="form-btns">
+        <Button text="Cancel" className="delete" onClick={handleCancel} />
+        <Button
+          text="Confirm"
+          className="confirm"
+          onClick={!delMode ? handleCreate : handleDelete}
+        />
       </div>
     </dialog>
   );

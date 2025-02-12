@@ -50,7 +50,6 @@ export default function PermissionView() {
     typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Calculate the current items to display
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
@@ -102,14 +101,14 @@ export default function PermissionView() {
                     <div className="button-container">
                       {hasPermission("Edit") && (
                         <Button
-                          text="Edit"
+                          text={<i className="fa-solid fa-pen"/>}
                           className="edit"
                           onClick={() => handleEdit(item)}
                         />
                       )}
                       {hasPermission("Delete") && (
                         <Button
-                          text="Delete"
+                          text={<i className="fas fa-trash"></i>}
                           className="delete"
                           onClick={() => handleDelete(item)}
                         />
