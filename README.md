@@ -2,5 +2,5 @@ npm run dev
 
 & 
 
-cd backend
+cd backend,
 npm run dev
