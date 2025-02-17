@@ -37,8 +37,33 @@ LEFT JOIN
     agency ON vehi_request.divId = agency.id
 LEFT JOIN 
     status ON vehi_request.statusId = status.id
-    `
+ORDER BY 
+    status.id ASC
+    `;
     const [rows] = await pool.query(query);
+    return rows;
+}
+
+export async function selVehicleRequestById(id) {
+    const query = `SELECT 
+    vehi_request.*, 
+    user.name AS 'name', 
+    agency.name AS 'agency', 
+    status.name AS 'status'
+FROM 
+    vehi_request
+LEFT JOIN 
+    user ON vehi_request.userId = user.id
+LEFT JOIN 
+    agency ON vehi_request.divId = agency.id
+LEFT JOIN 
+    status ON vehi_request.statusId = status.id
+WHERE vehi_request.userId = ?
+ORDER BY 
+    status.id ASC
+
+    `;
+    const [rows] = await pool.query(query, [id]);
     return rows;
 }
 

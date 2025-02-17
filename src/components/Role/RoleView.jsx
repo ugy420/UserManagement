@@ -11,7 +11,7 @@ export default function RoleView() {
   const [roles, setRoles] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items per page
+  const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
   const { fetchUserPermissions, permissions } = useContext(TokenContext);
 
@@ -50,7 +50,6 @@ export default function RoleView() {
     typeof item.name === "string" && item.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Calculate the current items to display
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
@@ -91,7 +90,7 @@ export default function RoleView() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -102,14 +101,14 @@ export default function RoleView() {
                     <div className="button-container">
                       {hasPermission("Edit") && (
                         <Button
-                          text="Edit"
+                          text={<i className="fas fa-pen"></i>}
                           className="edit"
                           onClick={() => handleEdit(item)}
                         />
                       )}
                       {hasPermission("Delete") && (
                         <Button
-                          text="Delete"
+                          text={<i className="fas fa-trash"></i>}
                           className="delete"
                           onClick={() => handleDelete(item)}
                         />

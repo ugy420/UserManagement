@@ -77,9 +77,6 @@ const LoginPage = () => {
             </div>
 
             <Button text="Log In" className="login-button" onClick={handleSubmit} />
-            <Button text="Login In with Google" className="login-google" onClick={handleSubmit}>
-              <img src={google} className="google-logo" />
-            </Button>
             <div className="signup-link">
               Don't have an account? <a href="/signup">Sign Up</a>
             </div>

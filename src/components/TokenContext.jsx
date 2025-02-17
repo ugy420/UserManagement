@@ -31,9 +31,9 @@ export const TokenProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        const data = await response.json();
-        console.log(data);
-        setPermissions(data);
+        const perms = await response.json();
+        console.log(perms);
+        setPermissions(perms);
       } catch (error) {
         console.error("Error fetching permissions:", error);
       }

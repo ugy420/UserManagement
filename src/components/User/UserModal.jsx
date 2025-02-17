@@ -4,7 +4,6 @@ import { TokenContext } from "../TokenContext";
 import { fetchData } from "../../utils/apiUtils.js";
 import Input from "../UI/Input";
 import Select from "../UI/Select";
-import "./UserModal.css";
 
 export default function UserModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -204,7 +203,7 @@ export default function UserModal({ openDialog, placeholder, onSuccess }) {
         Object.values(error).map(
           (err, index) =>
             err && (
-              <div key={index} className="error-message">
+              <div key={index} className="error-div">
                 {err}
               </div>
             )

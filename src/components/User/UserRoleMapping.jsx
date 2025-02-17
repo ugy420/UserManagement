@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { fetchData } from "../../utils/apiUtils.js";
+import { TokenContext } from "../TokenContext";
+import NoPermission from "../UI/NoPermission.jsx";
 
 export default function UserRoleMapping() {
   const [users, setUsers] = useState([]);
@@ -7,8 +9,10 @@ export default function UserRoleMapping() {
   const [userRoles, setUserRoles] = useState({});
   const [selectedUser, setSelectedUser] = useState("");
   const token = localStorage.getItem("token");
+  const {  permissions, fetchUserPermissions } = useContext(TokenContext);
 
   useEffect(() => {
+    fetchUserPermissions();
     fetchUsers();
     fetchRoles();
   }, []);
@@ -66,6 +70,14 @@ export default function UserRoleMapping() {
     } catch (error) {
       console.error("Error updating user role:", error);
     }
+  }
+
+  function hasPermission(permission) {
+    return permissions.some((perm) => perm.name === permission);
+  }
+
+  if(!hasPermission("ManageRP")) {
+    return <NoPermission />;
   }
 
   return (

@@ -90,7 +90,7 @@ export default function PermissionView() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

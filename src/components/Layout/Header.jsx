@@ -4,18 +4,23 @@ import { Link, useLocation } from 'react-router-dom';
 import './header.css';
 
 const Header = () => {
+    const token = localStorage.getItem('token');
     const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
 
-    // Toggle the menu open/close
+   
     const toggleMenu = () => {
         setMenuOpen((prevState) => !prevState);
     };
 
-    // Handle link clicks and close the menu on mobile
+    
     const handleLinkClick = () => {
-        setMenuOpen(false); // Close the menu after selecting a link
+        setMenuOpen(false); 
     };
+
+    function handleLogin(){
+        navigate('/');
+    }
 
     function handleLogout(){
         localStorage.removeItem('token');
@@ -49,7 +54,7 @@ const Header = () => {
                                 Contact
                             </Link>
                         </li>
-                        <li>
+                        {token?(<li>
                             <Link
                                 to="/profile"
                                 className={location.pathname === '/profile' ? 'active' : ''}
@@ -57,14 +62,18 @@ const Header = () => {
                             >
                                 Profile
                             </Link>
-                        </li>
-                        <li>
+                        </li>):null}
+                        {!token?<li>
+                            <Link onClick={handleLogin}>
+                                Login
+                            </Link>
+                        </li>:<li>
                             <Link
                                 onClick={handleLogout}
                             >
                                 Logout
                             </Link>
-                        </li>
+                        </li>}
                     </ul>
                 </nav>
                 <button

@@ -2,11 +2,12 @@ import { useState, useEffect, useContext, useRef } from "react";
 import Input from "../UI/Input.jsx";
 import Select from "../UI/Select.jsx";
 import Button from "../UI/Button.jsx";
+import NoPermission from "../UI/NoPermission.jsx";
 import { TokenContext } from "../TokenContext.jsx";
 import { fetchData } from "../../utils/apiUtils.js";
 
 export default function VehicleRequestForm({ openDialog, onSuccess }) {
-  const { token, user } = useContext(TokenContext);
+  const { fetchUserPermissions, permissions, token, user } = useContext(TokenContext);
   const [formData, setFormData] = useState({
     id: "",
     userId: user.id,
@@ -23,6 +24,7 @@ export default function VehicleRequestForm({ openDialog, onSuccess }) {
   const dialogRef = useRef();
 
   useEffect(() => {
+    fetchUserPermissions();
     const fetchAgencyId = async () => {
       try {
         const data = await fetchData(
@@ -48,7 +50,7 @@ export default function VehicleRequestForm({ openDialog, onSuccess }) {
         dest: item.destination,
         date: new Date(item.datetime).toLocaleDateString('en-CA'),
         dis: item.distance,
-        sel: item.selfdrive === "Yes" ? "Yes" : item.selfdrive === "No" ? "No" : "-", // Ensure selfdrive is set correctly
+        sel: item.selfdrive === "Yes" ? "Yes" : item.selfdrive === "No" ? "No" : "-", 
         pur: item.purpose,
         divId: item.agency,
       });
@@ -125,59 +127,67 @@ export default function VehicleRequestForm({ openDialog, onSuccess }) {
     dialogRef.current.close();
   };
 
+  const hasPermission = (permission) => {
+    return permissions.some((perm) => perm.name === permission);
+  };
+
+  if (!hasPermission("Request Vehicle")) {
+    return <NoPermission />;
+  }
+
   return (
     <dialog ref={dialogRef} className="form-div-modal">
-            <div className="form-head">
-              <h3>Please enter your details</h3>
-            </div>
-            <div className="div-space">
-              <Input
-                label="Destination:"
-                name="dest"
-                placeholder="Destination"
-                value={formData.dest}
-                onChange={handleChange}
-              />
-              <Input
-                label="Date:"
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="div-space">
-              <Input
-                label="Distance:"
-                name="dis"
-                placeholder="estimate to and from"
-                value={formData.dis}
-                onChange={handleChange}
-              />
-              <Select
-                label="Self-drive:"
-                options={options.map((option) => ({
-                  value: option,
-                  label: option,
-                }))}
-                name="sel"
-                val={formData.sel}
-                onChange={handleChange}
-              />
-            </div>
-            <Input
-              label="Purpose:"
-              name="pur"
-              placeholder="Reason for visit"
-              textarea
-              value={formData.pur}
-              onChange={handleChange}
-            />
-            <div className="form-btns">
-              <Button text="Cancel" className="cancel" onClick={handleCancel} />
-              <Button text="Submit" className="edit" onClick={handleSubmit} />
-            </div>
-            {errorMsg && <p className="error">{errorMsg}</p>}
+      <div className="form-head">
+        <h3>Please enter your details</h3>
+      </div>
+      <div className="div-space">
+        <Input
+          label="Destination:"
+          name="dest"
+          placeholder="Destination"
+          value={formData.dest}
+          onChange={handleChange}
+        />
+        <Input
+          label="Date:"
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="div-space">
+        <Input
+          label="Distance:"
+          name="dis"
+          placeholder="estimate to and from"
+          value={formData.dis}
+          onChange={handleChange}
+        />
+        <Select
+          label="Self-drive:"
+          options={options.map((option) => ({
+            value: option,
+            label: option,
+          }))}
+          name="sel"
+          val={formData.sel}
+          onChange={handleChange}
+        />
+      </div>
+      <Input
+        label="Purpose:"
+        name="pur"
+        placeholder="Reason for visit"
+        textarea
+        value={formData.pur}
+        onChange={handleChange}
+      />
+      <div className="form-btns">
+        <Button text="Cancel" className="cancel" onClick={handleCancel} />
+        <Button text="Submit" className="edit" onClick={handleSubmit} />
+      </div>
+      {errorMsg && <p className="error">{errorMsg}</p>}
     </dialog>
   );
 }

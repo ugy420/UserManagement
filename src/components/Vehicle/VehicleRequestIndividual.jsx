@@ -15,7 +15,7 @@ export default function VehicleRequestIndividual() {
   const [itemsPerPage] = useState(5);
   const openDialog = useRef(null);
   const openRequestFormDialog = useRef(null);
-  const { fetchUserPermissions, permissions } = useContext(TokenContext);
+  const { fetchUserPermissions, permissions, user } = useContext(TokenContext);
 
   useEffect(() => {
     fetchRequests();
@@ -25,7 +25,7 @@ export default function VehicleRequestIndividual() {
   async function fetchRequests() {
     const token = localStorage.getItem("token");
     try {
-      const data = await fetchData(`http://localhost:8080/api/vehicles/request`, token);
+      const data = await fetchData(`http://localhost:8080/api/vehicles/request/${user.id}`, token);
       setRequests(data);
       console.log(data);
     } catch (error) {
@@ -55,7 +55,7 @@ export default function VehicleRequestIndividual() {
     return permissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Read")) {
+  if (!hasPermission("Request Vehicle")) {
     return <NoPermission />;
   }
 
@@ -102,7 +102,7 @@ export default function VehicleRequestIndividual() {
                 <th>Purpose</th>
                 <th>Agency</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

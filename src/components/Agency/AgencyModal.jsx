@@ -1,6 +1,7 @@
 import Button from "../UI/Button";
 import { useRef, useState } from "react";
 import { fetchData } from "../../utils/apiUtils.js";
+import Input from '../UI/Input.jsx'
 
 export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -69,13 +70,13 @@ export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-dialog">
-      <div className="modal">
-        <h3 id="modal-title">
+    <dialog ref={dialogRef} className="form-div-modal">
+        <h3>
           {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Agency Name" : "Edit Agency Name")}
         </h3>
         {!delMode && (
-          <input
+          <Input
+            label="Name"
             type="text"
             name="name"
             placeholder={placeholder}
@@ -83,14 +84,11 @@ export default function AgencyCreate({ openDialog, placeholder, onSuccess }) {
             onChange={handleChange}
           />
         )}
-        <div className="error-div">
-          {errorMsg && <p className="error">{errorMsg}</p>}
-        </div>
-        <div className="modal-buttons">
+          {errorMsg ? <div className="error-div">{errorMsg}</div> : <div className="error-div">&nbsp;</div>}
+        <div className="form-btns">
           <Button text="Cancel" className="delete" onClick={handleCancel} />
           <Button text="Confirm" className="confirm" onClick={!delMode ? handleCreate : handleDelete} />
         </div>
-      </div>
     </dialog>
   );
 }

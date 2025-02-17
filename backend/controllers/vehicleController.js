@@ -5,6 +5,7 @@ import {
     deleteVehicle,
     createVehicleRequest,
     selVehicleRequest,
+    selVehicleRequestById,
     putVehicleRequest,
     assVehicleRequest
 
@@ -62,6 +63,15 @@ export async function getVehicleRequests(req, res) {
     try {
         const vehicleRequests = await selVehicleRequest();
         res.json(vehicleRequests);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export async function getVehicleRequestsById(req, res) {
+    try {
+        const vehicleRequest = await selVehicleRequestById(req.params.id);
+        res.json(vehicleRequest);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

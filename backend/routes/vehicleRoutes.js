@@ -8,6 +8,7 @@ import {
     getVehicleRequests,
     updateVehicleRequest,
     assignVehicleRequest,
+    getVehicleRequestsById
 } from '../controllers/vehicleController.js'
 
 const router = express.Router();
@@ -19,6 +20,7 @@ router.delete('/:id', removeVehicle);
 
 router.post('/request', createNewVehicleRequest);
 router.get('/request', getVehicleRequests);
+router.get('/request/:id', getVehicleRequestsById);
 router.put('/request/:id', updateVehicleRequest);
 router.put('/assign/:id', assignVehicleRequest);
 

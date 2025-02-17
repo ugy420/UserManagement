@@ -1,6 +1,7 @@
 import Button from "../UI/Button";
 import { useRef, useState } from "react";
 import { fetchData } from "../../utils/apiUtils.js";
+import Input from "../UI/Input";
 
 export default function DriverCreate({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -74,21 +75,22 @@ export default function DriverCreate({ openDialog, placeholder, onSuccess }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-dialog">
-      <div className="modal">
-        <h3 id="modal-title">
+    <dialog ref={dialogRef} className="form-div-modal">
+        <h3>
           {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Driver Name" : "Edit Driver Name")}
         </h3>
         {!delMode && (
           <>
-            <input
+            <Input
+              label="Name"
               type="text"
               name="name"
               placeholder={placeholder}
               value={formData.name}
               onChange={handleChange}
             />
-            <input
+            <Input  
+              label="Phone"
               type="text"
               name="phone"
               placeholder="Enter phone number"
@@ -97,14 +99,12 @@ export default function DriverCreate({ openDialog, placeholder, onSuccess }) {
             />
           </>
         )}
-        <div className="error-div">
-          {errorMsg && <p className="error">{errorMsg}</p>}
-        </div>
-        <div className="modal-buttons">
+          {errorMsg ? <div className="error-div">{errorMsg}</div> : <div className="error-div">&nbsp;</div>}
+
+        <div className="form-btns">
           <Button text="Cancel" className="delete" onClick={handleCancel} />
           <Button text="Confirm" className="confirm" onClick={!delMode ? handleCreate : handleDelete} />
         </div>
-      </div>
     </dialog>
   );
 }

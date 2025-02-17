@@ -91,7 +91,7 @@ export default function AgencyView() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -102,14 +102,14 @@ export default function AgencyView() {
                     <div className="button-container">
                       {hasPermission("Edit") && (
                         <Button
-                          text="Edit"
+                          text={<i className="fas fa-solid fa-pen"></i>}
                           className="edit"
                           onClick={() => handleEdit(item)}
                         />
                       )}
                       {hasPermission("Delete") && (
                         <Button
-                          text="Delete"
+                          text={<i className="fas fa-solid fa-trash"></i>}
                           className="delete"
                           onClick={() => handleDelete(item)}
                         />

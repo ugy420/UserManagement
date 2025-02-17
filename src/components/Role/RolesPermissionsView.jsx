@@ -79,7 +79,7 @@ export default function RolesPermissionsView() {
     return userPermissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Read")) {
+  if (!hasPermission("ManageRP")) {
     return <NoPermission />;
   }
 

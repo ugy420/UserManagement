@@ -1,6 +1,7 @@
 import Button from "../UI/Button";
 import { useRef, useState } from "react";
 import { fetchData } from "../../utils/apiUtils.js";
+import Input from "../UI/Input";
 
 export default function RoleModal({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -68,13 +69,15 @@ export default function RoleModal({ openDialog, placeholder, onSuccess }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-dialog">
-      <div className="modal">
-        <h3 id="modal-title">
-          {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Role Name" : "Edit Role Name")}
-        </h3>
+    <dialog ref={dialogRef} className="form-div-modal">
+        <div className="form-head">
+          <h3>
+            {delMode ? `DELETE "${formData.name}"` : (formData.id === "" ? "Enter Role Name" : "Edit Role Name")}
+          </h3>
+        </div>
         {!delMode && (
-          <input
+          <Input
+            label="Name"
             type="text"
             name="name"
             placeholder={placeholder}
@@ -83,13 +86,12 @@ export default function RoleModal({ openDialog, placeholder, onSuccess }) {
           />
         )}
         <div className="error-div">
-          {errorMsg && <p className="error">{errorMsg}</p>}
+          {errorMsg ? <p className="error">{errorMsg}</p> : <p></p>}
         </div>
-        <div className="modal-buttons">
+        <div className="form-btns">
           <Button text="Cancel" className="delete" onClick={handleCancel} />
           <Button text="Confirm" className="confirm" onClick={!delMode ? handleCreate : handleDelete} />
         </div>
-      </div>
     </dialog>
   );
 }

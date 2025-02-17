@@ -2,15 +2,19 @@ import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 import "./Drawer.css";
 import { TokenContext } from "../TokenContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import arrow from "../../assets/arrow-down.png";
 
 export default function Drawer() {
-  const user = useContext(TokenContext).user.name;
+  const { permissions, fetchUserPermissions} = useContext(TokenContext);
   const [showUser, setShowUser] = useState(false);
   const [showVehicleManagement, setShowVehicleManagement] = useState(false);
   const [showRolesPermissions, setShowRolesPermissions] = useState(false);
   const [showServices, setShowServices] = useState(false);
+
+  useEffect(() => {
+    fetchUserPermissions();
+  })
 
   const toggleUser = () => setShowUser(!showUser);
   const toggleVehicleManagement = () =>
@@ -18,6 +22,10 @@ export default function Drawer() {
   const toggleRolesPermissions = () =>
     setShowRolesPermissions(!showRolesPermissions);
   const toggleServices = () => setShowServices(!showServices);
+
+  function hasPermission(permission) {
+    return permissions.some((perm) => perm.name === permission);
+  }
 
   return (
     <div className="drawer">
@@ -33,7 +41,7 @@ export default function Drawer() {
             />
           </Link>
         </li>
-        <li>
+        {hasPermission('ManageRP')?<li>
           <Button
             className="drop-down-btns"
             text={
@@ -76,8 +84,8 @@ export default function Drawer() {
               </li>
             </ul>
           )}
-        </li>
-        <li>
+        </li>:null}
+        {hasPermission('ManageRP')?<li>
           <Button
             className="drop-down-btns"
             text={
@@ -131,8 +139,8 @@ export default function Drawer() {
               </li>
             </ul>
           )}
-        </li>
-        <li>
+        </li>:null}
+        {hasPermission('MTO')?<li>
           <Button
             className="drop-down-btns"
             text={
@@ -186,8 +194,8 @@ export default function Drawer() {
               </li>
             </ul>
           )}
-        </li>
-        <li>
+        </li>:null}
+        {hasPermission('Read')?<li>
           <Button
           className="drop-down-btns"
             text={
@@ -222,7 +230,7 @@ export default function Drawer() {
                   <Button
                     text={
                       <>
-                        <i className="fas fa-concierge-bell"></i> Service
+                        <i className="fas fa-concierge-bell"></i> Request Vehicle
                       </>
                     }
                   />
@@ -230,8 +238,8 @@ export default function Drawer() {
               </li>
             </ul>
           )}
-        </li>
-        <li>
+        </li>:null}
+        {hasPermission('ManageRP')?<li>
           <Link to="/agency" className="no-underline">
             <Button
               text={
@@ -241,7 +249,7 @@ export default function Drawer() {
               }
             />
           </Link>
-        </li>
+        </li>:null}
       </ul>
     </div>
   );

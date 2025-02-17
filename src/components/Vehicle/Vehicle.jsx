@@ -90,7 +90,7 @@ export default function Vehicle() {
             <thead>
               <tr>
                 <th>Number</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -101,14 +101,14 @@ export default function Vehicle() {
                     <div className="button-container">
                       {hasPermission("Edit") && (
                         <Button
-                          text="Edit"
+                          text={<i className="fa-solid fa-pen"></i>}
                           className="edit"
                           onClick={() => handleEdit(item)}
                         />
                       )}
                       {hasPermission("Delete") && (
                         <Button
-                          text="Delete"
+                          text={<i className="fa-solid fa-trash"></i>}
                           className="delete"
                           onClick={() => handleDelete(item)}
                         />

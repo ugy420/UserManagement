@@ -1,6 +1,7 @@
 import Button from "../UI/Button";
 import { useRef, useState } from "react";
 import { fetchData } from "../../utils/apiUtils.js";
+import Input from '../UI/Input';
 
 export default function VehicleCreate({ openDialog, placeholder, onSuccess }) {
   const dialogRef = useRef();
@@ -68,13 +69,16 @@ export default function VehicleCreate({ openDialog, placeholder, onSuccess }) {
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-dialog">
-      <div className="modal">
-        <h3 id="modal-title">
+    <dialog ref={dialogRef} className="form-div-modal">
+      <div className="form-head">
+        <h3>
           {delMode ? `DELETE "${formData.number}"` : (formData.id === "" ? "Enter Vehicle Number" : "Edit Vehicle Number")}
         </h3>
+      </div>
+      <div className="div-space">
         {!delMode && (
-          <input
+          <Input
+            label="Number:"
             type="text"
             name="number"
             placeholder={placeholder}
@@ -82,14 +86,12 @@ export default function VehicleCreate({ openDialog, placeholder, onSuccess }) {
             onChange={handleChange}
           />
         )}
-        <div className="error-div">
-          {errorMsg && <p className="error">{errorMsg}</p>}
-        </div>
-        <div className="modal-buttons">
+      </div>
+          {errorMsg ? <div className="error-div">{errorMsg}</div>: <p></p>}
+        <div className="form-btns">
           <Button text="Cancel" className="delete" onClick={handleCancel} />
           <Button text="Confirm" className="confirm" onClick={!delMode ? handleCreate : handleDelete} />
         </div>
-      </div>
     </dialog>
   );
 }

@@ -52,7 +52,7 @@ export default function VehicleRequestManage() {
     return permissions.some((perm) => perm.name === permission);
   };
 
-  if (!hasPermission("Read")) {
+  if (!hasPermission("MTO")) {
     return <NoPermission />;
   }
 
@@ -90,7 +90,7 @@ export default function VehicleRequestManage() {
                 <th>Purpose</th>
                 <th>Agency</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
