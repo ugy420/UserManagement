@@ -15,9 +15,9 @@ export async function getAllUsers() {
                 u.createdDate,
                 a.name as agency_name
             FROM 
-                User u
+                user u
             LEFT JOIN 
-                Agency a ON u.agencyId = a.id
+                agency a ON u.agencyId = a.id
         `;
         const [rows] = await pool.query(query);
         return rows;
@@ -30,7 +30,7 @@ export async function getAllUsers() {
 // Function to fetch a user by ID
 export async function getUserById(id) {
     try {
-        const [rows] = await pool.query('SELECT * FROM User WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM user WHERE id = ?', [id]);
         if (rows.length === 0) {
             throw new Error(`User with ID ${id} not found`);
         }
@@ -44,7 +44,7 @@ export async function getUserById(id) {
 // Function to fetch a user by email
 export async function getUserByEmail(email) {
     try {
-        const [rows] = await pool.query('SELECT * FROM User WHERE email = ?', [email]);
+        const [rows] = await pool.query('SELECT * FROM user WHERE email = ?', [email]);
         if (rows.length === 0) {
             throw new Error(`User with email ${email} not found`);
         }
@@ -58,7 +58,7 @@ export async function getUserByEmail(email) {
 export async function createUser(username, email, password, phone, cid, agency_id, createdBy) {
     try {
         const [result] = await pool.query(
-            'INSERT INTO User (name, email, password, phone, cid, agencyId, createdBy) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+            'INSERT INTO user (name, email, password, phone, cid, agencyId, createdBy) VALUES (?, ?, ?, ?, ?, ?, ?)', 
             [username, email, password, phone, cid, agency_id, createdBy]
         );
         return { id: result.insertId, username, email, password, phone, cid, agency_id, createdBy };
@@ -80,7 +80,7 @@ export async function createUser(username, email, password, phone, cid, agency_i
 export async function updateUser(id, username, email, phone_number, cid, agency_id) {
     try {
         const [result] = await pool.query(
-            'UPDATE User SET name = ?, email = ?, phone = ?, cid = ?,  agencyId = ?  WHERE id = ?', 
+            'UPDATE user SET name = ?, email = ?, phone = ?, cid = ?,  agencyId = ?  WHERE id = ?', 
             [username, email, phone_number, cid, agency_id, id]
         );
         if (result.affectedRows === 0) {
@@ -105,7 +105,7 @@ export async function updateUser(id, username, email, phone_number, cid, agency_
 
 export async function deleteUser(id) {
     try {
-        const [result] = await pool.query('DELETE FROM User WHERE id = ?', [id]);
+        const [result] = await pool.query('DELETE FROM user WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
             throw new Error(`User with ID ${id} not found`);
         }

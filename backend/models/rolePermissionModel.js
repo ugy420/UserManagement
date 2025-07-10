@@ -27,7 +27,7 @@ export async function getUserPermissions(userId) {
     const [rows] = await pool.query(`
         SELECT p.* 
         FROM grants g
-        JOIN Permission p ON g.pid = p.id
+        JOIN permission p ON g.pid = p.id
         JOIN has h ON g.roid = h.rid
         WHERE h.uid = ?
     `, [userId]);
