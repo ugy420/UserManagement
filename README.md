@@ -5,7 +5,6 @@ It consists of:
 
 - **Backend**: handles APIs, business logic, data persistence  
 - **Frontend**: user interface (web) for managing users  
----
 
 ## Features
 
@@ -15,7 +14,6 @@ It consists of:
 - CRUD operations: User, Role, Agency, Permission, Vehicle, Driver,  
 - Profile management
 - Vehicle Request 
----
 
 ## Tech Stack
 
@@ -25,8 +23,6 @@ It consists of:
 | Backend | Node.js, Express  |
 | Database | MySQL |
 | Authentication | JWT tokens |
-
----
 
 ## Setup & Installation
 
@@ -46,20 +42,20 @@ It consists of:
    npm install
    ```
 
-Configuration (Environment Variables)
+3. Configuration (Environment Variables)
 
-In the backend folder, create a .env file with contents like:
-```
-MYSQL_HOST=''
-MYSQL_USER=''
-MYSQL_PASSWORD=''
-MYSQL_DATABASE=''
-JWT_SECRET=''
-EMAIL_USER=''
-EMAIL_PASS=''
-```
+   In the backend folder, create a .env file with contents like:
+   ```
+   MYSQL_HOST=''
+   MYSQL_USER=''
+   MYSQL_PASSWORD=''
+   MYSQL_DATABASE=''
+   JWT_SECRET=''
+   EMAIL_USER=''
+   EMAIL_PASS=''
+   ```
 
-From the root of repo:
+4. Running:
 
    i. Start frontend server:
       ```
@@ -70,4 +66,4 @@ From the root of repo:
       cd backend
       npm run dev
       ```
-After both are running, open your browser and navigate to the frontend URL (e.g. http://localhost:3000 or whichever port it uses).
+   After both are running, open your browser and navigate to the frontend URL (e.g. http://localhost:3000 or whichever port it uses).
