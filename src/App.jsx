@@ -154,7 +154,7 @@ function App() {
           </Routes>
         </div>
       </div>
-      {token && <Footer />}
+      {/* {token && <Footer />} */}
     </div>
   );
 }

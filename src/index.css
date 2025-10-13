@@ -14,11 +14,11 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: left;
-
+    height: 100vh;
 }
 
 .app-content{
-    width: -moz-available;
+    width: 100%;
 }
 
 .main-div {
