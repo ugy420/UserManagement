@@ -24,6 +24,34 @@ It consists of:
 | Database | MySQL |
 | Authentication | JWT tokens |
 
+## Screens
+### Home Page
+![Home](./screens/home.jpg)
+
+### Dashboard
+![Dashboard](./screens/dashboard.jpg)
+
+### Users
+![Users](./screens/Users.png)
+
+### Roles
+![Role](./screens/role.png)
+
+### Permissions
+![Permission](./screens/permission.png)
+
+### Role & Permissions Mapping
+![Role Permissions](./screens/rolepermission.png)
+
+### User & Role Mapping
+![User Roles](./screens/userrole.png)
+
+### Vehicle Request Form
+![Vehicle Request](./screens/vehiclerequest.png)
+
+### Vehicle MTO Form
+![Vehicle MTO](./screens/vehicleform.png)
+
 ## Setup & Installation
 
 1. Clone the repository:
