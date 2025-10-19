@@ -12,7 +12,6 @@ It consists of:
 - JWT-based authentication  
 - Role-based access control  
 - CRUD operations: User, Role, Agency, Permission, Vehicle, Driver,  
-- Profile management
 - Vehicle Request 
 
 ## Tech Stack
